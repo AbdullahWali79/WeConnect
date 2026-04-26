@@ -5,18 +5,21 @@ import { EmptyState } from "@/components/empty-state";
 import { Icon } from "@/components/icon";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { formatDate } from "@/lib/utils";
+import { getLatestNews } from "@/lib/news";
 
 export const dynamic = "force-dynamic";
 
 export default async function LandingPage() {
   const supabase = createSupabasePublicClient();
-  const [{ data: categories }, { data: courses }, { data: completedStudents }] = await Promise.all([
+  const [{ data: categories }, { data: courses }, { data: completedStudents }, newsData] = await Promise.all([
     supabase.from("course_categories").select("*").order("created_at", { ascending: true }),
     supabase.from("courses").select("*").eq("status", "active").order("created_at", { ascending: false }),
     supabase.from("completed_student_showcase").select("*").order("completed_at", { ascending: false }).limit(6),
+    getLatestNews(),
   ]);
 
   const activeCourses = courses ?? [];
+  const news = (newsData as any[]) ?? [];
 
   return (
     <main className="bg-background text-on-background">
@@ -31,6 +34,7 @@ export default async function LandingPage() {
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
             <a className="border-b-2 border-blue-700 pb-1 text-blue-700" href="#overview">Overview</a>
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#courses">Courses</a>
+            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#news">AI News</a>
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#completed">Completed</a>
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#contact">Contact</a>
           </nav>
@@ -165,6 +169,37 @@ export default async function LandingPage() {
             </div>
           ) : (
             <EmptyState title="No public completions yet" description="Completed students will appear here after admin publishes a course completion." icon="workspace_premium" />
+          )}
+        </div>
+      </section>
+
+      <section id="news" className="bg-surface-container-lowest py-xxl">
+        <div className="mx-auto max-w-container-max px-5 md:px-margin-page">
+          <div className="mb-10 text-center">
+            <p className="text-label-sm uppercase tracking-widest text-primary">Daily Pulse</p>
+            <h2 className="mt-3 text-headline-lg text-primary">Latest in AI & Tech</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-body-lg text-on-surface-variant">Stay updated with top AI news, refreshed daily to keep our systems active and your mind sharp.</p>
+          </div>
+          {news.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-3">
+              {news.map((item) => (
+                <div key={item.id} className="wc-card group flex flex-col p-6 transition-all hover:border-primary/30 hover:shadow-lg">
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="rounded-full bg-secondary-container px-3 py-1 text-label-sm text-on-secondary-fixed">{item.source}</span>
+                    <Icon name="newspaper" className="text-primary opacity-20 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <h3 className="text-title-lg font-bold leading-tight text-on-surface line-clamp-2">{item.title}</h3>
+                  <p className="mt-3 flex-1 text-body-md text-on-surface-variant line-clamp-3">{item.summary}</p>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 font-bold text-primary hover:underline">
+                    Read Story <Icon name="arrow_forward" className="text-sm" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border-2 border-dashed border-outline-variant p-12 text-center">
+              <p className="text-on-surface-variant">News is being fetched. Refresh the page in a moment.</p>
+            </div>
           )}
         </div>
       </section>
