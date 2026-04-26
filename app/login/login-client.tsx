@@ -96,7 +96,7 @@ export default function LoginPage() {
       }
 
       setMode("signin");
-      setToast({ type: "success", message: "Student account created. Sign in with the same approved email and password." });
+      setToast({ type: "success", message: "Student account created! Check your email for a verification link, then sign in with your email and password." });
       return;
     }
 
