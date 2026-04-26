@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9f9ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#b6c4ff",
+                      "surface-container-high": "#dee8ff",
+                      "on-secondary-fixed-variant": "#574500",
+                      "surface-container-low": "#f0f3ff",
+                      "surface-container-highest": "#d8e3fb",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-secondary-fixed": "#241a00",
+                      "background": "#f9f9ff",
+                      "primary-container": "#0033a0",
+                      "surface-bright": "#f9f9ff",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#8ea6ff",
+                      "surface-variant": "#d8e3fb",
+                      "on-surface-variant": "#444653",
+                      "tertiary-fixed": "#e0e3e5",
+                      "inverse-surface": "#263143",
+                      "surface": "#f9f9ff",
+                      "secondary": "#735c00",
+                      "on-surface": "#111c2d",
+                      "outline-variant": "#c4c5d5",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#745c00",
+                      "on-background": "#111c2d",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#dce1ff",
+                      "on-primary-fixed": "#001550",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#ffe088",
+                      "on-tertiary-container": "#a8aaac",
+                      "on-primary-fixed-variant": "#133ca8",
+                      "surface-container": "#e7eeff",
+                      "tertiary": "#26292b",
+                      "on-tertiary-fixed": "#191c1e",
+                      "secondary-container": "#fed65b",
+                      "on-error": "#ffffff",
+                      "outline": "#747684",
+                      "primary": "#00216e",
+                      "inverse-on-surface": "#ecf1ff",
+                      "surface-tint": "#3456c1",
+                      "surface-dim": "#cfdaf2",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#e9c349",
+                      "tertiary-container": "#3c3f41",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "sm": "8px",
+                      "xs": "4px",
+                      "md": "16px",
+                      "margin-page": "40px",
+                      "xxl": "80px",
+                      "lg": "24px",
+                      "container-max": "1440px",
+                      "xl": "48px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "display-xl": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "label-sm": ["Manrope"],
+                      "body-sm": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "headline-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "display-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar (Student Hub) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#001A4D] shadow-xl border-r border-white/5 flex flex-col p-6 space-y-2 z-50">
+<div class="mb-8">
+<h1 class="text-lg font-bold text-white font-display-xl">Student Hub</h1>
+<p class="text-slate-400 text-xs font-label-sm">Learning Path</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 font-body-sm hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="play_lesson">play_lesson</span>
+                My Course
+            </a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 font-body-sm hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+                My Tasks
+            </a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 font-body-sm hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+                Submit Task
+            </a>
+<a class="bg-blue-600/20 text-blue-100 rounded-lg px-4 py-3 flex items-center gap-3 font-body-sm translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                My Progress
+            </a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 font-body-sm hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+                Profile
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/10">
+<button class="w-full bg-secondary-container text-on-secondary-fixed font-label-md py-3 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+                Support Center
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-margin-page">
+<!-- Header -->
+<header class="mb-xxl flex justify-between items-end">
+<div>
+<span class="text-primary font-label-sm uppercase tracking-widest bg-primary-fixed px-3 py-1 rounded-full">Academic Performance</span>
+<h2 class="text-display-xl font-display-xl text-primary mt-md">Progress Report</h2>
+<p class="text-on-surface-variant font-body-lg">Detailed analysis of your Software Engineering journey.</p>
+</div>
+<div class="flex gap-md">
+<button class="bg-surface-container-high text-primary border border-primary-container/20 px-lg py-sm rounded-lg font-label-md flex items-center gap-2 hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Download PDF
+                </button>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md hover:opacity-90 transition-all shadow-md">
+                    Share Report
+                </button>
+</div>
+</header>
+<!-- Top Stats (Bento Layout) -->
+<div class="grid grid-cols-12 gap-lg mb-xxl">
+<!-- Overall Progress Circle Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest p-xl rounded-xl shadow-sm border border-outline-variant/30 flex flex-col items-center justify-center text-center">
+<h3 class="text-label-md text-on-surface-variant mb-xl">COURSE COMPLETION</h3>
+<div class="relative w-48 h-48 mb-lg">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="82.93" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-display-xl font-display-xl text-primary">85%</span>
+<span class="text-label-sm text-secondary font-bold">EXCELLENT</span>
+</div>
+</div>
+<p class="text-body-sm text-on-surface-variant max-w-[200px]">You are 15% away from your Senior Certification.</p>
+</div>
+<!-- Stats Grid -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-2 gap-lg">
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 flex items-start justify-between">
+<div>
+<p class="text-label-md text-on-surface-variant mb-xs">COMPLETED TASKS</p>
+<p class="text-headline-lg font-headline-lg text-primary">42 <span class="text-body-sm font-normal text-on-surface-variant">/ 50</span></p>
+</div>
+<div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-700">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 flex items-start justify-between">
+<div>
+<p class="text-label-md text-on-surface-variant mb-xs">PENDING TASKS</p>
+<p class="text-headline-lg font-headline-lg text-secondary">08</p>
+</div>
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="pending_actions">pending_actions</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 flex items-start justify-between">
+<div>
+<p class="text-label-md text-on-surface-variant mb-xs">AVERAGE SCORE</p>
+<p class="text-headline-lg font-headline-lg text-primary">94.2<span class="text-body-sm font-normal text-on-surface-variant">%</span></p>
+</div>
+<div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 flex items-start justify-between overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-label-md text-on-surface-variant mb-xs">CURRICULUM PACE</p>
+<p class="text-headline-lg font-headline-lg text-primary">ADVANCED</p>
+</div>
+<img class="absolute -right-4 -bottom-4 w-32 h-32 opacity-20 object-cover rounded-full" data-alt="abstract tech visualization of growth and speed with light trails and blue accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQXcCkD7KGueLi02i0dueTNCIJvnhtNWrT-3X1S1-yWlpTJQNPK-AU1Xq0hV4p1bUQIgJSKd9iNT5O62RQZtHpCwdalHKhQoGFeCGs-oOGSAgbRsA3crPqeDFLGxqL0sQvL9G5-RWeyhAavU9r3-1xTGnsoxPoU8GI8DeR_BFxGDXEYr3WvyubrEJTnJ-n8kiK8MMKq3LU7PvBYIh0t5rgL2PLemD96voW7MhAvccY33TbsjhzipKgtCJBnxwEH1h5M0L5Dc3JYQ"/>
+</div>
+</div>
+</div>
+<!-- History Section (Two Columns) -->
+<div class="grid grid-cols-12 gap-lg items-start">
+<!-- Score Table -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-lg border-b border-slate-100 flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-primary">Task-wise Scoring</h3>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="filter_list">filter_list</span>
+<span class="text-label-sm text-outline">Filter by Module</span>
+</div>
+</div>
+<table class="w-full text-left">
+<thead class="bg-slate-50 border-b border-slate-100">
+<tr>
+<th class="px-lg py-md text-label-sm text-on-surface-variant uppercase">Task Detail</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant uppercase">Module</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant uppercase text-center">Score</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant uppercase text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-lg py-lg">
+<p class="text-body-md font-bold text-on-surface">API Authentication Layer</p>
+<p class="text-body-sm text-on-surface-variant">Backend Systems</p>
+</td>
+<td class="px-lg py-lg">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-bold">BE-104</span>
+</td>
+<td class="px-lg py-lg text-center">
+<p class="text-body-md font-extrabold text-primary">98/100</p>
+</td>
+<td class="px-lg py-lg text-right">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-black uppercase">Completed</span>
+</td>
+</tr>
+<tr class="bg-slate-50/50 hover:bg-slate-50 transition-colors">
+<td class="px-lg py-lg">
+<p class="text-body-md font-bold text-on-surface">Dynamic Grid Layouts</p>
+<p class="text-body-sm text-on-surface-variant">Frontend Architecture</p>
+</td>
+<td class="px-lg py-lg">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-bold">FE-201</span>
+</td>
+<td class="px-lg py-lg text-center">
+<p class="text-body-md font-extrabold text-primary">85/100</p>
+</td>
+<td class="px-lg py-lg text-right">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-black uppercase">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-lg py-lg">
+<p class="text-body-md font-bold text-on-surface">PostgreSQL Optimization</p>
+<p class="text-body-sm text-on-surface-variant">Database Mastery</p>
+</td>
+<td class="px-lg py-lg">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-bold">DB-302</span>
+</td>
+<td class="px-lg py-lg text-center">
+<p class="text-body-md font-extrabold text-primary">92/100</p>
+</td>
+<td class="px-lg py-lg text-right">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-black uppercase">Completed</span>
+</td>
+</tr>
+<tr class="bg-secondary-container/5 hover:bg-slate-50 transition-colors">
+<td class="px-lg py-lg border-l-4 border-secondary">
+<p class="text-body-md font-bold text-on-surface">Microservices Gateway</p>
+<p class="text-body-sm text-on-surface-variant">System Design</p>
+</td>
+<td class="px-lg py-lg">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-bold">SD-401</span>
+</td>
+<td class="px-lg py-lg text-center">
+<p class="text-body-md font-extrabold text-secondary-fixed-dim">--</p>
+</td>
+<td class="px-lg py-lg text-right">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-[10px] font-black uppercase">In Progress</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-lg bg-slate-50/50 flex justify-center">
+<button class="text-primary font-label-md hover:underline">View Full Task History</button>
+</div>
+</div>
+<!-- Feedback Timeline -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
+<h3 class="text-headline-md font-headline-md text-primary mb-xl">Feedback History</h3>
+<div class="space-y-xl relative before:absolute before:left-[11px] before:top-2 before:bottom-0 before:w-[2px] before:bg-slate-100">
+<!-- Timeline Item 1 -->
+<div class="relative pl-xl">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary border-4 border-white shadow-sm flex items-center justify-center"></div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<p class="text-label-md text-primary">Senior Lead Review</p>
+<span class="text-[10px] text-outline">Oct 12, 2024</span>
+</div>
+<p class="text-body-sm text-on-surface italic">"Excellent command over async patterns. The API layer structure is production-ready."</p>
+<p class="text-[11px] text-secondary font-bold uppercase tracking-widest mt-xs">— Sarah Jenkins</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-xl">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary border-4 border-white shadow-sm flex items-center justify-center"></div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<p class="text-label-md text-primary">Optimization Critique</p>
+<span class="text-[10px] text-outline">Oct 08, 2024</span>
+</div>
+<p class="text-body-sm text-on-surface italic">"Watch out for memory leaks in the useEffect cleanup functions. Solid work overall."</p>
+<p class="text-[11px] text-secondary font-bold uppercase tracking-widest mt-xs">— Mark Zhao</p>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-xl">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-green-500 border-4 border-white shadow-sm flex items-center justify-center"></div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<p class="text-label-md text-primary">Certificate Milestone</p>
+<span class="text-[10px] text-outline">Sep 28, 2024</span>
+</div>
+<p class="text-body-sm text-on-surface italic">"Completed Phase 1: Foundational Architecture with a Gold distinction."</p>
+<p class="text-[11px] text-secondary font-bold uppercase tracking-widest mt-xs">— Academic Board</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Goal Card -->
+<div class="bg-primary p-xl rounded-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-on-primary font-headline-md mb-sm">Next Big Milestone</h4>
+<p class="text-blue-200 text-body-sm mb-lg">Complete the Microservices Project to unlock your Professional Certificate.</p>
+<div class="w-full bg-white/20 h-2 rounded-full mb-xs">
+<div class="bg-secondary-container h-full w-[40%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-on-primary font-black uppercase">40% towards next badge</span>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-[120px] text-white/5 rotate-12" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 mt-20 py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col gap-2">
+<span class="text-sm font-black text-blue-900 font-['Manrope'] uppercase tracking-widest">WeConnect</span>
+<p class="text-slate-500 text-[10px] font-['Manrope'] uppercase tracking-widest">© 2024 WeConnect Training Portal. Professional Software Engineering Education.</p>
+</div>
+<div class="flex gap-lg">
+<a class="text-slate-500 text-xs uppercase tracking-widest hover:text-blue-600 underline transition-all" href="#">Privacy Policy</a>
+<a class="text-slate-500 text-xs uppercase tracking-widest hover:text-blue-600 underline transition-all" href="#">Terms of Service</a>
+<a class="text-slate-500 text-xs uppercase tracking-widest hover:text-blue-600 underline transition-all" href="#">Contact Support</a>
+<a class="text-slate-500 text-xs uppercase tracking-widest hover:text-blue-600 underline transition-all" href="#">Careers</a>
+</div>
+</footer>
+</main>
+</body></html>

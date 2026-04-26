@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Hub - WeConnect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#b6c4ff",
+                    "surface-container-high": "#dee8ff",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-container-low": "#f0f3ff",
+                    "surface-container-highest": "#d8e3fb",
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "on-secondary-fixed": "#241a00",
+                    "background": "#f9f9ff",
+                    "primary-container": "#0033a0",
+                    "surface-bright": "#f9f9ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#8ea6ff",
+                    "surface-variant": "#d8e3fb",
+                    "on-surface-variant": "#444653",
+                    "tertiary-fixed": "#e0e3e5",
+                    "inverse-surface": "#263143",
+                    "surface": "#f9f9ff",
+                    "secondary": "#735c00",
+                    "on-surface": "#111c2d",
+                    "outline-variant": "#c4c5d5",
+                    "primary-fixed-dim": "#b6c4ff",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#745c00",
+                    "on-background": "#111c2d",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#dce1ff",
+                    "on-primary-fixed": "#001550",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#ffe088",
+                    "on-tertiary-container": "#a8aaac",
+                    "on-primary-fixed-variant": "#133ca8",
+                    "surface-container": "#e7eeff",
+                    "tertiary": "#26292b",
+                    "on-tertiary-fixed": "#191c1e",
+                    "secondary-container": "#fed65b",
+                    "on-error": "#ffffff",
+                    "outline": "#747684",
+                    "primary": "#00216e",
+                    "inverse-on-surface": "#ecf1ff",
+                    "surface-tint": "#3456c1",
+                    "surface-dim": "#cfdaf2",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#e9c349",
+                    "tertiary-container": "#3c3f41",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "margin-page": "40px",
+                    "xxl": "80px",
+                    "lg": "24px",
+                    "container-max": "1440px",
+                    "xl": "48px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "display-xl": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "body-sm": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "headline-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "display-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .circular-progress {
+            background: conic-gradient(var(--tw-primary) 72%, var(--tw-surface-container-high) 0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#001A4D] shadow-xl border-r border-white/5 flex flex-col p-6 space-y-2 z-50">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed" data-icon="school">school</span>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-bold text-white font-display-xl">Student Hub</span>
+<span class="text-xs text-slate-400 font-label-sm">Learning Path</span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="bg-blue-600/20 text-blue-100 rounded-lg px-4 py-3 flex items-center gap-3 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="play_lesson">play_lesson</span>
+<span class="font-label-md">My Course</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-md">My Tasks</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span class="font-label-md">Submit Task</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-md">My Progress</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md">Profile</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/10">
+<button class="w-full bg-secondary-container text-on-secondary-fixed py-3 px-4 rounded-lg font-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Support Center
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-margin-page min-h-screen">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-xxl">
+<div>
+<h1 class="font-display-xl text-display-xl text-primary mb-xs">Welcome back, Alex</h1>
+<p class="font-body-lg text-on-surface-variant">You have 3 tasks due this week. Keep up the momentum!</p>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm rounded-full bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<div class="flex items-center gap-sm bg-white p-xs pr-md rounded-full shadow-sm border border-outline-variant/30">
+<img alt="Alex's avatar" class="w-10 h-10 rounded-full" data-alt="close-up portrait of a young professional student with glasses and a friendly smile, stylized 3D avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuyo7uYrYL6G0gJXTJDkHS81u5Dp2BcwYotN3rIZUFNhNi4O4yntVRBETfDIS1TfwMfj4hluq20Uaz0pjOzMKSWe4ZJ3Kq4ndz1ItfLJAljX-UiLTyPdLfpT-4XOVGG6mIocAxu_xB6Du5o1n8Kmi1T0BmKRNlGiFmYxcB2rVFqRegnzkJLbeU5xHdKMeBwO2HDaGXPSF6dxisJTn48UdwWwp5RCp6M05W-DINkD_n9Ko1hatF14orbDC8uG96fNSef9jlvyHmhQ"/>
+<span class="font-label-md text-on-surface">Alex Johnson</span>
+</div>
+</div>
+</header>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-12 gap-lg mb-xxl">
+<!-- Overall Progress (Circular) -->
+<div class="col-span-12 lg:col-span-4 bg-white rounded-xl shadow-sm p-lg border border-outline-variant/20 flex flex-col items-center justify-center">
+<h3 class="font-label-md text-on-surface-variant uppercase mb-md w-full text-left">Overall Progress</h3>
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-high" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="123" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display-xl text-headline-lg text-primary">72%</span>
+<span class="font-label-sm text-on-surface-variant">Completed</span>
+</div>
+</div>
+<p class="font-body-sm text-center mt-md text-on-surface-variant">You've completed 18 out of 25 modules in this path.</p>
+</div>
+<!-- Dashboard Small Stats -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-primary text-on-primary rounded-xl p-lg shadow-lg relative overflow-hidden flex flex-col justify-between h-full min-h-[160px]">
+<div class="relative z-10">
+<p class="font-label-md uppercase opacity-80 mb-sm">Current Course</p>
+<h4 class="font-headline-md text-white">Advanced Software Systems Architecture</h4>
+</div>
+<div class="flex items-center gap-sm relative z-10">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-body-sm">Module 4: Distributed Computing</span>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="architecture">architecture</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant/20 rounded-xl p-lg shadow-sm grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-on-surface-variant">PENDING TASKS</span>
+<span class="font-display-xl text-headline-lg text-error">03</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-on-surface-variant">SUBMITTED</span>
+<span class="font-display-xl text-headline-lg text-primary">12</span>
+</div>
+<div class="col-span-2 pt-md border-t border-slate-100 flex items-center justify-between">
+<span class="font-label-md text-on-surface-variant">TOTAL SCORE</span>
+<div class="flex items-center gap-xs">
+<span class="font-headline-md text-secondary">880</span>
+<span class="text-on-surface-variant opacity-60">/ 1000</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Task List Section -->
+<section>
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-lg text-primary">Active Assignments</h2>
+<div class="flex gap-sm">
+<button class="bg-surface-container-high px-md py-sm rounded-lg font-label-md text-primary">Filter</button>
+<button class="bg-surface-container-high px-md py-sm rounded-lg font-label-md text-primary">Sort</button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Task Card 1 -->
+<div class="bg-white border border-outline-variant/20 rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex flex-col md:flex-row justify-between gap-lg">
+<div class="flex-1">
+<div class="flex items-center gap-md mb-sm">
+<span class="bg-error-container text-on-error-container px-sm py-xs rounded-full font-label-sm uppercase">Priority</span>
+<span class="text-on-surface-variant font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+                                    Due: Oct 24, 2024
+                                </span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-sm">Implementing Microservices Communication</h3>
+<p class="font-body-md text-on-surface-variant mb-md max-w-3xl">Design and implement a robust messaging system using RabbitMQ between two Dockerized services. Ensure high availability and fault tolerance.</p>
+<div class="flex flex-wrap gap-md">
+<a class="flex items-center gap-xs text-primary font-label-md hover:underline" href="#">
+<span class="material-symbols-outlined text-md" data-icon="description">description</span>
+                                    Project Brief.pdf
+                                </a>
+<a class="flex items-center gap-xs text-primary font-label-md hover:underline" href="#">
+<span class="material-symbols-outlined text-md" data-icon="link">link</span>
+                                    Resource Repo
+                                </a>
+</div>
+</div>
+<div class="flex flex-col justify-between items-end min-w-[140px]">
+<div class="bg-secondary-container/20 text-on-secondary-container px-md py-sm rounded-lg font-label-md flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                In-Progress
+                            </div>
+<button class="w-full bg-primary text-white py-md px-lg rounded-lg font-label-md group-hover:scale-[1.02] transition-transform">
+                                Submit Task
+                            </button>
+</div>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-white border border-outline-variant/20 rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex flex-col md:flex-row justify-between gap-lg">
+<div class="flex-1">
+<div class="flex items-center gap-md mb-sm">
+<span class="bg-surface-container-high text-primary px-sm py-xs rounded-full font-label-sm uppercase">Standard</span>
+<span class="text-on-surface-variant font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+                                    Due: Oct 28, 2024
+                                </span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-sm">Database Schema Optimization</h3>
+<p class="font-body-md text-on-surface-variant mb-md max-w-3xl">Analyze the provided SQL schema and implement indexing strategies to improve query performance by at least 40% on the 'Orders' table.</p>
+<div class="flex flex-wrap gap-md">
+<a class="flex items-center gap-xs text-primary font-label-md hover:underline" href="#">
+<span class="material-symbols-outlined text-md" data-icon="dataset">dataset</span>
+                                    Sample-Dataset.sql
+                                </a>
+</div>
+</div>
+<div class="flex flex-col justify-between items-end min-w-[140px]">
+<div class="bg-surface-container text-outline px-md py-sm rounded-lg font-label-md flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+                                Not Started
+                            </div>
+<button class="w-full bg-primary text-white py-md px-lg rounded-lg font-label-md group-hover:scale-[1.02] transition-transform">
+                                Submit Task
+                            </button>
+</div>
+</div>
+</div>
+<!-- Task Card 3 -->
+<div class="bg-white border border-outline-variant/20 rounded-xl p-lg shadow-sm opacity-80 group">
+<div class="flex flex-col md:flex-row justify-between gap-lg">
+<div class="flex-1">
+<div class="flex items-center gap-md mb-sm">
+<span class="bg-surface-container-high text-primary px-sm py-xs rounded-full font-label-sm uppercase">Standard</span>
+<span class="text-on-surface-variant font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                                    Submitted: Oct 18, 2024
+                                </span>
+</div>
+<h3 class="font-headline-md text-on-surface-variant mb-sm">Frontend Component Library</h3>
+<p class="font-body-md text-on-surface-variant mb-md max-w-3xl">Create a reusable React component library using Tailwind CSS and Storybook documentation for a SaaS dashboard theme.</p>
+</div>
+<div class="flex flex-col justify-between items-end min-w-[140px]">
+<div class="bg-primary-container text-on-primary-container px-md py-sm rounded-lg font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+                                Graded: A+
+                            </div>
+<button class="w-full border-2 border-primary text-primary py-md px-lg rounded-lg font-label-md opacity-50 cursor-not-allowed">
+                                View Feedback
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Course Material Shortcut (Asymmetric Call to Action) -->
+<section class="mt-xxl grid grid-cols-1 md:grid-cols-2 gap-lg bg-surface-container-low rounded-3xl p-xl border border-primary/5">
+<div class="flex flex-col justify-center">
+<span class="font-label-md text-secondary mb-sm uppercase tracking-widest">Mastery Level</span>
+<h2 class="font-display-xl text-headline-lg text-primary mb-md">Ready to take your next certification exam?</h2>
+<p class="font-body-lg text-on-surface-variant mb-xl">Your current progress suggests you are ready for the 'Certified Backend Architect' assessment. Take the practice test now to unlock your certificate.</p>
+<div class="flex gap-md">
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md shadow-lg shadow-primary/20">Start Practice Test</button>
+<button class="text-primary font-label-md px-xl py-md">Review Syllabus</button>
+</div>
+</div>
+<div class="relative min-h-[300px] rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Cybersecurity and technology visualization" class="absolute inset-0 w-full h-full object-cover" data-alt="futuristic digital visualization of computer code and glowing circuitry representing advanced software engineering and technical mastery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmQEm99Hl-Y9Tm6PZLipF0BLgoqILrlDWdQX8EidMtlVJJ1GfZd0VhbHj7KpOG48KjeTc2KCvfeICxlY9y4dAKO15KZgKr2nr9QoZmealM3dAVJ0-mqPE-tz5Jp7kK5C-O0v8n5vonLFccTMA2rQWNJrJqXMSuCUFaspDEMQYa7cXe14TG6VXXwzlsVQAnGl4pByCyxTNvf_Uvj2vS08cx-Xedad5vyu_PbE2fCkmrB1Y8jNXd0-bdjX47Fka7TGy0yDgwkFftQg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 mt-xxl py-12 px-8 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-6">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="text-sm font-black text-blue-900 font-display-xl">WeConnect</span>
+<p class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500">© 2024 WeConnect Training Portal. Professional Software Engineering Education.</p>
+</div>
+<div class="flex gap-xl">
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Privacy Policy</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Terms of Service</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Contact Support</a>
+</div>
+</footer>
+</main>
+</body></html>

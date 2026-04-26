@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#b6c4ff",
+                        "surface-container-high": "#dee8ff",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface-container-low": "#f0f3ff",
+                        "surface-container-highest": "#d8e3fb",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-fixed": "#241a00",
+                        "background": "#f9f9ff",
+                        "primary-container": "#0033a0",
+                        "surface-bright": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#8ea6ff",
+                        "surface-variant": "#d8e3fb",
+                        "on-surface-variant": "#444653",
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-surface": "#263143",
+                        "surface": "#f9f9ff",
+                        "secondary": "#735c00",
+                        "on-surface": "#111c2d",
+                        "outline-variant": "#c4c5d5",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#745c00",
+                        "on-background": "#111c2d",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#dce1ff",
+                        "on-primary-fixed": "#001550",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffe088",
+                        "on-tertiary-container": "#a8aaac",
+                        "on-primary-fixed-variant": "#133ca8",
+                        "surface-container": "#e7eeff",
+                        "tertiary": "#26292b",
+                        "on-tertiary-fixed": "#191c1e",
+                        "secondary-container": "#fed65b",
+                        "on-error": "#ffffff",
+                        "outline": "#747684",
+                        "primary": "#00216e",
+                        "inverse-on-surface": "#ecf1ff",
+                        "surface-tint": "#3456c1",
+                        "surface-dim": "#cfdaf2",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#e9c349",
+                        "tertiary-container": "#3c3f41",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "margin-page": "40px",
+                        "xxl": "80px",
+                        "lg": "24px",
+                        "container-max": "1440px",
+                        "xl": "48px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 border-b border-slate-100 bg-white/90 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-blue-800">WeConnect</div>
+<nav class="hidden md:flex items-center gap-8 font-['Manrope'] font-medium text-sm">
+<a class="text-blue-700 border-b-2 border-blue-700 pb-1" href="#">Overview</a>
+<a class="text-slate-600 hover:text-blue-800 transition-colors" href="#courses">Courses</a>
+<a class="text-slate-600 hover:text-blue-800 transition-colors" href="#">About</a>
+<a class="text-slate-600 hover:text-blue-800 transition-colors" href="#contact">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md hover:opacity-90 transition-all">Apply Now</button>
+</div>
+</div>
+</header>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="relative min-h-[870px] flex items-center overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+<img class="w-full h-full object-cover opacity-20 grayscale mix-blend-multiply" data-alt="Modern collaborative workspace with diverse group of students working on high-end laptops, sunlit professional software house environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPg24de5LIzNGw82y9uoII8SyEPC2OHUkZwuZP-y7Ipk06rV8aWVSTTwkYfCqbwyjYRZo3_xPONNFqw5-p91ROUuFvGxo6NwrpgMntE-LUpBM9BUhsBuuDwvSXrkNVIGW65Xy5_4wfItrJ_PJt8eMI4LrHKuAsV5Wg7Lw3vW2Y2-LOAItPR7vdgqiEwYr0zIxs5MouEhYg72WNdbh8ENwbNPYdp-otw_4eKUh-mkZWQ-tLvbFYMDT57_gxl-0b_qpJa4VX209IdA"/>
+</div>
+<div class="container-max mx-auto px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+<div class="max-w-2xl">
+<span class="inline-block px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant text-label-sm uppercase mb-6 tracking-widest">Training for Tomorrow</span>
+<h1 class="font-display-xl text-display-xl text-primary mb-6 leading-tight">Learn Real Skills.<br/>Complete Real Tasks.<br/>Build Your Career.</h1>
+<p class="text-body-lg text-on-surface-variant mb-10 max-w-lg">Bridge the gap between education and employment with a curriculum designed by industry experts. Master the tools that top-tier software houses use daily.</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-md text-lg shadow-lg hover:shadow-xl transition-all">Apply Now</button>
+<button class="border-2 border-primary text-primary px-8 py-4 rounded-lg font-label-md text-lg hover:bg-primary/5 transition-all">View Courses</button>
+</div>
+<div class="mt-12 flex items-center gap-6">
+<div class="flex -space-x-4">
+<img class="w-12 h-12 rounded-full border-2 border-white object-cover" data-alt="Portrait of a young professional female student smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKQ27Mfj-IkCZThFskWm3YKOqCTclyIb3ZHmzZKiMahlCm2vgwHtKkUPbTbqHKDGxJQg1KL8uzany2L3cceZI8r5fFUfM4KIBuPLpxl_ZdmKJAsSORf7p7zg1iqbuiYRgR97oEQMLp0TpYQdfdS-cw6uMi683sET41mHjVZV8mXagWE6YAKfPb4jMuiBBtSuTeAgclFNktWIAQozON2sH9wGANqqwfN3tIqGI5ujSW9oHykZFw4UXSBwya3qIW7klFEtkrvRd2Zg"/>
+<img class="w-12 h-12 rounded-full border-2 border-white object-cover" data-alt="Portrait of a male software developer student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwSx1ZYiFTc0pdLqogTTiXPXpKceZuoYFG9LUTHbTTd8iwVuHh9C_42SzHNJGCo58o13_0hNZ3P9-uTjSyvtkp1PWl571Q7NcxpQvZuFzqW5JqwDG_DMrE4XNAsZXeDxIiXoPdF7gxxpk4ZPzqDx0mFfU_0eFDaZk8KehxB55Gc-QKUT37o3cZpaZYL8xIvQ5X1kf5BVTz7mMwE1m9VC9njOHUqZoAvD6KXJGMc8vp3sTeeJB3cCEjuAFeNh0b7hfu80cW2buMJg"/>
+<img class="w-12 h-12 rounded-full border-2 border-white object-cover" data-alt="Close up portrait of a young man wearing glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaNZJD3tCzT44pdMlrRBRHUzLFLtMOq_7ZHw5chiy2oPyZj6EUrPb9sntbKYrGWwu-wnBq6ZMcF5MFPLx1vzey_s6ipjaR7yP-ZTfUjT_G6a80QxHJgpP_RerrUAfhRU0nJroSinunD5EIjwj2YeSG3hFtwoCmzXVTpIRy8OiGSE1dx9305Ry6XKLCNAU2iUHf0JnPp9g0A4QvPq5Gv5QSxZAv0GJkzkDh7cTbZ7V4VmA_Ggv_4EHq_jAP8QYRxKj6ou0QYK98rw"/>
+</div>
+<p class="text-label-md text-on-surface-variant"><span class="text-primary font-bold">1,200+</span> Students Hired in 2024</p>
+</div>
+</div>
+<div class="hidden lg:block">
+<div class="relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary-container/30 rounded-full blur-3xl animate-pulse"></div>
+<div class="relative bg-white p-6 rounded-xl shadow-2xl border border-slate-100">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-3 h-3 rounded-full bg-red-400"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+<div class="w-3 h-3 rounded-full bg-green-400"></div>
+</div>
+<div class="space-y-4">
+<div class="h-4 bg-slate-100 rounded w-3/4"></div>
+<div class="h-4 bg-slate-100 rounded w-1/2"></div>
+<div class="grid grid-cols-3 gap-4">
+<div class="h-20 bg-primary/10 rounded-lg"></div>
+<div class="h-20 bg-secondary/10 rounded-lg"></div>
+<div class="h-20 bg-blue-100 rounded-lg"></div>
+</div>
+<div class="h-32 bg-slate-50 rounded-lg border border-dashed border-slate-200 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-300 text-4xl">terminal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Join Section -->
+<section class="py-xxl bg-white">
+<div class="container-max mx-auto px-8">
+<div class="text-center mb-16">
+<h2 class="font-display-xl text-headline-lg text-primary mb-4">Why WeConnect?</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto">Elite training methodologies combined with prestige mentorship to accelerate your technical growth.</p>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Feature 1 -->
+<div class="p-8 rounded-xl border border-slate-50 bg-slate-50/50 hover:shadow-lg transition-all group">
+<div class="w-14 h-14 bg-primary rounded-lg flex items-center justify-center text-on-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="task">task</span>
+</div>
+<h3 class="font-headline-md text-xl mb-3">Real Tasks</h3>
+<p class="text-body-sm text-on-surface-variant">Work on production-grade tickets and real-world project scenarios from day one.</p>
+</div>
+<!-- Feature 2 -->
+<div class="p-8 rounded-xl border border-slate-50 bg-slate-50/50 hover:shadow-lg transition-all group">
+<div class="w-14 h-14 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-fixed mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="person_search">person_search</span>
+</div>
+<h3 class="font-headline-md text-xl mb-3">Mentor Review</h3>
+<p class="text-body-sm text-on-surface-variant">Direct feedback from Senior Developers on every submission and code review sessions.</p>
+</div>
+<!-- Feature 3 -->
+<div class="p-8 rounded-xl border border-slate-50 bg-slate-50/50 hover:shadow-lg transition-all group">
+<div class="w-14 h-14 bg-primary-container rounded-lg flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="monitoring">monitoring</span>
+</div>
+<h3 class="font-headline-md text-xl mb-3">Progress Tracking</h3>
+<p class="text-body-sm text-on-surface-variant">Advanced analytics dashboard to monitor your skill acquisition and learning velocity.</p>
+</div>
+<!-- Feature 4 -->
+<div class="p-8 rounded-xl border border-slate-50 bg-slate-50/50 hover:shadow-lg transition-all group">
+<div class="w-14 h-14 bg-secondary rounded-lg flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="workspace_premium">workspace_premium</span>
+</div>
+<h3 class="font-headline-md text-xl mb-3">Certificate</h3>
+<p class="text-body-sm text-on-surface-variant">Receive an industry-recognized certification verified through our employer network.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Courses Section -->
+<section class="py-xxl bg-surface-container-low" id="courses">
+<div class="container-max mx-auto px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h2 class="font-display-xl text-headline-lg text-primary mb-4">Professional Training</h2>
+<p class="text-body-lg text-on-surface-variant">Specialized paths for high-stakes technical roles.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-5 py-2.5 rounded-full bg-primary text-on-primary text-label-md shadow-md">All</button>
+<button class="px-5 py-2.5 rounded-full bg-white text-on-surface-variant text-label-md hover:bg-slate-50 border border-slate-200">Web Dev</button>
+<button class="px-5 py-2.5 rounded-full bg-white text-on-surface-variant text-label-md hover:bg-slate-50 border border-slate-200">AI / ML</button>
+<button class="px-5 py-2.5 rounded-full bg-white text-on-surface-variant text-label-md hover:bg-slate-50 border border-slate-200">Marketing</button>
+</div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Course Card 1 -->
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="MacBook Pro on clean white desk showing professional code editor with vibrant syntax highlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-uB4081VQFlI6mWVuvuBD8y4Qp8CH9tIhZAX5CbV5RTHh-QqdFMpBoK4nGUyA4kzBTVCo854Pzuw31s7fu2-w-T0gosclzsazKgzHZcLwySe46plJzZdXADxTCns3KDl-OOfet48EFbGxR18RIzUkUhYhNe1rQ885ArpGFUSPIVIpzwK4qKIllPdBGFvqqahbZBA6HNrURxbnEzYDGsHq1k3ebYewd7FzZle-j9QRJ941raKdWaAQslXVBy8GseT9-euMBKwDgg"/>
+<div class="absolute top-4 right-4 bg-primary/90 text-white px-3 py-1 rounded-full text-label-sm">Web Dev</div>
+</div>
+<div class="p-8 flex flex-grow flex-col">
+<h3 class="font-headline-md text-2xl mb-3 text-primary">Full-Stack Architecture</h3>
+<p class="text-body-sm text-on-surface-variant mb-6">Master enterprise-level development using Next.js, TypeScript, and Scalable Backend structures.</p>
+<div class="mt-auto">
+<div class="flex justify-between items-center mb-6 pt-4 border-t border-slate-100">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="text-label-sm">12 Weeks</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-label-sm">Advanced</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary-container transition-colors">Apply Now</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Abstract representation of artificial intelligence neural networks with glowing blue and gold connections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzFbesAUrJmMPnjj4KXp42bmexzJFnCZEHXlbM6ilvCXZRRe8uXDavTht4BBRQuoXMQFPIcikIxdhb6nNHW6bmK7CsNyeMC2M8OfNUgJ_CDOcGP2J6ab0VYABZBEfBp67C4aLtZd_M9nGuamnwsACJL76ND1Wz_dBHRdXEIo-mGLenZEl38hTlK6YmwMyFuouepc4ExsjMqId3yeZd7lTvB1JxXlUl78pQSRo9TbV6R58fLEEYuptZH6NyQPax3aoX6vbIRzCCnA"/>
+<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-fixed px-3 py-1 rounded-full text-label-sm">AI / ML</div>
+</div>
+<div class="p-8 flex flex-grow flex-col">
+<h3 class="font-headline-md text-2xl mb-3 text-primary">LLM Engineering</h3>
+<p class="text-body-sm text-on-surface-variant mb-6">Design and deploy custom AI agents, prompt engineering frameworks, and vector databases.</p>
+<div class="mt-auto">
+<div class="flex justify-between items-center mb-6 pt-4 border-t border-slate-100">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="text-label-sm">8 Weeks</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-label-sm">Intermediate</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary-container transition-colors">Apply Now</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Close up of a modern screen showing data visualization dashboards with gold accents and high contrast UI" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADHSfSgzV0qGbQnhlj61uZxx5hyPXlHBGq_71JDQpi4HEZayCP-rqbu6IjiqubPeIb5tjoXJvcGrnktaBrL1YCrEZeNruG2ZZof6wWv3yhwnn7pbGl2IazHsvuTvyy3x28EjfgNAz75u2TeKL-YfKn64nZ2J61CMTftfXHoMUC0WCOWrDwt0YiBDUe3Mzf4CtSEjZbMwHv6BH_hRi5A6kYj_8Ehm38PMQPfS60BI8-F_zsQ-4Q4MuI2dm71-JFg6Zj0VK73c5vkA"/>
+<div class="absolute top-4 right-4 bg-tertiary text-on-tertiary px-3 py-1 rounded-full text-label-sm">Marketing</div>
+</div>
+<div class="p-8 flex flex-grow flex-col">
+<h3 class="font-headline-md text-2xl mb-3 text-primary">Growth Engineering</h3>
+<p class="text-body-sm text-on-surface-variant mb-6">The intersection of data science and digital marketing. Master performance analytics and automation.</p>
+<div class="mt-auto">
+<div class="flex justify-between items-center mb-6 pt-4 border-t border-slate-100">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="text-label-sm">10 Weeks</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-label-sm">Beginner</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary-container transition-colors">Apply Now</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Completed Students Section -->
+<section class="py-xxl bg-white">
+<div class="container-max mx-auto px-8">
+<div class="text-center mb-16">
+<h2 class="font-display-xl text-headline-lg text-primary mb-4">Success Stories</h2>
+<p class="text-body-lg text-on-surface-variant">Our graduates are entering the workforce with unparalleled technical expertise.</p>
+</div>
+<div class="overflow-x-auto rounded-xl border border-slate-100 shadow-lg">
+<table class="w-full text-left border-collapse bg-white">
+<thead class="bg-slate-50 border-b border-slate-100">
+<tr>
+<th class="p-6 font-label-md text-primary uppercase tracking-wider">Graduate</th>
+<th class="p-6 font-label-md text-primary uppercase tracking-wider">Course Pathway</th>
+<th class="p-6 font-label-md text-primary uppercase tracking-wider">Progress</th>
+<th class="p-6 font-label-md text-primary uppercase tracking-wider">Final Score</th>
+<th class="p-6 font-label-md text-primary uppercase tracking-wider text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a young male professional graduate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaW_ayRmYOwCElLYfPOVFPIk40q1eXeKcsEIWAjL4uKZ6zhmtC-u7poSN5JPgwzuQB_jX5CIMZKuOfOu5s3aJnBZKicdDbuCbGsdMBXHYXk_cxF0MTssJVjzmnykZohUlOnxiowbDJbjd89j3IdwUzrK4rABztQHG4ulGRi-KbLfI-9KrhI3ifs4KReGGs1VJ1yloZeV_Nsu7Ro0ZPAB66LaDq9ZjqGsUbg-TvOxH4JHM3xN-qOmadPZA9Qb8GdPyDXHEM97QhCA"/>
+<div>
+<div class="font-semibold text-on-surface">Alex Rivera</div>
+<div class="text-xs text-on-surface-variant">Hired at TechFlow</div>
+</div>
+</div>
+</td>
+<td class="p-6 font-medium text-on-surface">Full-Stack Architecture</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-xs font-bold text-primary">100%</span>
+</div>
+</td>
+<td class="p-6"><span class="bg-secondary-container/30 text-on-secondary-fixed-variant px-3 py-1 rounded-md font-bold">98/100</span></td>
+<td class="p-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase">Certified</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a female professional software engineer graduate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhXBj2rw5gOuOUFGCg-1V8AI-B1HBjrrwiwJ2DKGZa0eBqG31GydxfRvC7hFzHsy49Fii3HTQIiL14q39-cCwrKmg1KUXagBN3L8WbY44rSf1TZNZjAaly2YAV8Jjmg-ZtfI-xkzZJta26w7RJN5hA-QKmaftLJwXXQcDpofRlo2awVGYIg9eaxxn2cWOWgqp9FCjL-QFb5LbiXjQHWRszNGHCLdsRetvpVxpEYnYIBAo5b1QxBmBbyJoGRegw-s31ywZklLA63A"/>
+<div>
+<div class="font-semibold text-on-surface">Sarah Chen</div>
+<div class="text-xs text-on-surface-variant">Hired at DataMind AI</div>
+</div>
+</div>
+</td>
+<td class="p-6 font-medium text-on-surface">LLM Engineering</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-xs font-bold text-primary">100%</span>
+</div>
+</td>
+<td class="p-6"><span class="bg-secondary-container/30 text-on-secondary-fixed-variant px-3 py-1 rounded-md font-bold">95/100</span></td>
+<td class="p-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase">Certified</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a male marketing professional graduate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkfo45XNgvZ4sZi8LvJEJIVCA92JLAJr-wJ4yBRu-B4-fs1Ay8zoHTWhw0FVnfSczE70BPVT94TxNrfa-bqQQ5_SV-RjavlzxJBGa7p1L-x2mQRFfB7WX_g_V0aiPm7X9sGieZWCP9Xt2osw7ApZXi6rCF_NvTgAfh6dzHgxdc_fxFiqUfZA1z02AtTcw4XJza34f38IqNaAYgGRBwNJC-aCAjagwVzSKutZw7WxfQuX6PC1z1uSTSk_K2Qao51l-LO7qQMC4QCw"/>
+<div>
+<div class="font-semibold text-on-surface">James Wilson</div>
+<div class="text-xs text-on-surface-variant">Hired at GrowthLabs</div>
+</div>
+</div>
+</td>
+<td class="p-6 font-medium text-on-surface">Growth Engineering</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-xs font-bold text-primary">100%</span>
+</div>
+</td>
+<td class="p-6"><span class="bg-secondary-container/30 text-on-secondary-fixed-variant px-3 py-1 rounded-md font-bold">92/100</span></td>
+<td class="p-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase">Certified</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-xxl bg-primary-container text-white" id="contact">
+<div class="container-max mx-auto px-8">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="font-display-xl text-display-xl mb-6 text-white">Ready to start your journey?</h2>
+<p class="text-body-lg text-blue-100/80 mb-12">Connect with our admissions team for a personal consultation about your career goals and curriculum fit.</p>
+<div class="space-y-6">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="call">call</span>
+</div>
+<div>
+<p class="text-label-sm uppercase text-blue-300">Call Us</p>
+<p class="text-xl font-medium">+1 (555) 890-4421</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="chat">chat</span>
+</div>
+<div>
+<p class="text-label-sm uppercase text-blue-300">WhatsApp</p>
+<p class="text-xl font-medium">+1 (555) 912-0034</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="mail">mail</span>
+</div>
+<div>
+<p class="text-label-sm uppercase text-blue-300">Email</p>
+<p class="text-xl font-medium">admissions@weconnect.edu</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-10 shadow-2xl">
+<form class="space-y-6">
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant uppercase">Full Name</label>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant uppercase">Email Address</label>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant uppercase">Selected Course</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+<option>Full-Stack Architecture</option>
+<option>LLM Engineering</option>
+<option>Growth Engineering</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant uppercase">Message</label>
+<textarea class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none" rows="4"></textarea>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary rounded-lg font-label-md text-lg hover:bg-primary/90 transition-all shadow-lg">Send Application Interest</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 bg-slate-50">
+<div class="py-12 px-8 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-6 font-['Manrope']">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-sm font-black text-blue-900">WeConnect</div>
+<p class="text-slate-500 text-xs uppercase tracking-widest text-center md:text-left">
+                    © 2024 WeConnect Training Portal. Professional Software Engineering Education.
+                </p>
+</div>
+<div class="flex gap-8 text-xs uppercase tracking-widest font-bold">
+<a class="text-slate-500 hover:text-blue-600 underline transition-all" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-blue-600 underline transition-all" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-blue-600 underline transition-all" href="#">Contact Support</a>
+<a class="text-slate-500 hover:text-blue-600 underline transition-all" href="#">Careers</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#b6c4ff",
+                      "surface-container-high": "#dee8ff",
+                      "on-secondary-fixed-variant": "#574500",
+                      "surface-container-low": "#f0f3ff",
+                      "surface-container-highest": "#d8e3fb",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-secondary-fixed": "#241a00",
+                      "background": "#f9f9ff",
+                      "primary-container": "#0033a0",
+                      "surface-bright": "#f9f9ff",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#8ea6ff",
+                      "surface-variant": "#d8e3fb",
+                      "on-surface-variant": "#444653",
+                      "tertiary-fixed": "#e0e3e5",
+                      "inverse-surface": "#263143",
+                      "surface": "#f9f9ff",
+                      "secondary": "#735c00",
+                      "on-surface": "#111c2d",
+                      "outline-variant": "#c4c5d5",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#745c00",
+                      "on-background": "#111c2d",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#dce1ff",
+                      "on-primary-fixed": "#001550",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#ffe088",
+                      "on-tertiary-container": "#a8aaac",
+                      "on-primary-fixed-variant": "#133ca8",
+                      "surface-container": "#e7eeff",
+                      "tertiary": "#26292b",
+                      "on-tertiary-fixed": "#191c1e",
+                      "secondary-container": "#fed65b",
+                      "on-error": "#ffffff",
+                      "outline": "#747684",
+                      "primary": "#00216e",
+                      "inverse-on-surface": "#ecf1ff",
+                      "surface-tint": "#3456c1",
+                      "surface-dim": "#cfdaf2",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#e9c349",
+                      "tertiary-container": "#3c3f41",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "sm": "8px",
+                      "xs": "4px",
+                      "md": "16px",
+                      "margin-page": "40px",
+                      "xxl": "80px",
+                      "lg": "24px",
+                      "container-max": "1440px",
+                      "xl": "48px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "display-xl": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "label-sm": ["Manrope"],
+                      "body-sm": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "headline-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "display-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden">
+<!-- SideNavBar (Admin Context) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#001A4D] dark:bg-slate-950 border-r border-white/10 shadow-2xl flex flex-col p-4 gap-2 z-50">
+<div class="mb-6 px-4">
+<h1 class="text-lg font-bold text-white font-display-xl">Admin Portal</h1>
+<p class="text-xs text-slate-400 font-label-sm">Management Suite</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">dashboard</span> Overview
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">category</span> Categories
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">menu_book</span> Courses
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">assignment_ind</span> Applications
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">school</span> Students
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">task</span> Tasks
+            </a>
+<a class="bg-white/10 text-white rounded-md px-4 py-2 flex items-center gap-3 font-label-md scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span> Submissions
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">analytics</span> Reports
+            </a>
+<a class="text-slate-400 hover:text-white px-4 py-2 flex items-center gap-3 font-label-md transition-all duration-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<div class="mt-auto p-4 flex items-center gap-3 border-t border-white/10">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a senior software architect with a kind expression in a corporate setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJMdwjWlhnbxlujmpwKMJVZ2aykhIdPt-jB_DdtbSGkNaReOF5EpXLdtMJj-5NR94QOCn2BMln6yurxaTbgyHyKb9QfEFDuu3Nk_5KIJ5KcxTNsnRs-wDDUU8i1oOh1eSmXRaSRThm4CxLra_txA-qosqButnrBVauSnBi_dkj15MxhELEK8jZTvGJTr5lRygKhYUCFiUQon5IMU4GslfkU5m_HzUtAb5YlQrpJhteHMO4hg_LTsG4ID854RIEvhGcL18Uv5e-aw"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-white font-label-md truncate">Admin Profile</p>
+<p class="text-xs text-slate-500 font-body-sm">Senior Reviewer</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 h-screen overflow-y-auto custom-scrollbar">
+<!-- Top Navigation (Shell) -->
+<header class="bg-white/90 backdrop-blur-md sticky top-0 w-full z-40 border-b border-slate-100 shadow-sm px-8 h-16 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline">arrow_back</span>
+<nav class="flex gap-2 text-sm font-label-sm text-outline">
+<span>Submissions</span>
+<span>/</span>
+<span class="text-primary">Review #4920</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-xs font-label-md text-on-secondary-container">Needs Review</span>
+</div>
+<span class="material-symbols-outlined text-outline">notifications</span>
+</div>
+</header>
+<div class="max-w-7xl mx-auto p-8">
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Student & Submission Details (Asymmetric Bento Style) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-8">
+<!-- Header Summary Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 flex flex-col md:flex-row gap-8 items-center">
+<div class="w-24 h-24 rounded-2xl overflow-hidden shadow-lg border-2 border-white flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a young male student looking confident and attentive in a sunlit university courtyard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfteL5v8aOxHCAZz3NBkf91tpOw1ewltzsNylURtdy7FTfBfzNt_wLxU3iCWNHX1jD3jd4fAwKNnEHWM4MaLQgfa0xdr0423WUxO-qtPxqQ_5aDo2iKHstj7WdVQodLdyC6yMy3fFYhYMeLk8e44WjKocqS0YdUvZmgAF7G4tPQh4TlOEyryeglScP1xmBAc8zNxk6i6rXYFwP9gQ_WS524fqgOQKGygiL0tEABw4Tf4mEwOJiDHVqDZj2PYfJYaiZedE7E2NNMA"/>
+</div>
+<div class="flex-grow space-y-2">
+<h2 class="text-headline-lg font-headline-lg text-primary tracking-tight">Benjamin Harrison</h2>
+<div class="flex flex-wrap gap-4 items-center">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-lg">school</span> Full-Stack Software Engineering
+                                </div>
+<div class="w-1 h-1 bg-outline-variant rounded-full"></div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-lg">calendar_today</span> Enrolled: Sept 2023
+                                </div>
+</div>
+</div>
+<div class="flex-shrink-0 text-right">
+<div class="inline-flex flex-col items-end px-6 py-3 bg-green-50 rounded-xl border border-green-100">
+<span class="text-green-700 font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check_circle</span> SUBMITTED ON TIME
+                                </span>
+<span class="text-green-900 font-headline-md font-bold">Aug 14, 2024</span>
+</div>
+</div>
+</section>
+<!-- Submission Content Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Task Title & Context -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-slate-100 shadow-sm col-span-2">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="text-xs font-label-sm text-outline uppercase tracking-widest mb-1">Current Assignment</p>
+<h3 class="text-headline-md font-headline-md text-on-surface">Advanced API Optimization &amp; Scalability</h3>
+</div>
+<span class="material-symbols-outlined text-primary-fixed-variant text-4xl opacity-20">code_blocks</span>
+</div>
+<div class="h-px bg-slate-100 w-full mb-6"></div>
+<h4 class="text-label-md text-on-surface mb-3">Student Explanation</h4>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                                For this task, I implemented a Redis caching layer to handle high-traffic GET requests. I also refactored the database schema to normalize the user profiles table, reducing query latency by approximately 35%. I used Prometheus for monitoring and included basic load testing scripts in the repository to demonstrate the performance gains.
+                            </p>
+</div>
+<!-- Submitted Links -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-slate-100 shadow-sm flex flex-col">
+<h4 class="text-label-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">link</span> Submitted Artifacts
+                            </h4>
+<div class="space-y-4">
+<a class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition-all group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">source</span>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">GitHub Repository</span>
+<span class="text-xs text-outline">github.com/bharrison/api-optimization</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+</a>
+<a class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition-all group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">video_library</span>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Demo Walkthrough</span>
+<span class="text-xs text-outline">loom.com/share/vid_88291</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Status Details -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-slate-100 shadow-sm">
+<h4 class="text-label-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span> Compliance Details
+                            </h4>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-on-surface-variant">Deadline Status</span>
+<span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold font-label-sm">ON TIME</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-on-surface-variant">Submission Attempt</span>
+<span class="font-label-md text-on-surface">1st Attempt</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-on-surface-variant">Plagiarism Scan</span>
+<span class="text-green-600 font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span> 2% Match
+                                    </span>
+</div>
+<div class="h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[100%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Review Inputs & Actions (Floating UI Pattern) -->
+<div class="col-span-12 lg:col-span-4">
+<div class="sticky top-24 space-y-6">
+<div class="bg-inverse-surface text-white p-8 rounded-xl shadow-2xl overflow-hidden relative">
+<!-- Background Accent -->
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
+<h3 class="text-headline-md font-headline-md mb-8 relative z-10">Assessment Panel</h3>
+<form class="space-y-8 relative z-10">
+<div>
+<label class="block text-xs font-label-sm text-slate-400 uppercase tracking-widest mb-3">Final Score (%)</label>
+<div class="relative">
+<input class="w-full bg-white/5 border border-white/10 rounded-lg p-5 text-4xl font-bold text-white focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all placeholder:text-white/20" placeholder="0" type="number"/>
+<span class="absolute right-5 top-1/2 -translate-y-1/2 text-2xl font-bold text-white/40">%</span>
+</div>
+<div class="flex justify-between mt-3 text-xs text-slate-500 font-label-sm">
+<span>Passing: 75%</span>
+<span>Excellence: 95%+</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-label-sm text-slate-400 uppercase tracking-widest mb-3">Review Feedback</label>
+<textarea class="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-body-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-container transition-all placeholder:text-white/20 resize-none" placeholder="Provide detailed technical feedback for the student..." rows="6"></textarea>
+</div>
+<div class="space-y-3">
+<button class="w-full py-4 bg-primary text-white rounded-lg font-label-md hover:bg-primary-container transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-lg">check_circle</span> Approve Submission
+                                    </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-3 bg-white/10 text-white rounded-lg font-label-md hover:bg-white/20 transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-lg">history_edu</span> Request Revision
+                                        </button>
+<button class="py-3 bg-secondary text-on-secondary-fixed font-label-md rounded-lg hover:bg-secondary-container transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-lg">save</span> Save Score
+                                        </button>
+</div>
+</div>
+</form>
+</div>
+<!-- Certification Preview Card -->
+<div class="bg-surface-container-highest p-6 rounded-xl border border-primary-container/20 flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div>
+<h5 class="text-label-md text-primary-fixed-variant">Module Milestone</h5>
+<p class="text-xs text-on-surface-variant font-body-sm">Approving this will complete the 'Advanced Backend' module for this student.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 mt-20">
+<div class="py-12 px-8 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-6">
+<div class="text-sm font-black text-blue-900 dark:text-blue-200">WeConnect</div>
+<div class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                    © 2024 WeConnect Training Portal. Professional Software Engineering Education.
+                </div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-blue-600 underline transition-all font-['Manrope'] text-xs uppercase tracking-widest" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-blue-600 underline transition-all font-['Manrope'] text-xs uppercase tracking-widest" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-blue-600 underline transition-all font-['Manrope'] text-xs uppercase tracking-widest" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

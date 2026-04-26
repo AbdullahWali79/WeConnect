@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#b6c4ff",
+                        "surface-container-high": "#dee8ff",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface-container-low": "#f0f3ff",
+                        "surface-container-highest": "#d8e3fb",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-fixed": "#241a00",
+                        "background": "#f9f9ff",
+                        "primary-container": "#0033a0",
+                        "surface-bright": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#8ea6ff",
+                        "surface-variant": "#d8e3fb",
+                        "on-surface-variant": "#444653",
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-surface": "#263143",
+                        "surface": "#f9f9ff",
+                        "secondary": "#735c00",
+                        "on-surface": "#111c2d",
+                        "outline-variant": "#c4c5d5",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#745c00",
+                        "on-background": "#111c2d",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#dce1ff",
+                        "on-primary-fixed": "#001550",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffe088",
+                        "on-tertiary-container": "#a8aaac",
+                        "on-primary-fixed-variant": "#133ca8",
+                        "surface-container": "#e7eeff",
+                        "tertiary": "#26292b",
+                        "on-tertiary-fixed": "#191c1e",
+                        "secondary-container": "#fed65b",
+                        "on-error": "#ffffff",
+                        "outline": "#747684",
+                        "primary": "#00216e",
+                        "inverse-on-surface": "#ecf1ff",
+                        "surface-tint": "#3456c1",
+                        "surface-dim": "#cfdaf2",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#e9c349",
+                        "tertiary-container": "#3c3f41",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "margin-page": "40px",
+                        "xxl": "80px",
+                        "lg": "24px",
+                        "container-max": "1440px",
+                        "xl": "48px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #735c00 0%, #fed65b 50%, #735c00 100%);
+        }
+        .premium-blur {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 border-b border-slate-100 bg-white/90 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-blue-800">WeConnect</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-['Manrope'] font-medium text-sm text-slate-600 hover:text-blue-800 transition-colors" href="#">Overview</a>
+<a class="font-['Manrope'] font-medium text-sm text-blue-700 border-b-2 border-blue-700 pb-1" href="#">Courses</a>
+<a class="font-['Manrope'] font-medium text-sm text-slate-600 hover:text-blue-800 transition-colors" href="#">About</a>
+<a class="font-['Manrope'] font-medium text-sm text-slate-600 hover:text-blue-800 transition-colors" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md hover:opacity-90 transition-all">
+                Apply Now
+            </button>
+</div>
+</nav>
+<main class="pt-16 pb-xxl">
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-primary py-xxl px-margin-page">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-secondary-container rounded-full blur-[120px]"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary-fixed rounded-full blur-[80px]"></div>
+</div>
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary-container/20 border border-secondary-container/30 text-secondary-container mb-6">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-sm uppercase tracking-wider">Achievement Unlocked</span>
+</div>
+<h1 class="font-display-xl text-display-xl text-white mb-6">
+                    Congratulations! You've successfully completed <span class="text-secondary-fixed">Advanced Systems Architecture</span>.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto mb-xl">
+                    Your dedication to technical excellence and methodical problem-solving has earned you this professional certification.
+                </p>
+</div>
+</section>
+<!-- Main Content Grid -->
+<section class="max-w-7xl mx-auto px-margin-page -mt-16 relative z-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Student Details Card -->
+<div class="lg:col-span-8 bg-white rounded-xl shadow-xl p-xl border border-slate-100">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-lg mb-xl">
+<div class="flex items-center gap-md">
+<div class="relative">
+<img alt="Student Avatar" class="w-24 h-24 rounded-full object-cover border-4 border-surface-container-high" data-alt="portrait of a confident young professional man with short dark hair in a clean business casual outfit smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4MiXwdbz0KHYiz3EiBo31l1B70DpvOfiH5viOOQMKTzXGJbTEqN08bnb9-YcrzmzvckW958MNLhZ80oSI0ZVJhp-GOauyKoyGcmLAQfotWGO7XUEkvZw9valZ1qGoUSqbGYSr3Liw6O59vZAcFOtMV6UY-IYgaApdozoT77SRyWHTsJe15KuWTg2N7X947iQ2aefHsLb96Y51SVPcT15YTGtTso6WGs5qqH_Qmv9LpxsIhfT0dXHcngp9mFYg7MVz0MQJXmJzmA"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary-container text-on-secondary-fixed p-1.5 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Alex Thompson</h2>
+<p class="text-slate-500 font-body-md">Software Engineering Fellow • Class of 2024</p>
+</div>
+</div>
+<div class="text-right">
+<div class="text-secondary-fixed-dim font-display-xl text-[48px] leading-none mb-1">95<span class="text-lg text-slate-400">/100</span></div>
+<span class="font-label-md text-secondary-fixed-dim uppercase">Final Cumulative Score</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+<div class="p-md bg-surface-container-low rounded-lg border border-slate-100">
+<span class="text-slate-500 font-label-sm block mb-1 uppercase">Completion Date</span>
+<span class="font-headline-md text-primary">May 24, 2024</span>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-slate-100">
+<span class="text-slate-500 font-label-sm block mb-1 uppercase">Modules Passed</span>
+<span class="font-headline-md text-primary">12 / 12</span>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-slate-100">
+<span class="text-slate-500 font-label-sm block mb-1 uppercase">Program Length</span>
+<span class="font-headline-md text-primary">24 Weeks</span>
+</div>
+</div>
+<div class="border-t border-slate-100 pt-xl flex flex-wrap gap-md">
+<button class="flex items-center gap-2 bg-secondary-container text-on-secondary-fixed px-8 py-4 rounded-lg font-label-md shadow-md hover:translate-y-[-2px] transition-all">
+<span class="material-symbols-outlined">download</span>
+                            Download PDF Certificate
+                        </button>
+<button class="flex items-center gap-2 bg-white border-2 border-primary text-primary px-8 py-4 rounded-lg font-label-md hover:bg-primary-fixed-dim/10 transition-all">
+<span class="material-symbols-outlined">share</span>
+                            Share Achievement
+                        </button>
+</div>
+</div>
+<!-- Preview / Public Card -->
+<div class="lg:col-span-4 space-y-lg">
+<div class="bg-[#001A4D] rounded-xl p-lg shadow-xl text-white relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container opacity-10 rounded-full -mr-16 -mt-16"></div>
+<h3 class="font-headline-md text-white mb-md">Public Profile Preview</h3>
+<p class="font-body-sm text-slate-300 mb-xl">This is how you appear in our 'Completed Students' alumni directory.</p>
+<!-- Student Card Preview -->
+<div class="bg-white rounded-lg p-md text-on-surface shadow-lg">
+<div class="flex items-center gap-md mb-md">
+<img alt="Preview Avatar" class="w-12 h-12 rounded-full object-cover" data-alt="headshot of a smiling young man for a professional profile directory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIpPivMlOCu05taFEC_fxliBydNYb5uMJok8oFIARVXU6BStJJ6ghWkUrQrje0Q5QZlSLmelIST581nYAR3OObh9a_1gx7Z3HFpC4d7qkL29PkrtCj8ScVoe1B5wAky-FIpq70pwjs20tl5ATeqizls5haVC5JNJKxfZoHFfXexbYq6_9RaWB5PDojwORUNLUUe0CK03dGyKrE3MKdpn2WUmUEA909yXahYF8fO9YGa6Tg5f2yKZ-vbHNioIF3skl9VAGhWEq4aw"/>
+<div>
+<h4 class="font-label-md text-primary">Alex Thompson</h4>
+<p class="text-[12px] text-slate-500">Certified Systems Architect</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-1 mb-md">
+<span class="bg-slate-100 text-[10px] font-bold px-2 py-0.5 rounded text-slate-600 uppercase">Docker</span>
+<span class="bg-slate-100 text-[10px] font-bold px-2 py-0.5 rounded text-slate-600 uppercase">Kubernetes</span>
+<span class="bg-slate-100 text-[10px] font-bold px-2 py-0.5 rounded text-slate-600 uppercase">Go</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-50 pt-2">
+<div class="flex items-center text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold ml-1">Distinction</span>
+</div>
+<span class="text-[12px] text-primary-container font-medium hover:underline cursor-pointer">View Portfolio</span>
+</div>
+</div>
+</div>
+<!-- Certificate Card -->
+<div class="bg-white rounded-xl border-4 border-secondary-container p-6 flex flex-col items-center text-center shadow-lg">
+<span class="material-symbols-outlined text-[64px] text-secondary mb-4" style="font-variation-settings: 'FILL' 0;">workspace_premium</span>
+<h3 class="font-headline-md text-primary mb-2">Academic Excellence</h3>
+<p class="font-body-sm text-slate-600 mb-md">You've placed in the top 5% of all graduates for the Advanced Systems Architecture track.</p>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 95%;"></div>
+</div>
+<span class="font-label-sm text-secondary mt-2">Percentile: 95th</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery of Success Section -->
+<section class="max-w-7xl mx-auto px-margin-page mt-xxl">
+<div class="flex items-end justify-between mb-xl">
+<div>
+<h2 class="font-display-xl text-headline-lg text-primary">The Elite Class</h2>
+<p class="text-slate-500">Recent graduates who have mastered the WeConnect engineering curriculum.</p>
+</div>
+<button class="text-primary font-label-md flex items-center gap-1 hover:gap-2 transition-all">
+                    View Alumni Network <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Bento Grid of Students -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<!-- Active Student (Self) -->
+<div class="md:col-span-2 bg-white rounded-xl shadow-lg p-lg border-t-4 border-secondary overflow-hidden relative group">
+<div class="flex gap-lg items-center relative z-10">
+<img alt="Student Hero" class="w-32 h-32 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="modern professional business portrait of a man with sharp lighting and clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs67vHnnb3itLr4ZxER72HBm-Y1v50-9YlACXv7Po3ndTLgC1NtkCvh6l_VmgJCC3y3RlQvwRSg2OMFe7rXrYT_1gDJJhVxuxrWt2dJtt2Qoo8B2U8NG1KUOdvRZPZ20XUiSdcjnnUZwhIFU1k7hysp09XPHP3NitA7PIe5rW9kgjUbfjozASifXbfYdrmBas5wf0zShPYTgajrtSllmsqax35dAWQMJZ4hbxYpD5PoX83zW35WXTndGyatQ-_XL-aiGdzqTlpdA"/>
+<div>
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-2 inline-block">New Graduate</span>
+<h3 class="font-headline-md text-on-surface">Alex Thompson</h3>
+<p class="text-slate-500 font-body-sm mb-4">Mastery in Distributed Systems and Cloud Architecture.</p>
+<div class="flex items-center gap-4">
+<div>
+<div class="text-primary font-bold">95%</div>
+<div class="text-[10px] text-slate-400 uppercase">Avg. Score</div>
+</div>
+<div class="h-8 w-px bg-slate-200"></div>
+<div>
+<div class="text-primary font-bold">2024</div>
+<div class="text-[10px] text-slate-400 uppercase">Cohort</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Student 2 -->
+<div class="bg-white rounded-xl shadow-md p-md border border-slate-100 hover:shadow-xl transition-all">
+<img alt="Student Profile" class="w-full h-40 rounded-lg object-cover mb-md" data-alt="portrait of a professional woman with a confident expression in an office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_3zymg7w0PvmDTnZfTyIiUaEiXPWkkhM2CIg0Q1cYvcr3OQAtR7Fj8L7kPPbEOZaxg8vrGu2lAh8tTW31f2L96hML31IBNADle0uQLGqPjGd__Ka2alLNmrnrWeJp9N0MyYraRRQLdF1x99VVc-TfNXeSfnD-CWIA1ia8g8lgBVjSgtEZofNqPN_c9L3N8okyPePLr8u-48T9PGz2QO-bNFk9GkBYv9Odz079v51R8SwCbGHJi9_YsscxD6VbUy80ODiuQfl4Ng"/>
+<h4 class="font-label-md text-primary">Sarah Jenkins</h4>
+<p class="text-xs text-slate-500 mb-md">Full Stack Engineering</p>
+<div class="flex items-center justify-between">
+<span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full">HIRED</span>
+<span class="material-symbols-outlined text-slate-300">link</span>
+</div>
+</div>
+<!-- Student 3 -->
+<div class="bg-white rounded-xl shadow-md p-md border border-slate-100 hover:shadow-xl transition-all">
+<img alt="Student Profile" class="w-full h-40 rounded-lg object-cover mb-md" data-alt="friendly creative professional male with glasses in a bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw7Wo-tWB8xoYq7-DNbOqQ8vRC20CTbmwIQWlNZChEAupsJJiTB4Dlxb0dd2rMU_xlN135P8JHGysnAzZtrgqwTssX89KXHQ-S2F2RwQJc4QsLNesc5lsibWZdF6UB24EzADYKqHigVv4kFS4QvbFGMdwlP-3YEjA8p5vTgqWnZg5jbKVdeE5wv72bLONWvJBH7Ej6bzJlXcNZsg9FnNTq5XzgfEdu3S-efOeCS9Ssc7Dykhz0NCxZos2bhptyHCQOdRv0_VIA1w"/>
+<h4 class="font-label-md text-primary">Marcus Wei</h4>
+<p class="text-xs text-slate-500 mb-md">Backend Mastery</p>
+<div class="flex items-center justify-between">
+<span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full">COMPLETED</span>
+<span class="material-symbols-outlined text-slate-300">link</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 mt-20 bg-slate-50">
+<div class="py-12 px-8 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-6">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="text-sm font-black text-blue-900 uppercase tracking-tighter">WeConnect</div>
+<p class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500">© 2024 WeConnect Training Portal. Professional Software Engineering Education.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Privacy Policy</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Terms of Service</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Contact Support</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline transition-all" href="#">Careers</a>
+</div>
+</div>
+</footer>
+</body></html>
