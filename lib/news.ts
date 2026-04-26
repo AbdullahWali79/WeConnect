@@ -37,7 +37,7 @@ export async function refreshAINews() {
     }
     
     const data = await response.json();
-    const rawStories = (data.data || data.stories || []) as any[];
+    const rawStories = (data.data || data.stories || []) as unknown[];
     const stories = rawStories.slice(0, 3) as Story[];
 
     if (stories.length === 0) {
