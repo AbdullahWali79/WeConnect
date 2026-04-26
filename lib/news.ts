@@ -11,10 +11,11 @@ export interface AINews {
 interface Story {
   title: string;
   summary?: string;
-  description?: string;
-  url: string;
-  source_name?: string;
-  published_at?: string;
+  sourceUrl: string;
+  datePublished?: string;
+  feed?: {
+    title: string;
+  };
 }
 
 /**
@@ -30,12 +31,19 @@ export async function refreshAINews() {
       next: { revalidate: 3600 } // Cache for 1 hour at the fetch level
     });
     
-    if (!response.ok) throw new Error("Failed to fetch news from external API");
+    if (!response.ok) {
+      console.error(`External API error: ${response.status} ${response.statusText}`);
+      throw new Error("Failed to fetch news from external API");
+    }
     
     const data = await response.json();
-    const stories = (data.stories || []).slice(0, 3) as Story[];
+    const rawStories = (data.data || data.stories || []) as any[];
+    const stories = rawStories.slice(0, 3) as Story[];
 
-    if (stories.length === 0) return;
+    if (stories.length === 0) {
+      console.warn("No stories found in API response");
+      return;
+    }
 
     // 2. Clear old news
     await supabase.from("ai_news").delete().not("id", "is", null);
@@ -43,15 +51,18 @@ export async function refreshAINews() {
     // 3. Insert new news
     const newsToInsert = stories.map(story => ({
       title: story.title,
-      summary: story.summary || story.description || "",
-      url: story.url,
-      source: story.source_name || "AI News",
-      published_at: story.published_at || new Date().toISOString()
+      summary: story.summary || "",
+      url: story.sourceUrl,
+      source: story.feed?.title || "AI News",
+      published_at: story.datePublished || new Date().toISOString()
     }));
 
     const { error: insertError } = await supabase.from("ai_news").insert(newsToInsert);
     
-    if (insertError) console.error("Error inserting news:", insertError);
+    if (insertError) {
+      console.error("Error inserting news:", insertError);
+      throw insertError;
+    }
 
     return newsToInsert;
   } catch (error) {
