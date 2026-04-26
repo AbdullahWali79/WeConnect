@@ -47,6 +47,8 @@ Redirect URL: https://your-production-domain/auth/callback
 Redirect URL: http://localhost:3000/auth/callback
 ```
 
+6. If you want approved students to create a password and sign in immediately without email verification, disable email confirmation in Supabase Auth for this project.
+
 The migration creates:
 
 - `profiles`
@@ -70,8 +72,8 @@ The migration creates:
 ## First Admin Setup
 
 1. Start the app locally.
-2. Open `/login`.
-3. Use `Student Sign Up` with the email you want as admin.
+2. In Supabase, create the admin auth user from `Authentication > Users`.
+3. Use the same email in the SQL below.
 4. In Supabase SQL Editor, run:
 
 ```sql
@@ -92,10 +94,9 @@ Replace `ADMIN_EMAIL_HERE` before running it.
 
 - Public user submits `/apply`.
 - Admin approves the application from `/admin/applications`.
-- Approved students use email-only access from `/login` under `Student Email Login`.
-- The app sends a Supabase magic link to the approved email address.
-- If the student has not been created in Auth yet, the magic link request creates the Auth user and the trigger creates the approved profile and enrollment from the application email.
-- Student then lands on `/student` and sees only their own dashboard data.
+- Approved students open `/login`, switch to `Student Sign Up`, and create their own password with the same approved email.
+- The first approved signup creates the Supabase Auth user, and the auth trigger creates the approved profile and enrollment from the application email.
+- Student then signs in with the same email and password and sees only their own dashboard data.
 
 ## Local Run
 
@@ -138,7 +139,7 @@ Public:
 
 - `/` landing page with live courses and completed students
 - `/apply` public course application form
-- `/login` admin sign in and approved-student email login
+- `/login` admin sign in and approved-student password signup
 
 Admin:
 
@@ -164,5 +165,5 @@ Student:
 - Public users can only read active courses/categories and insert pending applications.
 - Students can only read their own profile/enrollments/tasks/resources/submissions/progress.
 - Students submit tasks through the `submit_task` RPC, which validates task ownership and prevents score/feedback tampering.
-- Approved student login requests are validated through the `can_request_student_access` security-definer function before a magic link is sent.
+- Approved student signup requests are validated through the `can_request_student_access` security-definer function before account creation is allowed.
 - Admins can manage all operational tables through RLS-backed policies.

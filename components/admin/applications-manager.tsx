@@ -62,7 +62,7 @@ export function ApplicationsManager() {
   return (
     <>
       <Toast toast={toast} onClear={clearToast} />
-      <PageHeader eyebrow="Applications" title="Student applications" description="Review public course applications and approve or reject them. Approved students can then access the portal using their email-only login link." />
+      <PageHeader eyebrow="Applications" title="Student applications" description="Review public course applications and approve or reject them. Approved students can then create their own password from the login page and sign in." />
 
       <div className="mb-6 flex flex-wrap gap-3">
         {["all", "pending", "approved", "rejected"].map((item) => (

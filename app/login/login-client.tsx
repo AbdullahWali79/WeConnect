@@ -70,22 +70,33 @@ export default function LoginPage() {
         return;
       }
 
-      const origin = window.location.origin;
-      const { error } = await supabase.auth.signInWithOtp({
+      if (form.password.length < 6) {
+        setLoading(false);
+        setToast({ type: "error", message: "Choose a password with at least 6 characters." });
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signUp({
         email,
-        options: {
-          shouldCreateUser: true,
-          emailRedirectTo: `${origin}/auth/callback?next=/student`,
-        },
+        password: form.password,
       });
       setLoading(false);
 
       if (error) {
-        setToast({ type: "error", message: error.message });
+        setToast({
+          type: "error",
+          message: error.message === "User already registered" ? "This student account already exists. Use Sign In with the same approved email and password." : error.message,
+        });
         return;
       }
 
-      setToast({ type: "success", message: "Login link sent. Student should open the email and continue from the magic link." });
+      if (data.session && data.user) {
+        await routeAfterAuth(data.user.id);
+        return;
+      }
+
+      setMode("signin");
+      setToast({ type: "success", message: "Student account created. Sign in with the same approved email and password." });
       return;
     }
 
@@ -125,16 +136,16 @@ export default function LoginPage() {
           </div>
           <p className="mt-10 text-label-sm uppercase tracking-widest text-blue-100">WeConnect Access</p>
           <h1 className="mt-3 text-4xl font-extrabold leading-tight">Role-based login for admins and students.</h1>
-          <p className="mt-5 text-lg leading-8 text-blue-100">Admins sign in with password. Approved students enter only their email and receive a secure login link.</p>
+          <p className="mt-5 text-lg leading-8 text-blue-100">Admins sign in with password. Approved students create their own password once, then use the same email and password to sign in.</p>
           <div className="mt-10 rounded-xl bg-white/10 p-5 text-sm text-blue-50">
-            First admin setup: sign up here, then run the SQL in `supabase/admin-setup.sql` with your email.
+            First admin setup: create the user from Supabase Authentication, then run the SQL in `supabase/admin-setup.sql` with your email.
           </div>
         </section>
 
         <section className="wc-card p-6 md:p-8">
           <div className="mb-8 flex rounded-xl bg-surface-container p-1">
             <button onClick={() => setMode("signin")} className={`flex-1 rounded-lg px-4 py-3 text-label-md ${mode === "signin" ? "bg-white text-primary shadow" : "text-on-surface-variant"}`}>Sign In</button>
-            <button onClick={() => setMode("student")} className={`flex-1 rounded-lg px-4 py-3 text-label-md ${mode === "student" ? "bg-white text-primary shadow" : "text-on-surface-variant"}`}>Student Email Login</button>
+            <button onClick={() => setMode("student")} className={`flex-1 rounded-lg px-4 py-3 text-label-md ${mode === "student" ? "bg-white text-primary shadow" : "text-on-surface-variant"}`}>Student Sign Up</button>
           </div>
 
           <form onSubmit={submit} className="space-y-5">
@@ -143,20 +154,26 @@ export default function LoginPage() {
               <input value={form.email} onChange={(event) => updateField("email", event.target.value)} className="wc-input mt-2" type="email" autoComplete="email" required />
             </label>
 
-            {mode === "signin" ? (
-              <label className="block">
-                <span className="wc-label">Password</span>
-                <input value={form.password} onChange={(event) => updateField("password", event.target.value)} className="wc-input mt-2" type="password" autoComplete="current-password" minLength={6} required />
-              </label>
-            ) : (
+            <label className="block">
+              <span className="wc-label">{mode === "signin" ? "Password" : "Create Password"}</span>
+              <input value={form.password} onChange={(event) => updateField("password", event.target.value)} className="wc-input mt-2" type="password" autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={6} required />
+            </label>
+
+            {mode === "signin" ? null : (
               <div className="rounded-xl bg-surface-container-low p-4 text-body-md text-on-surface-variant">
-                Approved students do not need a password here. Enter the approved email and the system will send a login link.
+                Only admin-approved student emails can create an account here. After signup, use the same email and password to sign in.
               </div>
             )}
 
-            <button disabled={loading} className="wc-primary-btn w-full py-4 text-lg">
-              {loading ? "Working..." : mode === "signin" ? "Sign In" : "Send Login Link"}
-            </button>
+            {mode === "signin" ? (
+              <button disabled={loading} className="wc-primary-btn w-full py-4 text-lg">
+                {loading ? "Working..." : "Sign In"}
+              </button>
+            ) : (
+              <button disabled={loading} className="wc-primary-btn w-full py-4 text-lg">
+                {loading ? "Working..." : "Create Student Account"}
+              </button>
+            )}
           </form>
         </section>
       </div>
