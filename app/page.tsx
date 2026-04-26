@@ -5,7 +5,7 @@ import { EmptyState } from "@/components/empty-state";
 import { Icon } from "@/components/icon";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { formatDate } from "@/lib/utils";
-import { getLatestNews } from "@/lib/news";
+import { getLatestNews, type AINews } from "@/lib/news";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +19,7 @@ export default async function LandingPage() {
   ]);
 
   const activeCourses = courses ?? [];
-  const news = (newsData as any[]) ?? [];
+  const news = (newsData as (AINews & { id: string })[]) ?? [];
 
   return (
     <main className="bg-background text-on-background">
@@ -34,7 +34,7 @@ export default async function LandingPage() {
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
             <a className="border-b-2 border-blue-700 pb-1 text-blue-700" href="#overview">Overview</a>
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#courses">Courses</a>
-            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#news">AI News</a>
+            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#news">News</a>
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#completed">Completed</a>
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#contact">Contact</a>
           </nav>

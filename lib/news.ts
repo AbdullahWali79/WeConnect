@@ -8,6 +8,15 @@ export interface AINews {
   published_at?: string;
 }
 
+interface Story {
+  title: string;
+  summary?: string;
+  description?: string;
+  url: string;
+  source_name?: string;
+  published_at?: string;
+}
+
 /**
  * Fetches the latest AI news and updates the Supabase table.
  * This function also serves as a "keep alive" for the Supabase project.
@@ -24,7 +33,7 @@ export async function refreshAINews() {
     if (!response.ok) throw new Error("Failed to fetch news from external API");
     
     const data = await response.json();
-    const stories = (data.stories || []).slice(0, 3) as any[];
+    const stories = (data.stories || []).slice(0, 3) as Story[];
 
     if (stories.length === 0) return;
 
@@ -34,7 +43,7 @@ export async function refreshAINews() {
     // 3. Insert new news
     const newsToInsert = stories.map(story => ({
       title: story.title,
-      summary: story.summary || story.description,
+      summary: story.summary || story.description || "",
       url: story.url,
       source: story.source_name || "AI News",
       published_at: story.published_at || new Date().toISOString()
