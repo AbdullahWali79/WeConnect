@@ -1,4 +1,4 @@
-﻿export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Role = "admin" | "student";
 export type ProfileStatus = "pending" | "approved" | "rejected";
@@ -137,56 +137,67 @@ export type Database = {
         Row: Profile;
         Insert: Partial<Profile> & { id: string };
         Update: Partial<Profile>;
+        Relationships: [];
       };
       course_categories: {
         Row: CourseCategory;
         Insert: Partial<CourseCategory> & { name: string };
         Update: Partial<CourseCategory>;
+        Relationships: [];
       };
       courses: {
         Row: Course;
         Insert: Partial<Course> & { title: string };
         Update: Partial<Course>;
+        Relationships: [];
       };
       applications: {
         Row: Application;
         Insert: Partial<Application> & { full_name: string; email: string; phone: string };
         Update: Partial<Application>;
+        Relationships: [];
       };
       enrollments: {
         Row: Enrollment;
         Insert: Partial<Enrollment> & { student_id: string; course_id: string };
         Update: Partial<Enrollment>;
+        Relationships: [];
       };
       tasks: {
         Row: Task;
         Insert: Partial<Task> & { course_id: string; student_id: string; title: string };
         Update: Partial<Task>;
+        Relationships: [];
       };
       task_resources: {
         Row: TaskResource;
         Insert: Partial<TaskResource> & { task_id: string; url: string };
         Update: Partial<TaskResource>;
+        Relationships: [];
       };
       submissions: {
         Row: Submission;
         Insert: Partial<Submission> & { task_id: string; student_id: string };
         Update: Partial<Submission>;
+        Relationships: [];
       };
       progress_reports: {
         Row: ProgressReport;
         Insert: Partial<ProgressReport> & { student_id: string; course_id: string };
         Update: Partial<ProgressReport>;
+        Relationships: [];
       };
       completed_students: {
         Row: CompletedStudent;
         Insert: Partial<CompletedStudent> & { student_id: string; course_id: string };
         Update: Partial<CompletedStudent>;
+        Relationships: [];
       };
     };
     Views: {
       completed_student_showcase: {
         Row: CompletedStudentShowcase;
+        Relationships: [];
       };
     };
     Functions: {
@@ -206,6 +217,24 @@ export type Database = {
         Args: { target_student_id: string; target_course_id: string };
         Returns: null;
       };
+      submit_task: {
+        Args: {
+          target_task_id: string;
+          submission_explanation: string | null;
+          submission_github_url?: string | null;
+          submission_google_doc_url?: string | null;
+          submission_google_sheet_url?: string | null;
+          submission_image_url?: string | null;
+          submission_proof_url?: string | null;
+        };
+        Returns: null;
+      };
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
     };
   };
 };
