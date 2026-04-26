@@ -57,6 +57,22 @@ export function ApplicationsManager() {
     await loadData();
   }
 
+  async function deleteApplication(applicationId: string) {
+    if (!confirm("Are you sure you want to delete this application record?")) return;
+    
+    setBusyId(applicationId);
+    const { error } = await supabase.from("applications").delete().eq("id", applicationId);
+    setBusyId(null);
+
+    if (error) {
+      setToast({ type: "error", message: error.message });
+      return;
+    }
+
+    setToast({ type: "success", message: "Application deleted." });
+    await loadData();
+  }
+
   if (loading) return <LoadingState label="Loading applications..." />;
 
   return (
@@ -103,8 +119,9 @@ export function ApplicationsManager() {
                     <td className="p-5 text-body-sm text-on-surface-variant">{formatDateTime(application.created_at)}</td>
                     <td className="p-5">
                       <div className="flex justify-end gap-2">
-                        <button disabled={application.status !== "pending" || busyId === application.id} onClick={() => updateApplication(application.id, "approve_application")} className="rounded-lg bg-green-50 p-2 text-green-700 hover:bg-green-100 disabled:opacity-40"><Icon name="check" /></button>
-                        <button disabled={application.status !== "pending" || busyId === application.id} onClick={() => updateApplication(application.id, "reject_application")} className="rounded-lg bg-error-container p-2 text-error hover:bg-red-100 disabled:opacity-40"><Icon name="close" /></button>
+                        <button title="Approve" disabled={application.status === "approved" || busyId === application.id} onClick={() => updateApplication(application.id, "approve_application")} className="rounded-lg bg-green-50 p-2 text-green-700 hover:bg-green-100 disabled:opacity-30"><Icon name="check" /></button>
+                        <button title="Reject" disabled={application.status === "rejected" || busyId === application.id} onClick={() => updateApplication(application.id, "reject_application")} className="rounded-lg bg-error-container p-2 text-error hover:bg-red-100 disabled:opacity-30"><Icon name="close" /></button>
+                        <button title="Delete Record" disabled={busyId === application.id} onClick={() => deleteApplication(application.id)} className="rounded-lg bg-surface-container-high p-2 text-on-surface-variant hover:bg-outline-variant hover:text-error disabled:opacity-30"><Icon name="delete" /></button>
                       </div>
                     </td>
                   </tr>
