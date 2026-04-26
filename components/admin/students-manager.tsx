@@ -56,9 +56,9 @@ export function StudentsManager() {
   return (
     <>
       <Toast toast={toast} onClear={clearToast} />
-      <PageHeader eyebrow="Students" title="Enrolled students" description="Profiles and enrollments created after approval and student signup. Use this list when assigning tasks or completing courses." action={<Link href="/admin/tasks" className="wc-primary-btn">Assign Task</Link>} />
+      <PageHeader eyebrow="Students" title="Enrolled students" description="Profiles and enrollments created after approval and the student's first email-link login. Use this list when assigning tasks or completing courses." action={<Link href="/admin/tasks" className="wc-primary-btn">Assign Task</Link>} />
       {students.length === 0 ? (
-        <EmptyState title="No student profiles yet" description="Approve an application and have the student sign up to create an enrolled profile." icon="groups" />
+        <EmptyState title="No student profiles yet" description="Approve an application and have the student use the email login link once to create the enrolled profile." icon="groups" />
       ) : (
         <div className="grid gap-6 xl:grid-cols-2">
           {students.map((student) => (

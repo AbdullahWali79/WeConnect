@@ -15,12 +15,12 @@ export default function LoginPage() {
   const message = searchParams.get("message");
   const verified = searchParams.get("verified");
   const supabase = createSupabaseBrowserClient();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "student">("signin");
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<ToastState>(
     verified ? { type: "success", message: "Email verified. You can now continue." } : message ? { type: "info", message: statusMessage(message) } : null,
   );
-  const [form, setForm] = useState({ full_name: "", phone: "", email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const clearToast = useCallback(() => setToast(null), []);
 
   function updateField(name: keyof typeof form, value: string) {
@@ -48,8 +48,49 @@ export default function LoginPage() {
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!/^\S+@\S+\.\S+$/.test(form.email) || form.password.length < 6) {
-      setToast({ type: "error", message: "Use a valid email and a password with at least 6 characters." });
+    if (!/^\S+@\S+\.\S+$/.test(form.email)) {
+      setToast({ type: "error", message: "Use a valid email address." });
+      return;
+    }
+
+    if (mode === "student") {
+      setLoading(true);
+      const email = form.email.trim().toLowerCase();
+      const { data: canRequestAccess, error: approvalError } = await supabase.rpc("can_request_student_access", { target_email: email });
+
+      if (approvalError) {
+        setLoading(false);
+        setToast({ type: "error", message: approvalError.message });
+        return;
+      }
+
+      if (!canRequestAccess) {
+        setLoading(false);
+        setToast({ type: "info", message: "Your email is not approved yet. Ask admin to approve your application first." });
+        return;
+      }
+
+      const origin = window.location.origin;
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: true,
+          emailRedirectTo: `${origin}/auth/callback?next=/student`,
+        },
+      });
+      setLoading(false);
+
+      if (error) {
+        setToast({ type: "error", message: error.message });
+        return;
+      }
+
+      setToast({ type: "success", message: "Login link sent. Student should open the email and continue from the magic link." });
+      return;
+    }
+
+    if (form.password.length < 6) {
+      setToast({ type: "error", message: "Use a password with at least 6 characters." });
       return;
     }
 
@@ -68,39 +109,7 @@ export default function LoginPage() {
       return;
     }
 
-    if (!form.full_name.trim() || !form.phone.trim()) {
-      setLoading(false);
-      setToast({ type: "error", message: "Full name and phone are required for student signup." });
-      return;
-    }
-
-    const origin = window.location.origin;
-    const { data, error } = await supabase.auth.signUp({
-      email: form.email.trim().toLowerCase(),
-      password: form.password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-        data: {
-          full_name: form.full_name.trim(),
-          phone: form.phone.trim(),
-        },
-      },
-    });
-
     setLoading(false);
-
-    if (error) {
-      setToast({ type: "error", message: error.message });
-      return;
-    }
-
-    if (data.session && data.user) {
-      await routeAfterAuth(data.user.id);
-      return;
-    }
-
-    setToast({ type: "success", message: "Account created. Check email if confirmation is enabled, then sign in." });
-    setMode("signin");
   }
 
   return (
@@ -116,7 +125,7 @@ export default function LoginPage() {
           </div>
           <p className="mt-10 text-label-sm uppercase tracking-widest text-blue-100">WeConnect Access</p>
           <h1 className="mt-3 text-4xl font-extrabold leading-tight">Role-based login for admins and students.</h1>
-          <p className="mt-5 text-lg leading-8 text-blue-100">Admins manage courses, applications, tasks, submissions, and completions. Students see only their own tasks and progress under RLS.</p>
+          <p className="mt-5 text-lg leading-8 text-blue-100">Admins sign in with password. Approved students enter only their email and receive a secure login link.</p>
           <div className="mt-10 rounded-xl bg-white/10 p-5 text-sm text-blue-50">
             First admin setup: sign up here, then run the SQL in `supabase/admin-setup.sql` with your email.
           </div>
@@ -125,34 +134,28 @@ export default function LoginPage() {
         <section className="wc-card p-6 md:p-8">
           <div className="mb-8 flex rounded-xl bg-surface-container p-1">
             <button onClick={() => setMode("signin")} className={`flex-1 rounded-lg px-4 py-3 text-label-md ${mode === "signin" ? "bg-white text-primary shadow" : "text-on-surface-variant"}`}>Sign In</button>
-            <button onClick={() => setMode("signup")} className={`flex-1 rounded-lg px-4 py-3 text-label-md ${mode === "signup" ? "bg-white text-primary shadow" : "text-on-surface-variant"}`}>Student Sign Up</button>
+            <button onClick={() => setMode("student")} className={`flex-1 rounded-lg px-4 py-3 text-label-md ${mode === "student" ? "bg-white text-primary shadow" : "text-on-surface-variant"}`}>Student Email Login</button>
           </div>
 
           <form onSubmit={submit} className="space-y-5">
-            {mode === "signup" ? (
-              <div className="grid gap-5 md:grid-cols-2">
-                <label className="block">
-                  <span className="wc-label">Full Name</span>
-                  <input value={form.full_name} onChange={(event) => updateField("full_name", event.target.value)} className="wc-input mt-2" required={mode === "signup"} />
-                </label>
-                <label className="block">
-                  <span className="wc-label">Phone / WhatsApp</span>
-                  <input value={form.phone} onChange={(event) => updateField("phone", event.target.value)} className="wc-input mt-2" required={mode === "signup"} />
-                </label>
-              </div>
-            ) : null}
-
             <label className="block">
               <span className="wc-label">Email</span>
               <input value={form.email} onChange={(event) => updateField("email", event.target.value)} className="wc-input mt-2" type="email" autoComplete="email" required />
             </label>
-            <label className="block">
-              <span className="wc-label">Password</span>
-              <input value={form.password} onChange={(event) => updateField("password", event.target.value)} className="wc-input mt-2" type="password" autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={6} required />
-            </label>
+
+            {mode === "signin" ? (
+              <label className="block">
+                <span className="wc-label">Password</span>
+                <input value={form.password} onChange={(event) => updateField("password", event.target.value)} className="wc-input mt-2" type="password" autoComplete="current-password" minLength={6} required />
+              </label>
+            ) : (
+              <div className="rounded-xl bg-surface-container-low p-4 text-body-md text-on-surface-variant">
+                Approved students do not need a password here. Enter the approved email and the system will send a login link.
+              </div>
+            )}
 
             <button disabled={loading} className="wc-primary-btn w-full py-4 text-lg">
-              {loading ? "Working..." : mode === "signin" ? "Sign In" : "Create Student Account"}
+              {loading ? "Working..." : mode === "signin" ? "Sign In" : "Send Login Link"}
             </button>
           </form>
         </section>

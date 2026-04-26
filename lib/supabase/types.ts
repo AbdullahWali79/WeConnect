@@ -205,6 +205,10 @@ export type Database = {
         Args: { application_id: string };
         Returns: null;
       };
+      can_request_student_access: {
+        Args: { target_email: string };
+        Returns: boolean;
+      };
       reject_application: {
         Args: { application_id: string };
         Returns: null;

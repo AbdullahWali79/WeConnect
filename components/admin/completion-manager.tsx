@@ -80,7 +80,7 @@ export function CompletionManager() {
       <Toast toast={toast} onClear={clearToast} />
       <PageHeader eyebrow="Course Completion" title="Complete enrollments" description="Mark a student course complete and publish the completion record to the public landing page." />
       {enrollments.length === 0 ? (
-        <EmptyState title="No enrollments yet" description="Approve applications and have students sign up before completing courses." icon="workspace_premium" />
+        <EmptyState title="No enrollments yet" description="Approve applications and have students use the email login link before completing courses." icon="workspace_premium" />
       ) : (
         <div className="grid gap-6">
           {enrollments.map((enrollment) => {

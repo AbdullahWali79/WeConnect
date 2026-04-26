@@ -143,6 +143,28 @@ as $$
   );
 $$;
 
+create or replace function public.can_request_student_access(target_email text)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.applications
+    where lower(email) = lower(target_email)
+      and status = 'approved'
+  )
+  or exists (
+    select 1
+    from public.profiles
+    where lower(email) = lower(target_email)
+      and role = 'student'
+      and status = 'approved'
+  );
+$$;
+
 create or replace function public.refresh_student_progress(target_student_id uuid, target_course_id uuid)
 returns void
 language plpgsql
@@ -654,6 +676,7 @@ create policy "Admins can manage completed students" on public.completed_student
 grant usage on schema public to anon, authenticated;
 grant select on public.completed_student_showcase to anon, authenticated;
 grant execute on function public.approve_application(uuid) to authenticated;
+grant execute on function public.can_request_student_access(text) to anon, authenticated;
 grant execute on function public.reject_application(uuid) to authenticated;
 grant execute on function public.mark_course_completed(uuid, uuid) to authenticated;
 grant execute on function public.refresh_student_progress(uuid, uuid) to authenticated;

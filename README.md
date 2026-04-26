@@ -39,6 +39,14 @@ supabase/migrations/20260426000000_init_weconnect.sql
 supabase/seed.sql
 ```
 
+5. In `Authentication > URL Configuration`, set:
+
+```text
+Site URL: https://your-production-domain
+Redirect URL: https://your-production-domain/auth/callback
+Redirect URL: http://localhost:3000/auth/callback
+```
+
 The migration creates:
 
 - `profiles`
@@ -84,9 +92,10 @@ Replace `ADMIN_EMAIL_HERE` before running it.
 
 - Public user submits `/apply`.
 - Admin approves the application from `/admin/applications`.
-- If the student already signed up, approval updates the profile and creates enrollment.
-- If the student has not signed up yet, the Auth trigger creates the approved profile and enrollment when the student signs up with the same email.
-- Student then logs in from `/login` and sees only their own dashboard data.
+- Approved students use email-only access from `/login` under `Student Email Login`.
+- The app sends a Supabase magic link to the approved email address.
+- If the student has not been created in Auth yet, the magic link request creates the Auth user and the trigger creates the approved profile and enrollment from the application email.
+- Student then lands on `/student` and sees only their own dashboard data.
 
 ## Local Run
 
@@ -129,7 +138,7 @@ Public:
 
 - `/` landing page with live courses and completed students
 - `/apply` public course application form
-- `/login` sign in and student signup
+- `/login` admin sign in and approved-student email login
 
 Admin:
 
@@ -155,4 +164,5 @@ Student:
 - Public users can only read active courses/categories and insert pending applications.
 - Students can only read their own profile/enrollments/tasks/resources/submissions/progress.
 - Students submit tasks through the `submit_task` RPC, which validates task ownership and prevents score/feedback tampering.
+- Approved student login requests are validated through the `can_request_student_access` security-definer function before a magic link is sent.
 - Admins can manage all operational tables through RLS-backed policies.
