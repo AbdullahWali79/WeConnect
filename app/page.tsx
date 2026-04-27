@@ -20,6 +20,15 @@ export default async function LandingPage() {
 
   const activeCourses = courses ?? [];
   const news = (newsData as (AINews & { id: string })[]) ?? [];
+  const contactPhone = "03046983794";
+  const contactHref = "tel:+923046983794";
+  const marketingTracks = [
+    "Digital Marketing",
+    "Client Hunting",
+    "Web Development (WordPress)",
+    "App Development",
+    "MERN Stack Development",
+  ];
 
   return (
     <main className="bg-background text-on-background">
@@ -50,40 +59,99 @@ export default async function LandingPage() {
         <div className="absolute right-0 top-20 -z-10 h-80 w-80 rounded-full bg-secondary-container/70 blur-3xl" />
         <div className="mx-auto grid max-w-container-max items-center gap-12 px-5 py-24 md:px-margin-page lg:grid-cols-[1.05fr_0.95fr] lg:py-32">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-fixed px-4 py-2 text-sm font-bold text-on-primary-fixed">
-              <Icon name="workspace_premium" className="text-base" /> Professional Software House Training
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold uppercase tracking-wide text-white shadow-lg">
+              <Icon name="rocket_launch" className="text-base" /> Your skills today, your success tomorrow
             </div>
-            <h1 className="max-w-[12ch] text-[clamp(3.25rem,6vw,5.4rem)] font-extrabold leading-[0.96] tracking-[-0.05em] text-primary">
-              <span className="block">Build portfolio-grade</span>
-              <span className="block">skills with real tasks,</span>
-              <span className="block">reviews, and measurable</span>
-              <span className="block">progress.</span>
+            <h1 className="max-w-[9ch] text-[clamp(3.4rem,6.5vw,6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.06em] text-primary">
+              <span className="block">Training</span>
+              <span className="block">Program</span>
             </h1>
-            <p className="mt-8 max-w-[39rem] text-[clamp(1.15rem,2vw,1.55rem)] leading-[1.65] text-on-surface-variant">
-              <span className="block">WeConnect turns course applications, student onboarding, task assignment,</span>
-              <span className="block">submission review, and course completion into one connected learning workflow.</span>
+            <div className="mt-4 flex max-w-2xl items-center gap-4 text-primary">
+              <span className="h-px flex-1 bg-primary/25" />
+              <p className="text-[clamp(1.35rem,2.5vw,2rem)] font-black uppercase tracking-[0.28em] text-primary/85">Leading To</p>
+              <span className="h-px flex-1 bg-primary/25" />
+            </div>
+            <p className="mt-4 text-[clamp(2.8rem,5vw,4.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em] text-blue-700">
+              Internship
+            </p>
+            <p className="mt-8 max-w-[42rem] text-[clamp(1.08rem,1.8vw,1.35rem)] leading-[1.7] text-on-surface-variant">
+              Learn in-demand skills and start your career through structured software house training, practical assignments,
+              client-focused practice, reviews, and measurable progress.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link href="/apply" className="wc-primary-btn px-8 py-4 text-lg shadow-lg">Apply Now</Link>
+              <Link href="/apply" className="wc-primary-btn px-8 py-4 text-lg shadow-lg">Enroll Now</Link>
               <a href="#courses" className="wc-secondary-btn px-8 py-4 text-lg">View Courses</a>
             </div>
-            <div className="mt-10 flex flex-wrap gap-4 text-label-md text-on-surface-variant">
-              <span className="rounded-xl bg-white px-4 py-3 shadow-card"><b className="text-primary">Live</b> admin approvals</span>
-              <span className="rounded-xl bg-white px-4 py-3 shadow-card"><b className="text-primary">RLS</b> protected student data</span>
-              <span className="rounded-xl bg-white px-4 py-3 shadow-card"><b className="text-primary">Auto</b> progress reports</span>
+            <div className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-2">
+              {marketingTracks.map((track) => (
+                <div key={track} className="rounded-xl border border-primary/10 bg-white/90 px-4 py-3 text-sm font-bold text-on-surface shadow-card">
+                  {track}
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 flex max-w-2xl flex-col gap-4 rounded-2xl bg-secondary px-6 py-5 text-primary shadow-lg sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">Limited Seats</p>
+                <p className="mt-1 text-3xl font-extrabold uppercase tracking-[-0.04em]">Only 10 Students</p>
+              </div>
+              <a href={contactHref} className="inline-flex items-center gap-3 rounded-xl bg-primary px-5 py-3 text-lg font-black text-white">
+                <Icon name="call" /> {contactPhone}
+              </a>
             </div>
           </div>
           <div className="wc-card overflow-hidden p-5">
-            <div className="rounded-xl bg-primary p-6 text-white">
-              <p className="text-label-sm uppercase tracking-widest text-blue-100">Training Pipeline</p>
-              <h2 className="mt-2 text-3xl font-extrabold">Application to completion</h2>
-              <div className="mt-8 grid gap-4">
-                {["Apply for a course", "Admin approves and enrolls", "Tasks assigned with resources", "Submission reviewed with score", "Completed student appears publicly"].map((item, index) => (
-                  <div key={item} className="flex items-center gap-4 rounded-xl bg-white/10 p-4">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary-container text-sm font-black text-on-secondary-fixed">{index + 1}</div>
-                    <span className="font-bold">{item}</span>
+            <div className="rounded-[1.75rem] bg-white p-6 shadow-inner ring-1 ring-primary/10">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">WeConnect</p>
+                  <h2 className="mt-2 text-3xl font-extrabold uppercase leading-none tracking-[-0.05em] text-primary">Software House Training</h2>
+                </div>
+                <div className="rounded-2xl bg-surface-container-low px-4 py-3 text-right">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-on-surface-variant">Duration</p>
+                  <p className="mt-1 text-3xl font-extrabold leading-none text-blue-700">3 Months</p>
+                  <p className="mt-1 text-sm font-bold uppercase tracking-wide text-on-surface-variant">Program</p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4">
+                <div className="grid gap-3 rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
+                  <p className="text-sm font-black uppercase tracking-[0.22em] text-primary/70">Courses</p>
+                  <div className="grid gap-3">
+                    {marketingTracks.map((item) => (
+                      <div key={item} className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
+                          <Icon name="school" className="text-lg" />
+                        </div>
+                        <span className="font-bold text-on-surface">{item}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
+                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Certificate By</p>
+                    <p className="mt-2 text-2xl font-extrabold leading-tight text-blue-700">WeConnect</p>
+                    <p className="mt-1 font-bold uppercase tracking-wide text-on-surface">(Software House)</p>
+                  </div>
+                  <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
+                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Career Track</p>
+                    <p className="mt-2 text-lg font-extrabold leading-tight text-primary">Learn practical software house skills</p>
+                    <p className="mt-2 text-sm leading-6 text-on-surface-variant">Build your internship-ready portfolio through real tasks and reviews.</p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-primary p-5 text-white">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-sm font-black uppercase tracking-[0.22em] text-blue-100">Contact</p>
+                      <p className="mt-1 text-4xl font-extrabold tracking-[-0.05em]">{contactPhone}</p>
+                    </div>
+                    <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold text-blue-50">
+                      Learn practical skills, build confidence, get internship exposure, and launch your career.
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -215,7 +283,7 @@ export default async function LandingPage() {
             <h2 className="mt-3 text-headline-lg">Start with an application</h2>
             <p className="mt-4 text-lg leading-8 text-blue-100">Submit your details, and your application will appear immediately in the admin dashboard as pending.</p>
             <div className="mt-8 space-y-4 text-blue-50">
-              <p className="flex items-center gap-3"><Icon name="mail" /> admissions@weconnect.edu</p>
+              <a href={contactHref} className="flex items-center gap-3 text-xl font-black text-white"><Icon name="call" /> {contactPhone}</a>
               <p className="flex items-center gap-3"><Icon name="location_on" /> Remote and software house training tracks</p>
             </div>
           </div>
@@ -226,7 +294,7 @@ export default async function LandingPage() {
       <footer className="bg-white py-8">
         <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-slate-500 md:flex-row md:items-center md:justify-between md:px-margin-page">
           <div className="font-black text-blue-900">WeConnect</div>
-          <p>© 2026 WeConnect Training Portal. Professional Software Engineering Education.</p>
+          <p>© 2026 WeConnect Training Portal. Contact {contactPhone} for admissions and internship training.</p>
           <div className="flex gap-4">
             <Link href="/login" className="underline hover:text-blue-600">Portal Login</Link>
             <Link href="/apply" className="underline hover:text-blue-600">Apply</Link>
