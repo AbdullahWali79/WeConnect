@@ -14,7 +14,7 @@ export default async function ApplyPage({ searchParams }: { searchParams: Promis
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(0,51,160,0.18),transparent_34%),linear-gradient(135deg,#ffffff,#f0f3ff_60%,#d8e3fb)] px-5 py-8 md:px-margin-page">
       <div className="mx-auto max-w-5xl">
         <Link href="/" className="mb-8 inline-flex items-center gap-2 text-label-md text-primary">
-          <Icon name="arrow_back" className="text-lg" /> Back to WeConnect
+          <Icon name="arrow_back" className="text-lg" /> Back to WeConnect-Inovation
         </Link>
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <section className="rounded-2xl bg-primary p-8 text-white shadow-2xl">

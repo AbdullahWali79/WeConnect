@@ -46,7 +46,7 @@ export default async function LandingPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
               <Icon name="hub" />
             </div>
-            <div className="text-xl font-extrabold tracking-tighter text-blue-800">WeConnect</div>
+            <div className="text-xl font-extrabold tracking-tighter text-blue-800">WeConnect-Inovation</div>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
             <a className="border-b-2 border-blue-700 pb-1 text-blue-700" href="#overview">Overview</a>
@@ -111,7 +111,7 @@ export default async function LandingPage() {
             <div className="rounded-[1.75rem] bg-white p-6 shadow-inner ring-1 ring-primary/10">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">WeConnect</p>
+                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">WeConnect-Inovation</p>
                   <h2 className="mt-2 text-3xl font-extrabold uppercase leading-none tracking-[-0.05em] text-primary">Software House Training</h2>
                 </div>
                 <div className="rounded-2xl bg-surface-container-low px-4 py-3 text-right">
@@ -169,7 +169,7 @@ export default async function LandingPage() {
       <section className="bg-white py-xxl">
         <div className="mx-auto max-w-container-max px-5 md:px-margin-page">
           <div className="mb-12 max-w-3xl">
-            <p className="text-label-sm uppercase tracking-widest text-primary">Why WeConnect?</p>
+            <p className="text-label-sm uppercase tracking-widest text-primary">Why WeConnect-Inovation?</p>
             <h2 className="mt-3 text-headline-lg text-primary">Built for practical training operations</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -301,8 +301,8 @@ export default async function LandingPage() {
 
       <footer className="bg-white py-8">
         <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-slate-500 md:flex-row md:items-center md:justify-between md:px-margin-page">
-          <div className="font-black text-blue-900">WeConnect</div>
-          <p>© 2026 WeConnect Training Portal. Contact {contactPhone} for admissions and internship training.</p>
+          <div className="font-black text-blue-900">WeConnect-Inovation</div>
+          <p>© 2026 WeConnect-Inovation Training Portal. Contact {contactPhone} for admissions and internship training.</p>
           <div className="flex gap-4">
             <Link href="/login" className="underline hover:text-blue-600">Portal Login</Link>
             <Link href="/apply" className="underline hover:text-blue-600">Apply</Link>

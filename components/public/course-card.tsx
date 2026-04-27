@@ -14,7 +14,7 @@ export function CourseCard({ course }: { course: Course }) {
           <span className="rounded-full bg-secondary-container px-3 py-1 text-xs font-bold text-on-secondary-fixed">{course.level ?? "Open"}</span>
         </div>
         <h3 className="text-title-lg text-on-surface">{course.title}</h3>
-        <p className="mt-3 flex-1 text-body-md text-on-surface-variant">{course.description ?? "A practical WeConnect course with guided tasks and mentor review."}</p>
+        <p className="mt-3 flex-1 text-body-md text-on-surface-variant">{course.description ?? "A practical WeConnect-Inovation course with guided tasks and mentor review."}</p>
         <div className="mt-6 flex items-center justify-between text-body-sm text-on-surface-variant">
           <span className="flex items-center gap-1"><Icon name="schedule" className="text-base" /> {course.duration ?? "Self paced"}</span>
           <span className="flex items-center gap-1"><Icon name="verified" className="text-base" /> Certificate</span>

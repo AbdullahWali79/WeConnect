@@ -134,7 +134,7 @@ export default function LoginPage() {
           <div className="mt-16 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15">
             <Icon name="lock_open" className="text-4xl" />
           </div>
-          <p className="mt-10 text-label-sm uppercase tracking-widest text-blue-100">WeConnect Access</p>
+          <p className="mt-10 text-label-sm uppercase tracking-widest text-blue-100">WeConnect-Inovation Access</p>
           <h1 className="mt-3 text-4xl font-extrabold leading-tight">Role-based login for admins and students.</h1>
           <p className="mt-5 text-lg leading-8 text-blue-100">Admins sign in with password. Approved students create their own password once, then use the same email and password to sign in.</p>
           <div className="mt-10 rounded-xl bg-white/10 p-5 text-sm text-blue-50">

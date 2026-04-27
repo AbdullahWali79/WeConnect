@@ -1,4 +1,4 @@
-# WeConnect Training Portal
+# WeConnect-Inovation Training Portal
 
 Full-stack Next.js App Router application connected to Supabase Auth, Supabase Database, and Row Level Security.
 

@@ -32,7 +32,7 @@ export function StudentShell({ profile, children }: { profile: Profile | null; c
           </div>
           <div>
             <span className="text-lg font-bold">Student Hub</span>
-            <p className="text-xs text-blue-100">WeConnect Learning</p>
+            <p className="text-xs text-blue-100">WeConnect-Inovation Learning</p>
           </div>
         </div>
         <nav className="flex gap-2 overflow-x-auto px-4 pb-4 lg:block lg:space-y-2 lg:overflow-visible">

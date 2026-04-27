@@ -38,7 +38,7 @@ export function AdminShell({ profile, children }: { profile: Profile | null; chi
           </div>
           <div>
             <h1 className="text-lg font-bold">Admin Portal</h1>
-            <p className="text-xs text-blue-100">WeConnect Operations</p>
+            <p className="text-xs text-blue-100">WeConnect-Inovation Operations</p>
           </div>
         </div>
         <nav className="flex gap-2 overflow-x-auto px-4 pb-4 lg:block lg:space-y-2 lg:overflow-visible">

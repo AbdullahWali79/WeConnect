@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "WeConnect Training Portal",
+  title: "WeConnect-Inovation Training Portal",
   description: "Professional software engineering training portal powered by Supabase.",
 };
 
