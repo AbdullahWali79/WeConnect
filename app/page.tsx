@@ -29,6 +29,14 @@ export default async function LandingPage() {
     "App Development",
     "MERN Stack Development",
   ];
+  const workflowSteps = [
+    "Student submits a course application",
+    "Admin reviews and approves enrollment",
+    "Approved student creates account and signs in",
+    "Tasks are assigned with learning resources",
+    "Submission is reviewed with score and feedback",
+    "Progress updates automatically until completion",
+  ];
 
   return (
     <main className="bg-background text-on-background">
@@ -115,12 +123,12 @@ export default async function LandingPage() {
 
               <div className="mt-6 grid gap-4">
                 <div className="grid gap-3 rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
-                  <p className="text-sm font-black uppercase tracking-[0.22em] text-primary/70">Courses</p>
+                  <p className="text-sm font-black uppercase tracking-[0.22em] text-primary/70">Platform Workflow</p>
                   <div className="grid gap-3">
-                    {marketingTracks.map((item) => (
+                    {workflowSteps.map((item, index) => (
                       <div key={item} className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
-                          <Icon name="school" className="text-lg" />
+                          <span className="text-sm font-black">{index + 1}</span>
                         </div>
                         <span className="font-bold text-on-surface">{item}</span>
                       </div>
@@ -130,14 +138,14 @@ export default async function LandingPage() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
-                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Certificate By</p>
-                    <p className="mt-2 text-2xl font-extrabold leading-tight text-blue-700">WeConnect</p>
-                    <p className="mt-1 font-bold uppercase tracking-wide text-on-surface">(Software House)</p>
+                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Approval Flow</p>
+                    <p className="mt-2 text-lg font-extrabold leading-tight text-blue-700">Application first</p>
+                    <p className="mt-2 text-sm leading-6 text-on-surface-variant">Student access starts only after admin approval, matching the real onboarding flow used in this portal.</p>
                   </div>
                   <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
-                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Career Track</p>
-                    <p className="mt-2 text-lg font-extrabold leading-tight text-primary">Learn practical software house skills</p>
-                    <p className="mt-2 text-sm leading-6 text-on-surface-variant">Build your internship-ready portfolio through real tasks and reviews.</p>
+                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Progress System</p>
+                    <p className="mt-2 text-lg font-extrabold leading-tight text-primary">Review-driven growth</p>
+                    <p className="mt-2 text-sm leading-6 text-on-surface-variant">Tasks, submissions, scores, and completion records stay connected across the whole training cycle.</p>
                   </div>
                 </div>
 
