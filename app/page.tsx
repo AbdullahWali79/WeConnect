@@ -53,11 +53,15 @@ export default async function LandingPage() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-fixed px-4 py-2 text-sm font-bold text-on-primary-fixed">
               <Icon name="workspace_premium" className="text-base" /> Professional Software House Training
             </div>
-            <h1 className="max-w-4xl text-5xl font-extrabold tracking-tight text-primary md:text-display-xl">
-              Build portfolio-grade skills with real tasks, reviews, and measurable progress.
+            <h1 className="max-w-[12ch] text-[clamp(3.25rem,6vw,5.4rem)] font-extrabold leading-[0.96] tracking-[-0.05em] text-primary">
+              <span className="block">Build portfolio-grade</span>
+              <span className="block">skills with real tasks,</span>
+              <span className="block">reviews, and measurable</span>
+              <span className="block">progress.</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-on-surface-variant">
-              WeConnect turns course applications, student onboarding, task assignment, submission review, and course completion into one connected learning workflow.
+            <p className="mt-8 max-w-[39rem] text-[clamp(1.15rem,2vw,1.55rem)] leading-[1.65] text-on-surface-variant">
+              <span className="block">WeConnect turns course applications, student onboarding, task assignment,</span>
+              <span className="block">submission review, and course completion into one connected learning workflow.</span>
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link href="/apply" className="wc-primary-btn px-8 py-4 text-lg shadow-lg">Apply Now</Link>
