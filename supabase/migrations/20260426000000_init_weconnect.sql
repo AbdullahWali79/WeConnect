@@ -665,6 +665,22 @@ create policy "Public can read public completed students" on public.completed_st
 create policy "Admins can manage completed students" on public.completed_students
   for all using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
 
+create table if not exists public.announcements (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  message text not null,
+  priority text check (priority in ('low','normal','high','urgent')) default 'normal',
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create policy "Anyone can read active announcements" on public.announcements
+  for select using (is_active = true or public.is_admin(auth.uid()));
+
+create policy "Admins can manage announcements" on public.announcements
+  for all using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
+
 grant usage on schema public to anon, authenticated;
 grant select on public.completed_student_showcase to anon, authenticated;
 grant execute on function public.approve_application(uuid) to authenticated;

@@ -119,6 +119,16 @@ export type CompletedStudent = {
   completed_at: string;
 };
 
+export type Announcement = {
+  id: string;
+  title: string;
+  message: string;
+  priority: "low" | "normal" | "high" | "urgent";
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type CompletedStudentShowcase = {
   id: string;
   student_id: string;
@@ -185,6 +195,12 @@ export type Database = {
         Row: ProgressReport;
         Insert: Partial<ProgressReport> & { student_id: string; course_id: string };
         Update: Partial<ProgressReport>;
+        Relationships: [];
+      };
+      announcements: {
+        Row: Announcement;
+        Insert: Partial<Announcement> & { title: string; message: string };
+        Update: Partial<Announcement>;
         Relationships: [];
       };
       completed_students: {

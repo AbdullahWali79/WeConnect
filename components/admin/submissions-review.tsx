@@ -144,7 +144,7 @@ export function SubmissionsReview() {
                       </label>
                       <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-1">
                         <button disabled={busyId === submission.id} className="wc-primary-btn py-2.5 text-sm">Save Score</button>
-                        <button type="button" disabled={busyId === submission.id} onClick={() => saveReview(submission, "revision_required")} className="wc-secondary-btn border-orange-500 py-2.5 text-sm text-orange-700 hover:bg-orange-50">Request Revision</button>
+                        <button type="button" disabled={busyId === submission.id} onClick={() => saveReview(submission, "revision_required")} className="wc-secondary-btn border-orange-500 py-2.5 text-sm text-orange-700 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-900/30">Request Revision</button>
                       </div>
                     </form>
                   </div>

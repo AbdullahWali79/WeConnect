@@ -8,6 +8,7 @@ import type { Profile } from "@/lib/supabase/types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/icon";
+import { useTheme } from "@/components/theme-provider";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: "dashboard" },
@@ -18,12 +19,14 @@ const nav = [
   { href: "/admin/submissions", label: "Reviews", icon: "rate_review" },
   { href: "/admin/progress", label: "Progress", icon: "monitoring" },
   { href: "/admin/completions", label: "Completion", icon: "workspace_premium" },
+  { href: "/admin/announcements", label: "Announcements", icon: "campaign" },
 ];
 
 export function AdminShell({ profile, children }: { profile: Profile | null; children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createSupabaseBrowserClient();
+  const { resolvedTheme, toggleTheme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -75,7 +78,7 @@ export function AdminShell({ profile, children }: { profile: Profile | null; chi
         animate={{ width: collapsed ? 80 : 256 }}
         transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
         className={cn(
-          "fixed left-0 top-0 z-50 h-screen border-r border-white/10 bg-primary text-white lg:relative lg:block",
+          "fixed left-0 top-0 z-50 h-screen border-r border-white/10 bg-[#00216e] text-white dark:bg-[#0a1628] lg:relative lg:block",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
@@ -183,6 +186,36 @@ export function AdminShell({ profile, children }: { profile: Profile | null; chi
               );
             })}
           </nav>
+
+          {/* Dark Mode Toggle */}
+          <div className="px-3 py-2">
+            <button
+              onClick={toggleTheme}
+              className={cn(
+                "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all duration-200",
+                collapsed ? "justify-center" : "",
+                "text-blue-100 hover:bg-white/10 hover:text-white"
+              )}
+              title={collapsed ? (resolvedTheme === "dark" ? "Light Mode" : "Dark Mode") : undefined}
+            >
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center">
+                <Icon name={resolvedTheme === "dark" ? "light_mode" : "dark_mode"} className="text-[20px]" />
+              </span>
+              <AnimatePresence>
+                {!collapsed && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden whitespace-nowrap"
+                  >
+                    {resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
 
           {/* User Profile Footer */}
           <div className="px-3 py-4">

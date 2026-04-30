@@ -156,7 +156,7 @@ export function AdminDashboard() {
                           <button
                             disabled={application.status !== "pending" || busyId === application.id}
                             onClick={() => updateApplication(application.id, "approve_application")}
-                            className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-50 text-green-700 transition hover:bg-green-100 hover:scale-105 disabled:opacity-40"
+                            className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-50 text-green-700 transition hover:bg-green-100 hover:scale-105 disabled:opacity-40 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50"
                           >
                             <Icon name="check" className="text-base" />
                           </button>

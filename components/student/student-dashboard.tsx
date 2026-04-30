@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/page-header";
 import { StatusPill } from "@/components/status-pill";
 import { Toast, type ToastState } from "@/components/toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import type { Course, ProgressReport, Submission, Task, TaskResource } from "@/lib/supabase/types";
+import type { Announcement, Course, ProgressReport, Submission, Task, TaskResource } from "@/lib/supabase/types";
 import { formatDateTime } from "@/lib/utils";
 
 export function StudentDashboard() {
@@ -19,18 +19,20 @@ export function StudentDashboard() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [reports, setReports] = useState<ProgressReport[]>([]);
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<ToastState>(null);
   const clearToast = useCallback(() => setToast(null), []);
 
   const loadData = useCallback(async () => {
     setLoading(true);
-    const [taskResult, resourceResult, submissionResult, courseResult, reportResult] = await Promise.all([
+    const [taskResult, resourceResult, submissionResult, courseResult, reportResult, announcementResult] = await Promise.all([
       supabase.from("tasks").select("*").order("deadline", { ascending: true, nullsFirst: false }),
       supabase.from("task_resources").select("*").order("created_at", { ascending: true }),
       supabase.from("submissions").select("*").order("submitted_at", { ascending: false }),
       supabase.from("courses").select("*").order("title"),
       supabase.from("progress_reports").select("*").order("updated_at", { ascending: false }),
+      supabase.from("announcements").select("*").eq("is_active", true).order("created_at", { ascending: false }),
     ]);
     const error = taskResult.error ?? resourceResult.error ?? submissionResult.error ?? courseResult.error ?? reportResult.error;
     if (error) setToast({ type: "error", message: error.message });
@@ -39,6 +41,7 @@ export function StudentDashboard() {
     setSubmissions(submissionResult.data ?? []);
     setCourses(courseResult.data ?? []);
     setReports(reportResult.data ?? []);
+    setAnnouncements(announcementResult.data ?? []);
     setLoading(false);
   }, [supabase]);
 
@@ -60,7 +63,16 @@ export function StudentDashboard() {
       <Toast toast={toast} onClear={clearToast} />
       <PageHeader eyebrow="Student Hub" title="My assigned tasks" description="View assigned work, open resources, and submit task proof. RLS limits this page to your own rows." action={<Link href="/student/progress" className="wc-secondary-btn">View Progress</Link>} />
 
-      <div className="mb-8 grid gap-5 md:grid-cols-4">
+      {/* Announcements Banner */}
+      {announcements.length > 0 && (
+        <div className="mb-6 space-y-3">
+          {announcements.map((announcement) => (
+            <AnnouncementBanner key={announcement.id} announcement={announcement} />
+          ))}
+        </div>
+      )}
+
+      <div className="mb-6 grid gap-4 md:grid-cols-4">
         <Stat label="Overall Progress" value={`${progress}%`} icon="donut_large" dark />
         <Stat label="Total Tasks" value={totalTasks} icon="assignment" />
         <Stat label="Pending Tasks" value={pendingTasks} icon="pending_actions" />
@@ -113,12 +125,40 @@ export function StudentDashboard() {
   );
 }
 
+const priorityStyles: Record<string, string> = {
+  low: "border-l-4 border-slate-300 bg-slate-50",
+  normal: "border-l-4 border-blue-400 bg-blue-50",
+  high: "border-l-4 border-orange-400 bg-orange-50",
+  urgent: "border-l-4 border-red-500 bg-red-50",
+};
+
+const priorityIcons: Record<string, string> = {
+  low: "info",
+  normal: "notifications",
+  high: "warning",
+  urgent: "notification_important",
+};
+
+function AnnouncementBanner({ announcement }: { announcement: Announcement }) {
+  return (
+    <div className={`rounded-lg p-3 ${priorityStyles[announcement.priority]}`}>
+      <div className="flex items-start gap-3">
+        <span className="material-symbols-outlined text-lg text-primary shrink-0">{priorityIcons[announcement.priority]}</span>
+        <div className="min-w-0">
+          <p className="text-sm font-bold text-on-surface">{announcement.title}</p>
+          <p className="text-xs text-on-surface-variant">{announcement.message}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Stat({ label, value, icon, dark }: { label: string; value: string | number; icon: string; dark?: boolean }) {
   return (
-    <div className={dark ? "rounded-xl bg-primary p-5 text-white shadow-card" : "wc-card p-5"}>
-      <div className={dark ? "mb-5 inline-flex rounded-xl bg-white/15 p-3" : "mb-5 inline-flex rounded-xl bg-surface-container p-3 text-primary"}><Icon name={icon} /></div>
-      <p className={dark ? "text-sm font-bold text-blue-100" : "text-sm font-bold text-on-surface-variant"}>{label}</p>
-      <p className={dark ? "text-4xl font-black text-white" : "text-4xl font-black text-primary"}>{value}</p>
+    <div className={dark ? "rounded-xl bg-primary p-4 text-white shadow-card" : "wc-card p-4"}>
+      <div className={dark ? "mb-3 inline-flex rounded-xl bg-white/15 p-2" : "mb-3 inline-flex rounded-xl bg-surface-container p-2 text-primary"}><Icon name={icon} className="text-lg" /></div>
+      <p className={dark ? "text-xs font-bold text-blue-100" : "text-xs font-bold text-on-surface-variant"}>{label}</p>
+      <p className={dark ? "text-2xl font-black text-white" : "text-2xl font-black text-primary"}>{value}</p>
     </div>
   );
 }
