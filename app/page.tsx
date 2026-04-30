@@ -111,9 +111,17 @@ export default async function LandingPage() {
             </FadeIn>
 
             <FadeIn delay={0.3}>
-              <p className="mt-4 text-[clamp(2.8rem,5vw,4.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em]">
-                <GradientText>Internship</GradientText>
-              </p>
+              <div className="mt-4 space-y-1">
+                <p className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em]">
+                  <GradientText>Internship</GradientText>
+                </p>
+                <p className="text-[clamp(1.8rem,3.5vw,3.2rem)] font-extrabold uppercase leading-none tracking-[-0.04em] text-primary/80">
+                  Paid Internship
+                </p>
+                <p className="text-[clamp(1.6rem,3vw,2.8rem)] font-extrabold uppercase leading-none tracking-[-0.03em] text-primary/60">
+                  Job <span className="text-secondary">INSHALLAH</span> 🤲
+                </p>
+              </div>
             </FadeIn>
 
             <FadeIn delay={0.4}>
@@ -172,8 +180,8 @@ export default async function LandingPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">WeConnect-Inovation</p>
-                    <h2 className="mt-2 text-3xl font-extrabold uppercase leading-none tracking-[-0.05em] text-primary">
-                      Software House Training
+                    <h2 className="mt-2 text-2xl font-extrabold uppercase leading-none tracking-[-0.05em] text-primary">
+                      Training → Job
                     </h2>
                   </div>
                   <div className="rounded-2xl bg-surface-container-low px-4 py-3 text-right shadow-inner">
@@ -225,7 +233,7 @@ export default async function LandingPage() {
                         <p className="mt-1 text-4xl font-extrabold tracking-[-0.05em]">{contactPhone}</p>
                       </div>
                       <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold text-blue-50 backdrop-blur-sm">
-                        Learn practical skills, build confidence, get internship exposure, and launch your career.
+                        Training → Internship → Paid Internship → Job INSHALLAH 🤲
                       </div>
                     </div>
                   </div>
