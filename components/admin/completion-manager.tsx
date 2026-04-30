@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { EmptyState } from "@/components/empty-state";
 import { Icon } from "@/components/icon";
 import { LoadingState } from "@/components/loading-state";
@@ -79,38 +80,41 @@ export function CompletionManager() {
     <>
       <Toast toast={toast} onClear={clearToast} />
       <PageHeader eyebrow="Course Completion" title="Complete enrollments" description="Mark a student course complete and publish the completion record to the public landing page." />
-      {enrollments.length === 0 ? (
-        <EmptyState title="No enrollments yet" description="Approve applications and have students complete Student Sign Up before completing courses." icon="workspace_premium" />
-      ) : (
-        <div className="grid gap-6">
-          {enrollments.map((enrollment) => {
-            const report = reportMap.get(`${enrollment.student_id}:${enrollment.course_id}`);
-            const completedRow = completedMap.get(`${enrollment.student_id}:${enrollment.course_id}`);
-            return (
-              <article key={enrollment.id} className="wc-card p-6">
-                <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
-                  <div>
-                    <div className="mb-3 flex flex-wrap items-center gap-3">
-                      <h2 className="text-title-lg text-on-surface">{studentById.get(enrollment.student_id)?.full_name ?? "Unknown student"}</h2>
-                      <StatusPill value={enrollment.status} />
-                      {completedRow ? <StatusPill value={completedRow.is_public ? "approved" : "inactive"} /> : null}
+
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        {enrollments.length === 0 ? (
+          <EmptyState title="No enrollments yet" description="Approve applications and have students complete Student Sign Up before completing courses." icon="workspace_premium" />
+        ) : (
+          <div className="grid gap-4">
+            {enrollments.map((enrollment) => {
+              const report = reportMap.get(`${enrollment.student_id}:${enrollment.course_id}`);
+              const completedRow = completedMap.get(`${enrollment.student_id}:${enrollment.course_id}`);
+              return (
+                <article key={enrollment.id} className="wc-card p-4">
+                  <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+                    <div>
+                      <div className="mb-2 flex flex-wrap items-center gap-2">
+                        <h2 className="text-sm font-bold text-on-surface">{studentById.get(enrollment.student_id)?.full_name ?? "Unknown student"}</h2>
+                        <StatusPill value={enrollment.status} />
+                        {completedRow ? <StatusPill value={completedRow.is_public ? "approved" : "inactive"} /> : null}
+                      </div>
+                      <p className="text-sm text-on-surface-variant">{courseById.get(enrollment.course_id)?.title ?? "Unknown course"}</p>
+                      <p className="mt-1 text-xs text-on-surface-variant">Progress {report?.progress_percentage ?? enrollment.progress_percentage}% · Completed tasks {report?.completed_tasks ?? 0}/{report?.total_tasks ?? 0} · Score {report?.average_score ?? enrollment.final_score}</p>
+                      {completedRow ? <p className="mt-1 text-xs text-on-surface-variant">Completed {formatDateTime(completedRow.completed_at)}</p> : null}
                     </div>
-                    <p className="text-body-md text-on-surface-variant">{courseById.get(enrollment.course_id)?.title ?? "Unknown course"}</p>
-                    <p className="mt-2 text-body-sm text-on-surface-variant">Progress {report?.progress_percentage ?? enrollment.progress_percentage}% · Completed tasks {report?.completed_tasks ?? 0}/{report?.total_tasks ?? 0} · Score {report?.average_score ?? enrollment.final_score}</p>
-                    {completedRow ? <p className="mt-2 text-body-sm text-on-surface-variant">Completed {formatDateTime(completedRow.completed_at)}</p> : null}
+                    <div className="flex flex-wrap gap-2">
+                      <button disabled={busyId === enrollment.id} onClick={() => markCompleted(enrollment)} className="wc-primary-btn text-sm py-2 px-3">
+                        <Icon name="workspace_premium" className="text-base" /> {enrollment.status === "completed" ? "Refresh" : "Mark Completed"}
+                      </button>
+                      {completedRow ? <button onClick={() => togglePublic(completedRow)} className="wc-secondary-btn text-sm py-2 px-3">{completedRow.is_public ? "Hide Public" : "Show Public"}</button> : null}
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-3">
-                    <button disabled={busyId === enrollment.id} onClick={() => markCompleted(enrollment)} className="wc-primary-btn">
-                      <Icon name="workspace_premium" /> {enrollment.status === "completed" ? "Refresh Completion" : "Mark Completed"}
-                    </button>
-                    {completedRow ? <button onClick={() => togglePublic(completedRow)} className="wc-secondary-btn">{completedRow.is_public ? "Hide Public" : "Show Public"}</button> : null}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </motion.div>
     </>
   );
 }

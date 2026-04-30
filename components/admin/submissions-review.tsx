@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { EmptyState } from "@/components/empty-state";
 import { LoadingState } from "@/components/loading-state";
 import { PageHeader } from "@/components/page-header";
@@ -93,69 +94,71 @@ export function SubmissionsReview() {
       <Toast toast={toast} onClear={clearToast} />
       <PageHeader eyebrow="Submission Review" title="Review and score submissions" description="Score submissions, add feedback, or request revision. Saving updates task status and progress reports automatically." />
 
-      {submissions.length === 0 ? (
-        <EmptyState title="No submissions yet" description="Student submissions will appear here after assigned tasks are submitted." icon="rate_review" />
-      ) : (
-        <div className="grid gap-6">
-          {submissions.map((submission) => {
-            const task = taskById.get(submission.task_id);
-            const form = forms[submission.id] ?? { score: "0", feedback: "", status: submission.status };
-            return (
-              <article key={submission.id} className="wc-card overflow-hidden">
-                <div className="grid gap-0 xl:grid-cols-[1fr_380px]">
-                  <div className="p-6">
-                    <div className="mb-4 flex flex-wrap items-center gap-3">
-                      <h2 className="text-title-lg text-on-surface">{task?.title ?? "Unknown task"}</h2>
-                      <StatusPill value={submission.status} />
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        {submissions.length === 0 ? (
+          <EmptyState title="No submissions yet" description="Student submissions will appear here after assigned tasks are submitted." icon="rate_review" />
+        ) : (
+          <div className="grid gap-4">
+            {submissions.map((submission) => {
+              const task = taskById.get(submission.task_id);
+              const form = forms[submission.id] ?? { score: "0", feedback: "", status: submission.status };
+              return (
+                <article key={submission.id} className="wc-card overflow-hidden">
+                  <div className="grid gap-0 xl:grid-cols-[1fr_340px]">
+                    <div className="p-4">
+                      <div className="mb-3 flex flex-wrap items-center gap-2">
+                        <h2 className="text-sm font-bold text-on-surface">{task?.title ?? "Unknown task"}</h2>
+                        <StatusPill value={submission.status} />
+                      </div>
+                      <p className="text-sm text-on-surface-variant">{submission.explanation || "No explanation provided."}</p>
+                      <div className="mt-3 grid gap-2 text-xs text-on-surface-variant md:grid-cols-2">
+                        <p><b>Student:</b> {studentById.get(submission.student_id)?.full_name ?? "Unknown"}</p>
+                        <p><b>Course:</b> {task ? courseById.get(task.course_id)?.title ?? "Unknown" : "Unknown"}</p>
+                        <p><b>Submitted:</b> {formatDateTime(submission.submitted_at)}</p>
+                        <p><b>Max score:</b> {task?.max_score ?? 100}</p>
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <ResourceLink label="GitHub" url={submission.github_url} />
+                        <ResourceLink label="Google Doc" url={submission.google_doc_url} />
+                        <ResourceLink label="Google Sheet" url={submission.google_sheet_url} />
+                        <ResourceLink label="Image" url={submission.image_url} />
+                        <ResourceLink label="Proof" url={submission.proof_url} />
+                      </div>
                     </div>
-                    <p className="text-body-md text-on-surface-variant">{submission.explanation || "No explanation provided."}</p>
-                    <div className="mt-5 grid gap-3 text-body-sm text-on-surface-variant md:grid-cols-2">
-                      <p><b>Student:</b> {studentById.get(submission.student_id)?.full_name ?? "Unknown"}</p>
-                      <p><b>Course:</b> {task ? courseById.get(task.course_id)?.title ?? "Unknown" : "Unknown"}</p>
-                      <p><b>Submitted:</b> {formatDateTime(submission.submitted_at)}</p>
-                      <p><b>Max score:</b> {task?.max_score ?? 100}</p>
-                    </div>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      <ResourceLink label="GitHub" url={submission.github_url} />
-                      <ResourceLink label="Google Doc" url={submission.google_doc_url} />
-                      <ResourceLink label="Google Sheet" url={submission.google_sheet_url} />
-                      <ResourceLink label="Image" url={submission.image_url} />
-                      <ResourceLink label="Proof" url={submission.proof_url} />
-                    </div>
+                    <form className="space-y-3 border-t border-outline-variant bg-surface-container-lowest p-4 xl:border-l xl:border-t-0" onSubmit={(event) => { event.preventDefault(); void saveReview(submission, "reviewed"); }}>
+                      <label className="block">
+                        <span className="wc-label">Review Status</span>
+                        <select className="wc-input mt-2" value={form.status} onChange={(event) => updateForm(submission.id, { status: event.target.value as SubmissionStatus })}>
+                          <option value="submitted">Submitted</option>
+                          <option value="reviewed">Reviewed</option>
+                          <option value="revision_required">Revision Required</option>
+                        </select>
+                      </label>
+                      <label className="block">
+                        <span className="wc-label">Score</span>
+                        <input className="wc-input mt-2" type="number" min="0" max={task?.max_score ?? 100} value={form.score} onChange={(event) => updateForm(submission.id, { score: event.target.value })} />
+                      </label>
+                      <label className="block">
+                        <span className="wc-label">Feedback</span>
+                        <textarea className="wc-input mt-2 min-h-20" value={form.feedback} onChange={(event) => updateForm(submission.id, { feedback: event.target.value })} placeholder="Give actionable feedback..." />
+                      </label>
+                      <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-1">
+                        <button disabled={busyId === submission.id} className="wc-primary-btn py-2.5 text-sm">Save Score</button>
+                        <button type="button" disabled={busyId === submission.id} onClick={() => saveReview(submission, "revision_required")} className="wc-secondary-btn border-orange-500 py-2.5 text-sm text-orange-700 hover:bg-orange-50">Request Revision</button>
+                      </div>
+                    </form>
                   </div>
-                  <form className="space-y-4 border-t border-outline-variant bg-surface-container-lowest p-6 xl:border-l xl:border-t-0" onSubmit={(event) => { event.preventDefault(); void saveReview(submission, "reviewed"); }}>
-                    <label className="block">
-                      <span className="wc-label">Review Status</span>
-                      <select className="wc-input mt-2" value={form.status} onChange={(event) => updateForm(submission.id, { status: event.target.value as SubmissionStatus })}>
-                        <option value="submitted">Submitted</option>
-                        <option value="reviewed">Reviewed</option>
-                        <option value="revision_required">Revision Required</option>
-                      </select>
-                    </label>
-                    <label className="block">
-                      <span className="wc-label">Score</span>
-                      <input className="wc-input mt-2" type="number" min="0" max={task?.max_score ?? 100} value={form.score} onChange={(event) => updateForm(submission.id, { score: event.target.value })} />
-                    </label>
-                    <label className="block">
-                      <span className="wc-label">Feedback</span>
-                      <textarea className="wc-input mt-2 min-h-28" value={form.feedback} onChange={(event) => updateForm(submission.id, { feedback: event.target.value })} placeholder="Give actionable feedback..." />
-                    </label>
-                    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-1">
-                      <button disabled={busyId === submission.id} className="wc-primary-btn">Save Score</button>
-                      <button type="button" disabled={busyId === submission.id} onClick={() => saveReview(submission, "revision_required")} className="wc-secondary-btn border-orange-500 text-orange-700 hover:bg-orange-50">Request Revision</button>
-                    </div>
-                  </form>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </motion.div>
     </>
   );
 }
 
 function ResourceLink({ label, url }: { label: string; url: string | null }) {
   if (!url) return null;
-  return <a href={url} target="_blank" rel="noreferrer" className="rounded-full bg-surface-container px-3 py-1 text-xs font-bold text-primary">{label}</a>;
+  return <a href={url} target="_blank" rel="noreferrer" className="rounded-full bg-surface-container px-3 py-1 text-[10px] font-bold text-primary">{label}</a>;
 }

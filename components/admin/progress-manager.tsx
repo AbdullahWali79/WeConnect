@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { EmptyState } from "@/components/empty-state";
 import { LoadingState } from "@/components/loading-state";
 import { PageHeader } from "@/components/page-header";
@@ -46,43 +47,54 @@ export function ProgressManager() {
     <>
       <Toast toast={toast} onClear={clearToast} />
       <PageHeader eyebrow="Progress Reports" title="Automatic progress reports" description="Progress is recalculated by database triggers whenever tasks or submissions change." />
-      {reports.length === 0 ? (
-        <EmptyState title="No progress reports yet" description="Assign tasks to enrolled students to generate progress records." icon="monitoring" />
-      ) : (
-        <div className="wc-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[880px] text-left">
-              <thead className="bg-surface-container-low text-label-sm uppercase tracking-widest text-primary">
-                <tr>
-                  <th className="p-5">Student</th>
-                  <th className="p-5">Course</th>
-                  <th className="p-5">Progress</th>
-                  <th className="p-5">Tasks</th>
-                  <th className="p-5">Average Score</th>
-                  <th className="p-5">Updated</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline-variant/70">
-                {reports.map((report) => (
-                  <tr key={report.id}>
-                    <td className="p-5"><p className="font-bold text-on-surface">{studentById.get(report.student_id)?.full_name ?? "Unknown student"}</p><p className="text-body-sm text-on-surface-variant">{studentById.get(report.student_id)?.email}</p></td>
-                    <td className="p-5 text-on-surface-variant">{courseById.get(report.course_id)?.title ?? "Unknown course"}</td>
-                    <td className="p-5">
-                      <div className="min-w-48">
-                        <div className="mb-2 flex justify-between text-sm font-bold text-primary"><span>{report.progress_percentage}%</span><span>{report.completed_tasks}/{report.total_tasks}</span></div>
-                        <div className="h-3 rounded-full bg-surface-container"><div className="h-3 rounded-full bg-primary" style={{ width: `${report.progress_percentage}%` }} /></div>
-                      </div>
-                    </td>
-                    <td className="p-5 text-on-surface-variant">{report.completed_tasks} completed · {report.pending_tasks} pending</td>
-                    <td className="p-5 font-bold text-on-surface">{report.average_score}</td>
-                    <td className="p-5 text-body-sm text-on-surface-variant">{formatDateTime(report.updated_at)}</td>
+
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        {reports.length === 0 ? (
+          <EmptyState title="No progress reports yet" description="Assign tasks to enrolled students to generate progress records." icon="monitoring" />
+        ) : (
+          <div className="wc-card overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[720px] text-left">
+                <thead className="bg-surface-container-low text-[11px] font-bold uppercase tracking-wider text-primary">
+                  <tr>
+                    <th className="px-4 py-3">Student</th>
+                    <th className="px-4 py-3">Course</th>
+                    <th className="px-4 py-3">Progress</th>
+                    <th className="px-4 py-3">Tasks</th>
+                    <th className="px-4 py-3">Avg Score</th>
+                    <th className="px-4 py-3">Updated</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-outline-variant/40">
+                  {reports.map((report) => (
+                    <motion.tr key={report.id} whileHover={{ backgroundColor: "rgba(0, 33, 110, 0.02)" }} className="transition-colors">
+                      <td className="px-4 py-3">
+                        <p className="text-sm font-bold text-on-surface">{studentById.get(report.student_id)?.full_name ?? "Unknown student"}</p>
+                        <p className="text-[11px] text-on-surface-variant">{studentById.get(report.student_id)?.email}</p>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-on-surface-variant">{courseById.get(report.course_id)?.title ?? "Unknown course"}</td>
+                      <td className="px-4 py-3">
+                        <div className="min-w-36">
+                          <div className="mb-1 flex justify-between text-xs font-bold text-primary">
+                            <span>{report.progress_percentage}%</span>
+                            <span>{report.completed_tasks}/{report.total_tasks}</span>
+                          </div>
+                          <div className="h-2 rounded-full bg-surface-container">
+                            <div className="h-2 rounded-full bg-primary transition-all" style={{ width: `${report.progress_percentage}%` }} />
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-on-surface-variant">{report.completed_tasks} done · {report.pending_tasks} pending</td>
+                      <td className="px-4 py-3 text-sm font-bold text-on-surface">{report.average_score}</td>
+                      <td className="px-4 py-3 text-[11px] text-on-surface-variant">{formatDateTime(report.updated_at)}</td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </motion.div>
     </>
   );
 }

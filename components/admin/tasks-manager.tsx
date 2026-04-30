@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { EmptyState } from "@/components/empty-state";
 import { Icon } from "@/components/icon";
 import { LoadingState } from "@/components/loading-state";
@@ -134,99 +135,101 @@ export function TasksManager() {
       <Toast toast={toast} onClear={clearToast} />
       <PageHeader eyebrow="Task Assignment" title="Assign tasks with resources" description="Create a task for an enrolled student and attach video, Google Docs, Sheets, images, GitHub, or custom resource links." />
 
-      <div className="grid gap-8 xl:grid-cols-[440px_1fr]">
-        <form onSubmit={assignTask} className="wc-card space-y-5 p-6">
-          <h2 className="text-title-lg text-on-surface">New task</h2>
-          <label className="block">
-            <span className="wc-label">Enrolled Student</span>
-            <select className="wc-input mt-2" value={form.student_id} onChange={(event) => setForm((current) => ({ ...current, student_id: event.target.value, course_id: "" }))} required>
-              <option value="">Choose student</option>
-              {students.map((student) => <option key={student.id} value={student.id}>{student.full_name ?? student.email}</option>)}
-            </select>
-          </label>
-          <label className="block">
-            <span className="wc-label">Course Enrollment</span>
-            <select className="wc-input mt-2" value={form.course_id} onChange={(event) => setForm((current) => ({ ...current, course_id: event.target.value }))} required>
-              <option value="">Choose course</option>
-              {enrollmentOptions.filter((enrollment) => !form.student_id || enrollment.student_id === form.student_id).map((enrollment) => (
-                <option key={enrollment.id} value={enrollment.course_id}>{courseById.get(enrollment.course_id)?.title ?? "Unknown course"}</option>
-              ))}
-            </select>
-          </label>
-          <label className="block">
-            <span className="wc-label">Title</span>
-            <input className="wc-input mt-2" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} required />
-          </label>
-          <label className="block">
-            <span className="wc-label">Description</span>
-            <textarea className="wc-input mt-2 min-h-28" value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} />
-          </label>
-          <div className="grid gap-4 md:grid-cols-2">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        <div className="grid gap-6 xl:grid-cols-[440px_1fr]">
+          <form onSubmit={assignTask} className="wc-card space-y-4 p-4">
+            <h2 className="text-base font-bold text-on-surface">New task</h2>
             <label className="block">
-              <span className="wc-label">Deadline</span>
-              <input className="wc-input mt-2" type="datetime-local" value={form.deadline} onChange={(event) => setForm((current) => ({ ...current, deadline: event.target.value }))} />
+              <span className="wc-label">Enrolled Student</span>
+              <select className="wc-input mt-2" value={form.student_id} onChange={(event) => setForm((current) => ({ ...current, student_id: event.target.value, course_id: "" }))} required>
+                <option value="">Choose student</option>
+                {students.map((student) => <option key={student.id} value={student.id}>{student.full_name ?? student.email}</option>)}
+              </select>
             </label>
             <label className="block">
-              <span className="wc-label">Max Score</span>
-              <input className="wc-input mt-2" type="number" min="1" value={form.max_score} onChange={(event) => setForm((current) => ({ ...current, max_score: event.target.value }))} />
+              <span className="wc-label">Course Enrollment</span>
+              <select className="wc-input mt-2" value={form.course_id} onChange={(event) => setForm((current) => ({ ...current, course_id: event.target.value }))} required>
+                <option value="">Choose course</option>
+                {enrollmentOptions.filter((enrollment) => !form.student_id || enrollment.student_id === form.student_id).map((enrollment) => (
+                  <option key={enrollment.id} value={enrollment.course_id}>{courseById.get(enrollment.course_id)?.title ?? "Unknown course"}</option>
+                ))}
+              </select>
             </label>
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-bold text-on-surface">Resources</h3>
-              <button type="button" onClick={() => setResourceForms((current) => [...current, { ...emptyResource }])} className="text-label-md text-primary">Add link</button>
+            <label className="block">
+              <span className="wc-label">Title</span>
+              <input className="wc-input mt-2" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} required />
+            </label>
+            <label className="block">
+              <span className="wc-label">Description</span>
+              <textarea className="wc-input mt-2 min-h-20" value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} />
+            </label>
+            <div className="grid gap-3 md:grid-cols-2">
+              <label className="block">
+                <span className="wc-label">Deadline</span>
+                <input className="wc-input mt-2" type="datetime-local" value={form.deadline} onChange={(event) => setForm((current) => ({ ...current, deadline: event.target.value }))} />
+              </label>
+              <label className="block">
+                <span className="wc-label">Max Score</span>
+                <input className="wc-input mt-2" type="number" min="1" value={form.max_score} onChange={(event) => setForm((current) => ({ ...current, max_score: event.target.value }))} />
+              </label>
             </div>
-            {resourceForms.map((resource, index) => (
-              <div key={index} className="rounded-xl border border-outline-variant bg-surface-container-lowest p-4">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <select className="wc-input" value={resource.resource_type} onChange={(event) => updateResource(index, { resource_type: event.target.value as ResourceType })}>
-                    <option value="video">Video</option>
-                    <option value="google_doc">Google Doc</option>
-                    <option value="google_sheet">Google Sheet</option>
-                    <option value="image">Image</option>
-                    <option value="github">GitHub</option>
-                    <option value="custom">Custom</option>
-                  </select>
-                  <input className="wc-input" placeholder="Resource title" value={resource.title} onChange={(event) => updateResource(index, { title: event.target.value })} />
-                </div>
-                <input className="wc-input mt-3" placeholder="https://..." value={resource.url} onChange={(event) => updateResource(index, { url: event.target.value })} />
-                {resourceForms.length > 1 ? <button type="button" onClick={() => setResourceForms((current) => current.filter((_, itemIndex) => itemIndex !== index))} className="mt-3 text-sm font-bold text-error">Remove</button> : null}
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-on-surface">Resources</h3>
+                <button type="button" onClick={() => setResourceForms((current) => [...current, { ...emptyResource }])} className="text-xs font-bold text-primary">Add link</button>
               </div>
-            ))}
-          </div>
-
-          <button disabled={saving} className="wc-primary-btn w-full">{saving ? "Assigning..." : "Assign Task"}</button>
-        </form>
-
-        <section className="wc-card overflow-hidden">
-          <div className="border-b border-outline-variant/70 p-6"><h2 className="text-title-lg text-on-surface">Assigned tasks</h2></div>
-          {tasks.length === 0 ? <div className="p-6"><EmptyState title="No tasks assigned" description="Create a task for an enrolled student." icon="assignment" /></div> : (
-            <div className="divide-y divide-outline-variant/70">
-              {tasks.map((task) => {
-                const taskResources = resources.filter((resource) => resource.task_id === task.id);
-                return (
-                  <article key={task.id} className="p-6">
-                    <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                      <div>
-                        <div className="mb-2 flex flex-wrap items-center gap-3"><h3 className="text-title-lg text-on-surface">{task.title}</h3><StatusPill value={task.status} /></div>
-                        <p className="text-body-md text-on-surface-variant">{task.description ?? "No description"}</p>
-                        <p className="mt-3 text-body-sm text-on-surface-variant">{studentById.get(task.student_id)?.full_name ?? "Unknown student"} · {courseById.get(task.course_id)?.title ?? "Unknown course"} · Deadline {formatDateTime(task.deadline)}</p>
-                      </div>
-                      <button onClick={() => deleteTask(task.id)} className="rounded-lg bg-error-container p-2 text-error"><Icon name="delete" /></button>
-                    </div>
-                    {taskResources.length > 0 ? (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {taskResources.map((resource) => <a key={resource.id} href={resource.url} target="_blank" className="rounded-full bg-surface-container px-3 py-1 text-xs font-bold text-primary">{resource.title ?? resource.resource_type}</a>)}
-                      </div>
-                    ) : null}
-                  </article>
-                );
-              })}
+              {resourceForms.map((resource, index) => (
+                <div key={index} className="rounded-xl border border-outline-variant bg-surface-container-lowest p-4">
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <select className="wc-input" value={resource.resource_type} onChange={(event) => updateResource(index, { resource_type: event.target.value as ResourceType })}>
+                      <option value="video">Video</option>
+                      <option value="google_doc">Google Doc</option>
+                      <option value="google_sheet">Google Sheet</option>
+                      <option value="image">Image</option>
+                      <option value="github">GitHub</option>
+                      <option value="custom">Custom</option>
+                    </select>
+                    <input className="wc-input" placeholder="Resource title" value={resource.title} onChange={(event) => updateResource(index, { title: event.target.value })} />
+                  </div>
+                  <input className="wc-input mt-3" placeholder="https://..." value={resource.url} onChange={(event) => updateResource(index, { url: event.target.value })} />
+                  {resourceForms.length > 1 ? <button type="button" onClick={() => setResourceForms((current) => current.filter((_, itemIndex) => itemIndex !== index))} className="mt-3 text-sm font-bold text-error">Remove</button> : null}
+                </div>
+              ))}
             </div>
-          )}
-        </section>
-      </div>
+
+            <button disabled={saving} className="wc-primary-btn w-full">{saving ? "Assigning..." : "Assign Task"}</button>
+          </form>
+
+          <section className="wc-card overflow-hidden">
+            <div className="border-b border-outline-variant/70 p-4"><h2 className="text-base font-bold text-on-surface">Assigned tasks</h2></div>
+            {tasks.length === 0 ? <div className="p-4"><EmptyState title="No tasks assigned" description="Create a task for an enrolled student." icon="assignment" /></div> : (
+              <div className="divide-y divide-outline-variant/70">
+                {tasks.map((task) => {
+                  const taskResources = resources.filter((resource) => resource.task_id === task.id);
+                  return (
+                    <article key={task.id} className="p-4">
+                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <div className="mb-2 flex flex-wrap items-center gap-3"><h3 className="text-base font-bold text-on-surface">{task.title}</h3><StatusPill value={task.status} /></div>
+                          <p className="text-sm text-on-surface-variant">{task.description ?? "No description"}</p>
+                          <p className="mt-2 text-xs text-on-surface-variant">{studentById.get(task.student_id)?.full_name ?? "Unknown student"} · {courseById.get(task.course_id)?.title ?? "Unknown course"} · Deadline {formatDateTime(task.deadline)}</p>
+                        </div>
+                        <button onClick={() => deleteTask(task.id)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-error-container p-2 text-error"><Icon name="delete" /></button>
+                      </div>
+                      {taskResources.length > 0 ? (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {taskResources.map((resource) => <a key={resource.id} href={resource.url} target="_blank" className="rounded-full bg-surface-container px-3 py-1 text-xs font-bold text-primary">{resource.title ?? resource.resource_type}</a>)}
+                        </div>
+                      ) : null}
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        </div>
+      </motion.div>
     </>
   );
 }
