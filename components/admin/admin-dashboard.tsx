@@ -90,9 +90,10 @@ export function AdminDashboard() {
         eyebrow="Admin Portal"
         title="Operations dashboard"
         description="Live Supabase stats for courses, applications, enrollments, tasks, and completions."
-        action={<Link href="/admin/tasks" className="wc-primary-btn"><Icon name="assignment_add" /> Assign Task</Link>}
+        action={<Link href="/admin/tasks" className="wc-primary-btn text-sm"><Icon name="assignment_add" /> Assign Task</Link>}
       />
 
+      {/* Stat Cards */}
       <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-5">
         <StatCard icon="school" label="Total Courses" value={data.courses.length} />
         <StatCard icon="pending_actions" label="Pending Apps" value={pendingApplications.length} tone="secondary" />
@@ -101,70 +102,126 @@ export function AdminDashboard() {
         <StatCard icon="workspace_premium" label="Completed" value={data.completed.length} dark />
       </div>
 
-      <section className="mt-8 grid gap-8 xl:grid-cols-[1fr_360px]">
-        <div className="wc-card overflow-hidden">
-          <div className="flex items-center justify-between border-b border-outline-variant/70 p-6">
+      {/* Main Grid */}
+      <section className="mt-6 grid gap-6 xl:grid-cols-[1fr_300px]">
+        {/* Recent Applications Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="wc-card overflow-hidden"
+        >
+          <div className="flex items-center justify-between border-b border-outline-variant/50 px-5 py-4">
             <div>
-              <h2 className="text-title-lg text-on-surface">Recent Applications</h2>
-              <p className="text-body-sm text-on-surface-variant">Approve or reject real application rows.</p>
+              <h2 className="text-base font-bold text-on-surface">Recent Applications</h2>
+              <p className="text-xs text-on-surface-variant">Approve or reject real application rows.</p>
             </div>
-            <Link href="/admin/applications" className="wc-secondary-btn px-4 py-2">View all</Link>
+            <Link href="/admin/applications" className="wc-secondary-btn px-3 py-1.5 text-xs">View all</Link>
           </div>
 
           {data.applications.length === 0 ? (
-            <div className="p-6"><EmptyState title="No applications yet" description="Public application submissions will appear here." icon="pending_actions" /></div>
+            <div className="p-5">
+              <EmptyState title="No applications yet" description="Public application submissions will appear here." icon="pending_actions" />
+            </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[760px] text-left">
-                <thead className="bg-surface-container-low text-label-sm uppercase tracking-widest text-primary">
+              <table className="w-full min-w-[680px] text-left">
+                <thead className="bg-surface-container-low text-[11px] font-bold uppercase tracking-wider text-primary">
                   <tr>
-                    <th className="p-5">Applicant</th>
-                    <th className="p-5">Course</th>
-                    <th className="p-5">Phone</th>
-                    <th className="p-5">Status</th>
-                    <th className="p-5">Date</th>
-                    <th className="p-5 text-right">Actions</th>
+                    <th className="px-4 py-3">Applicant</th>
+                    <th className="px-4 py-3">Course</th>
+                    <th className="px-4 py-3">Phone</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-outline-variant/70">
+                <tbody className="divide-y divide-outline-variant/40">
                   {data.applications.slice(0, 6).map((application) => (
-                    <tr key={application.id}>
-                      <td className="p-5">
-                        <p className="font-bold text-on-surface">{application.full_name}</p>
-                        <p className="text-body-sm text-on-surface-variant">{application.email}</p>
+                    <motion.tr
+                      key={application.id}
+                      whileHover={{ backgroundColor: "rgba(0, 33, 110, 0.02)" }}
+                      className="transition-colors"
+                    >
+                      <td className="px-4 py-3">
+                        <p className="text-sm font-bold text-on-surface">{application.full_name}</p>
+                        <p className="text-[11px] text-on-surface-variant">{application.email}</p>
                       </td>
-                      <td className="p-5 text-on-surface-variant">{application.course_id ? courseById.get(application.course_id)?.title ?? "Unknown course" : "Not selected"}</td>
-                      <td className="p-5 text-on-surface-variant">{application.phone}</td>
-                      <td className="p-5"><StatusPill value={application.status} /></td>
-                      <td className="p-5 text-on-surface-variant">{formatDate(application.created_at)}</td>
-                      <td className="p-5">
-                        <div className="flex justify-end gap-2">
-                          <button disabled={application.status !== "pending" || busyId === application.id} onClick={() => updateApplication(application.id, "approve_application")} className="rounded-lg bg-green-50 p-2 text-green-700 hover:bg-green-100 disabled:opacity-40"><Icon name="check" /></button>
-                          <button disabled={application.status !== "pending" || busyId === application.id} onClick={() => updateApplication(application.id, "reject_application")} className="rounded-lg bg-error-container p-2 text-error hover:bg-red-100 disabled:opacity-40"><Icon name="close" /></button>
+                      <td className="px-4 py-3 text-sm text-on-surface-variant">{application.course_id ? courseById.get(application.course_id)?.title ?? "Unknown course" : "Not selected"}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface-variant">{application.phone}</td>
+                      <td className="px-4 py-3"><StatusPill value={application.status} /></td>
+                      <td className="px-4 py-3 text-xs text-on-surface-variant">{formatDate(application.created_at)}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-end gap-1.5">
+                          <button
+                            disabled={application.status !== "pending" || busyId === application.id}
+                            onClick={() => updateApplication(application.id, "approve_application")}
+                            className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-50 text-green-700 transition hover:bg-green-100 hover:scale-105 disabled:opacity-40"
+                          >
+                            <Icon name="check" className="text-base" />
+                          </button>
+                          <button
+                            disabled={application.status !== "pending" || busyId === application.id}
+                            onClick={() => updateApplication(application.id, "reject_application")}
+                            className="flex h-8 w-8 items-center justify-center rounded-lg bg-error-container text-error transition hover:bg-red-100 hover:scale-105 disabled:opacity-40"
+                          >
+                            <Icon name="close" className="text-base" />
+                          </button>
                         </div>
                       </td>
-                    </tr>
+                    </motion.tr>
                   ))}
                 </tbody>
               </table>
             </div>
           )}
-        </div>
+        </motion.div>
 
-        <aside className="space-y-6">
-          <div className="rounded-xl bg-primary p-6 text-white shadow-card">
-            <h3 className="text-title-lg">Quick Tasks</h3>
-            <div className="mt-5 space-y-3 text-sm text-blue-50">
-              <QuickLink href="/admin/applications" icon="pending_actions" label={`Review ${pendingApplications.length} pending applications`} />
+        {/* Right Sidebar */}
+        <aside className="space-y-4">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="rounded-xl bg-primary p-4 text-white shadow-card"
+          >
+            <h3 className="text-sm font-bold">Quick Tasks</h3>
+            <div className="mt-3 space-y-2 text-sm">
+              <QuickLink href="/admin/applications" icon="pending_actions" label={`Review ${pendingApplications.length} pending`} />
               <QuickLink href="/admin/courses" icon="school" label="Manage course catalog" />
               <QuickLink href="/admin/submissions" icon="rate_review" label="Score submissions" />
             </div>
-          </div>
-          <div className="wc-card p-6">
-            <h3 className="text-title-lg text-on-surface">Progress Snapshot</h3>
-            <p className="mt-2 text-body-md text-on-surface-variant">{data.enrollments.length} total enrollments, {data.enrollments.filter((enrollment) => enrollment.status === "active").length} active.</p>
-            <Link href="/admin/progress" className="mt-5 inline-flex text-label-md text-primary">View Detailed Report</Link>
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="wc-card p-4"
+          >
+            <h3 className="text-sm font-bold text-on-surface">Progress Snapshot</h3>
+            <div className="mt-3 space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-on-surface-variant">Total Enrollments</span>
+                <span className="font-bold text-primary">{data.enrollments.length}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-on-surface-variant">Active</span>
+                <span className="font-bold text-green-600">{data.enrollments.filter((e) => e.status === "active").length}</span>
+              </div>
+              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-surface-container">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${data.enrollments.length > 0 ? (data.enrollments.filter((e) => e.status === "active").length / data.enrollments.length) * 100 : 0}%` }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                  className="h-full rounded-full bg-primary"
+                />
+              </div>
+            </div>
+            <Link href="/admin/progress" className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
+              View Detailed Report <Icon name="arrow_forward" className="text-xs" />
+            </Link>
+          </motion.div>
         </aside>
       </section>
     </>
@@ -193,15 +250,14 @@ function AnimatedNumber({ value }: { value: number }) {
 function StatCard({ icon, label, value, tone, dark }: { icon: string; label: string; value: number; tone?: "secondary"; dark?: boolean }) {
   return (
     <motion.div
-      whileHover={{ y: -4, scale: 1.02 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
+      whileHover={{ y: -3, scale: 1.02 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
       className={
         dark
-          ? "relative overflow-hidden rounded-xl bg-primary p-4 text-white shadow-card transition-shadow hover:shadow-glow"
-          : "relative overflow-hidden rounded-xl border border-outline-variant/40 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover"
+          ? "relative overflow-hidden rounded-xl bg-primary p-3 text-white shadow-card transition-shadow hover:shadow-glow"
+          : "relative overflow-hidden rounded-xl border border-outline-variant/40 bg-white p-3 shadow-card transition-shadow hover:shadow-card-hover"
       }
     >
-      {/* Subtle top accent line */}
       <div
         className={
           dark
@@ -212,24 +268,24 @@ function StatCard({ icon, label, value, tone, dark }: { icon: string; label: str
         }
       />
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <div
           className={
             dark
-              ? "flex h-8 w-8 items-center justify-center rounded-lg bg-white/15 text-white"
+              ? "flex h-7 w-7 items-center justify-center rounded-lg bg-white/15 text-white"
               : tone === "secondary"
-                ? "flex h-8 w-8 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-fixed"
-                : "flex h-8 w-8 items-center justify-center rounded-lg bg-surface-container text-primary"
+                ? "flex h-7 w-7 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-fixed"
+                : "flex h-7 w-7 items-center justify-center rounded-lg bg-surface-container text-primary"
           }
         >
-          <Icon name={icon} className="text-lg" />
+          <Icon name={icon} className="text-base" />
         </div>
-        <p className={dark ? "text-xs font-bold uppercase tracking-widest text-blue-100" : "text-xs font-bold uppercase tracking-widest text-on-surface-variant"}>
+        <p className={dark ? "text-[10px] font-bold uppercase tracking-wider text-blue-100" : "text-[10px] font-bold uppercase tracking-wider text-on-surface-variant"}>
           {label}
         </p>
       </div>
 
-      <p className={dark ? "mt-3 text-2xl font-black text-white" : "mt-3 text-2xl font-black text-primary"}>
+      <p className={dark ? "mt-2 text-xl font-black text-white" : "mt-2 text-xl font-black text-primary"}>
         <AnimatedNumber value={value} />
       </p>
     </motion.div>
@@ -238,8 +294,8 @@ function StatCard({ icon, label, value, tone, dark }: { icon: string; label: str
 
 function QuickLink({ href, icon, label }: { href: string; icon: string; label: string }) {
   return (
-    <Link href={href} className="flex items-center gap-3 rounded-lg bg-white/10 p-3 hover:bg-white/15">
-      <Icon name={icon} className="text-xl" />
+    <Link href={href} className="group flex items-center gap-2.5 rounded-lg bg-white/10 px-3 py-2 text-xs transition-all hover:bg-white/15 hover:translate-x-0.5">
+      <Icon name={icon} className="text-base transition-transform group-hover:scale-110" />
       <span>{label}</span>
     </Link>
   );
