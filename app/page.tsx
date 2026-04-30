@@ -119,7 +119,7 @@ export default async function LandingPage() {
                   Paid Internship
                 </p>
                 <p className="text-[clamp(1.6rem,3vw,2.8rem)] font-extrabold uppercase leading-none tracking-[-0.03em] text-primary/60">
-                  Job <span className="text-secondary">INSHALLAH</span> 🤲
+                  Job <span className="text-secondary">99%</span> Guarantee
                 </p>
               </div>
             </FadeIn>
@@ -233,7 +233,7 @@ export default async function LandingPage() {
                         <p className="mt-1 text-4xl font-extrabold tracking-[-0.05em]">{contactPhone}</p>
                       </div>
                       <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold text-blue-50 backdrop-blur-sm">
-                        Training → Internship → Paid Internship → Job INSHALLAH 🤲
+                        Training → Internship → Paid Internship → Job 99%
                       </div>
                     </div>
                   </div>
