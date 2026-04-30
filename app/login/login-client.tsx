@@ -21,6 +21,7 @@ export default function LoginPage() {
     verified ? { type: "success", message: "Email verified. You can now continue." } : message ? { type: "info", message: statusMessage(message) } : null,
   );
   const [form, setForm] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const clearToast = useCallback(() => setToast(null), []);
 
   function updateField(name: keyof typeof form, value: string) {
@@ -156,7 +157,25 @@ export default function LoginPage() {
 
             <label className="block">
               <span className="wc-label">{mode === "signin" ? "Password" : "Create Password"}</span>
-              <input value={form.password} onChange={(event) => updateField("password", event.target.value)} className="wc-input mt-2" type="password" autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={6} required />
+              <div className="relative mt-2">
+                <input
+                  value={form.password}
+                  onChange={(event) => updateField("password", event.target.value)}
+                  className="wc-input pr-12"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                  minLength={6}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary"
+                  tabIndex={-1}
+                >
+                  <Icon name={showPassword ? "visibility_off" : "visibility"} className="text-xl" />
+                </button>
+              </div>
             </label>
 
             {mode === "signin" ? null : (
