@@ -20,6 +20,7 @@ const nav = [
   { href: "/admin/progress", label: "Progress", icon: "monitoring" },
   { href: "/admin/completions", label: "Completion", icon: "workspace_premium" },
   { href: "/admin/announcements", label: "Announcements", icon: "campaign" },
+  { href: "/admin/promotional-popups", label: "Promotions", icon: "auto_awesome" },
 ];
 
 export function AdminShell({ profile, children }: { profile: Profile | null; children: React.ReactNode }) {

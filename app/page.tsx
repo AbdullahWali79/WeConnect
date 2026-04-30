@@ -15,6 +15,7 @@ import {
   GradientText,
   ScrollProgress,
 } from "@/components/public/animations";
+import { PromoPopup } from "@/components/public/promo-popup";
 
 export const dynamic = "force-dynamic";
 
@@ -50,6 +51,7 @@ export default async function LandingPage() {
   return (
     <main className="bg-background text-on-background">
       <ScrollProgress />
+      <PromoPopup context="landing" />
 
       {/* Navigation */}
       <header className="sticky top-0 z-40 border-b border-outline-variant/40 bg-white/80 backdrop-blur-2xl">

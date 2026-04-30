@@ -119,6 +119,17 @@ export type CompletedStudent = {
   completed_at: string;
 };
 
+export type PromotionalPopup = {
+  id: string;
+  title: string;
+  message: string;
+  image_url: string | null;
+  show_on: "landing" | "student" | "both";
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Announcement = {
   id: string;
   title: string;
@@ -203,6 +214,12 @@ export type Database = {
         Update: Partial<Announcement>;
         Relationships: [];
       };
+      promotional_popups: {
+        Row: PromotionalPopup;
+        Insert: Partial<PromotionalPopup> & { title: string; message: string };
+        Update: Partial<PromotionalPopup>;
+        Relationships: [];
+      }
       completed_students: {
         Row: CompletedStudent;
         Insert: Partial<CompletedStudent> & { student_id: string; course_id: string };

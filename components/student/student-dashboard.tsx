@@ -8,6 +8,7 @@ import { LoadingState } from "@/components/loading-state";
 import { PageHeader } from "@/components/page-header";
 import { StatusPill } from "@/components/status-pill";
 import { Toast, type ToastState } from "@/components/toast";
+import { PromoPopup } from "@/components/public/promo-popup";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import type { Announcement, Course, ProgressReport, Submission, Task, TaskResource } from "@/lib/supabase/types";
 import { formatDateTime } from "@/lib/utils";
@@ -61,6 +62,7 @@ export function StudentDashboard() {
   return (
     <>
       <Toast toast={toast} onClear={clearToast} />
+      <PromoPopup context="student" />
       <PageHeader eyebrow="Student Hub" title="My assigned tasks" description="View assigned work, open resources, and submit task proof. RLS limits this page to your own rows." action={<Link href="/student/progress" className="wc-secondary-btn">View Progress</Link>} />
 
       {/* Announcements Banner */}

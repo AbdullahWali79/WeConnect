@@ -681,6 +681,23 @@ create policy "Anyone can read active announcements" on public.announcements
 create policy "Admins can manage announcements" on public.announcements
   for all using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
 
+create table if not exists public.promotional_popups (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  message text not null,
+  image_url text,
+  show_on text check (show_on in ('landing','student','both')) default 'both',
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create policy "Public can read active promotional popups" on public.promotional_popups
+  for select using (is_active = true or public.is_admin(auth.uid()));
+
+create policy "Admins can manage promotional popups" on public.promotional_popups
+  for all using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
+
 grant usage on schema public to anon, authenticated;
 grant select on public.completed_student_showcase to anon, authenticated;
 grant execute on function public.approve_application(uuid) to authenticated;
