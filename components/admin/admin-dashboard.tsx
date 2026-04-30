@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { EmptyState } from "@/components/empty-state";
 import { Icon } from "@/components/icon";
@@ -92,7 +93,7 @@ export function AdminDashboard() {
         action={<Link href="/admin/tasks" className="wc-primary-btn"><Icon name="assignment_add" /> Assign Task</Link>}
       />
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-5">
         <StatCard icon="school" label="Total Courses" value={data.courses.length} />
         <StatCard icon="pending_actions" label="Pending Apps" value={pendingApplications.length} tone="secondary" />
         <StatCard icon="groups" label="Approved Students" value={approvedStudents.length} />
@@ -170,17 +171,68 @@ export function AdminDashboard() {
   );
 }
 
+function AnimatedNumber({ value }: { value: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const motionValue = useSpring(0, { duration: 1500, bounce: 0 });
+  const display = useTransform(motionValue, (v) => Math.floor(v));
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (isInView) motionValue.set(value);
+  }, [isInView, motionValue, value]);
+
+  useEffect(() => {
+    const unsubscribe = display.on("change", (v) => setDisplayValue(v));
+    return () => unsubscribe();
+  }, [display]);
+
+  return <span ref={ref}>{displayValue}</span>;
+}
+
 function StatCard({ icon, label, value, tone, dark }: { icon: string; label: string; value: number; tone?: "secondary"; dark?: boolean }) {
   return (
-    <div className={dark ? "rounded-xl bg-primary p-5 text-white shadow-card" : "wc-card p-5"}>
-      <div className="flex items-center justify-between">
-        <div className={dark ? "rounded-xl bg-white/15 p-3 text-white" : tone === "secondary" ? "rounded-xl bg-secondary-container p-3 text-on-secondary-fixed" : "rounded-xl bg-surface-container p-3 text-primary"}>
-          <Icon name={icon} />
+    <motion.div
+      whileHover={{ y: -4, scale: 1.02 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className={
+        dark
+          ? "relative overflow-hidden rounded-xl bg-primary p-4 text-white shadow-card transition-shadow hover:shadow-glow"
+          : "relative overflow-hidden rounded-xl border border-outline-variant/40 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover"
+      }
+    >
+      {/* Subtle top accent line */}
+      <div
+        className={
+          dark
+            ? "absolute left-0 right-0 top-0 h-0.5 bg-gradient-to-r from-white/20 via-white/40 to-white/20"
+            : tone === "secondary"
+              ? "absolute left-0 right-0 top-0 h-0.5 bg-secondary"
+              : "absolute left-0 right-0 top-0 h-0.5 bg-primary/30"
+        }
+      />
+
+      <div className="flex items-center gap-3">
+        <div
+          className={
+            dark
+              ? "flex h-8 w-8 items-center justify-center rounded-lg bg-white/15 text-white"
+              : tone === "secondary"
+                ? "flex h-8 w-8 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-fixed"
+                : "flex h-8 w-8 items-center justify-center rounded-lg bg-surface-container text-primary"
+          }
+        >
+          <Icon name={icon} className="text-lg" />
         </div>
+        <p className={dark ? "text-xs font-bold uppercase tracking-widest text-blue-100" : "text-xs font-bold uppercase tracking-widest text-on-surface-variant"}>
+          {label}
+        </p>
       </div>
-      <p className={dark ? "mt-6 text-sm font-bold text-blue-100" : "mt-6 text-sm font-bold text-on-surface-variant"}>{label}</p>
-      <p className={dark ? "mt-1 text-4xl font-black text-white" : "mt-1 text-4xl font-black text-primary"}>{value}</p>
-    </div>
+
+      <p className={dark ? "mt-3 text-2xl font-black text-white" : "mt-3 text-2xl font-black text-primary"}>
+        <AnimatedNumber value={value} />
+      </p>
+    </motion.div>
   );
 }
 
