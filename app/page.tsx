@@ -110,19 +110,57 @@ export default async function LandingPage() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.3}>
-              <div className="mt-4 space-y-1">
-                <p className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em]">
-                  <GradientText>Internship</GradientText>
-                </p>
-                <p className="text-[clamp(1.8rem,3.5vw,3.2rem)] font-extrabold uppercase leading-none tracking-[-0.04em] text-primary/80">
-                  Paid Internship
-                </p>
-                <p className="text-[clamp(1.6rem,3vw,2.8rem)] font-extrabold uppercase leading-none tracking-[-0.03em] text-primary/60">
-                  Job <span className="text-secondary">99%</span> Guarantee
-                </p>
-              </div>
-            </FadeIn>
+            <StaggerContainer className="mt-6 space-y-3" staggerDelay={0.2}>
+              {/* Stage 1: Internship */}
+              <StaggerItem>
+                <div className="group flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-glow transition-transform duration-300 group-hover:scale-110">
+                    <Icon name="workspace_premium" className="text-lg" />
+                  </div>
+                  <p className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em]">
+                    <GradientText>Internship</GradientText>
+                  </p>
+                </div>
+              </StaggerItem>
+
+              {/* Connector */}
+              <div className="ml-5 flex h-6 w-0.5 bg-gradient-to-b from-primary to-primary/30" />
+
+              {/* Stage 2: Paid Internship */}
+              <StaggerItem>
+                <div className="group flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/80 text-white shadow-md transition-all duration-300 group-hover:scale-110 group-hover:bg-primary">
+                    <Icon name="payments" className="text-lg" />
+                  </div>
+                  <p className="text-[clamp(1.8rem,3.5vw,3.2rem)] font-extrabold uppercase leading-none tracking-[-0.04em] text-primary/80 transition-colors group-hover:text-primary">
+                    Paid Internship
+                  </p>
+                </div>
+              </StaggerItem>
+
+              {/* Connector */}
+              <div className="ml-5 flex h-6 w-0.5 bg-gradient-to-b from-primary/50 to-secondary/50" />
+
+              {/* Stage 3: Job 99% Guarantee */}
+              <StaggerItem>
+                <div className="group flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-white shadow-lg shadow-secondary/30 transition-all duration-300 group-hover:scale-110 animate-pulse-glow">
+                    <Icon name="verified" className="text-lg" />
+                  </div>
+                  <p className="text-[clamp(1.6rem,3vw,2.8rem)] font-extrabold uppercase leading-none tracking-[-0.03em] text-primary/60">
+                    Job{" "}
+                    <span className="relative inline-block text-secondary">
+                      <span className="relative z-10">99%</span>
+                      <span className="absolute inset-0 -z-10 animate-pulse-glow rounded-lg bg-secondary/10" />
+                    </span>{" "}
+                    <span className="relative">
+                      Guarantee
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-gradient-to-r from-secondary via-primary to-secondary animate-gradient-x" />
+                    </span>
+                  </p>
+                </div>
+              </StaggerItem>
+            </StaggerContainer>
 
             <FadeIn delay={0.4}>
               <p className="mt-8 max-w-[42rem] text-[clamp(1.08rem,1.8vw,1.35rem)] leading-[1.7] text-on-surface-variant">
