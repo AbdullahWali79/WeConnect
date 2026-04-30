@@ -63,6 +63,8 @@ const config: Config = {
         DEFAULT: "0.25rem",
         lg: "0.5rem",
         xl: "0.75rem",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
         full: "9999px",
       },
       spacing: {
@@ -94,6 +96,42 @@ const config: Config = {
       },
       boxShadow: {
         card: "0 12px 40px rgba(17, 28, 45, 0.08)",
+        "card-hover": "0 24px 60px rgba(17, 28, 45, 0.14)",
+        glow: "0 0 40px rgba(0, 33, 110, 0.12)",
+        "glow-lg": "0 0 80px rgba(0, 33, 110, 0.18)",
+        "inner-light": "inset 0 1px 0 rgba(255,255,255,0.6)",
+      },
+      animation: {
+        "gradient-x": "gradient-x 4s ease infinite",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "spin-slow": "spin 20s linear infinite",
+        "scale-pulse": "scale-pulse 4s ease-in-out infinite",
+        "shimmer": "shimmer 2s infinite",
+      },
+      keyframes: {
+        "gradient-x": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(0, 33, 110, 0.15)" },
+          "50%": { boxShadow: "0 0 40px rgba(0, 33, 110, 0.3)" },
+        },
+        "scale-pulse": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.03)" },
+        },
+        "shimmer": {
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+      transitionTimingFunction: {
+        "premium": "cubic-bezier(0.25, 0.4, 0.25, 1)",
       },
     },
   },

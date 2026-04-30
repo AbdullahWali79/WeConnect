@@ -6,6 +6,15 @@ import { Icon } from "@/components/icon";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { formatDate } from "@/lib/utils";
 import { getLatestNews, type AINews } from "@/lib/news";
+import {
+  FadeIn,
+  StaggerContainer,
+  StaggerItem,
+  AnimatedCounter,
+  FloatingOrbs,
+  GradientText,
+  ScrollProgress,
+} from "@/components/public/animations";
 
 export const dynamic = "force-dynamic";
 
@@ -40,13 +49,18 @@ export default async function LandingPage() {
 
   return (
     <main className="bg-background text-on-background">
-      <header className="sticky top-0 z-40 border-b border-outline-variant/70 bg-white/90 backdrop-blur-xl">
+      <ScrollProgress />
+
+      {/* Navigation */}
+      <header className="sticky top-0 z-40 border-b border-outline-variant/40 bg-white/80 backdrop-blur-2xl">
         <div className="mx-auto flex max-w-container-max items-center justify-between px-5 py-4 md:px-margin-page">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-glow">
               <Icon name="hub" />
             </div>
-            <div className="text-xl font-extrabold tracking-tighter text-blue-800">WeConnect-Inovation</div>
+            <div className="text-xl font-extrabold tracking-tighter text-blue-800">
+              WeConnect<span className="text-primary">-Inovation</span>
+            </div>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
             <a className="border-b-2 border-blue-700 pb-1 text-blue-700" href="#overview">Overview</a>
@@ -56,256 +70,448 @@ export default async function LandingPage() {
             <a className="text-slate-600 transition-colors hover:text-blue-800" href="#contact">Contact</a>
           </nav>
           <div className="flex items-center gap-3">
-            <Link href="/login" className="hidden text-sm font-bold text-primary md:inline-flex">Login</Link>
-            <Link href="/apply" className="wc-primary-btn px-6 py-2">Apply Now</Link>
+            <Link href="/login" className="hidden text-sm font-bold text-primary transition hover:text-primary-container md:inline-flex">
+              Login
+            </Link>
+            <Link href="/apply" className="wc-primary-btn px-6 py-2 shadow-glow transition-all hover:shadow-glow-lg">
+              Apply Now
+            </Link>
           </div>
         </div>
       </header>
 
-      <section id="overview" className="relative isolate min-h-[760px] overflow-hidden bg-surface-container-lowest">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(0,51,160,0.18),transparent_32%),radial-gradient(circle_at_85%_30%,rgba(254,214,91,0.35),transparent_28%),linear-gradient(135deg,#ffffff_0%,#f0f3ff_55%,#d8e3fb_100%)]" />
-        <div className="absolute right-0 top-20 -z-10 h-80 w-80 rounded-full bg-secondary-container/70 blur-3xl" />
+      {/* Hero Section */}
+      <section id="overview" className="relative isolate min-h-[840px] overflow-hidden bg-surface-container-lowest">
+        <FloatingOrbs />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(0,51,160,0.12),transparent_35%),radial-gradient(circle_at_85%_30%,rgba(254,214,91,0.25),transparent_30%),linear-gradient(135deg,#ffffff_0%,#f0f3ff_55%,#d8e3fb_100%)]" />
+
         <div className="mx-auto grid max-w-container-max items-center gap-12 px-5 py-24 md:px-margin-page lg:grid-cols-[1.05fr_0.95fr] lg:py-32">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold uppercase tracking-wide text-white shadow-lg">
-              <Icon name="rocket_launch" className="text-base" /> Your skills today, your success tomorrow
-            </div>
-            <h1 className="max-w-[9ch] text-[clamp(3.4rem,6.5vw,6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.06em] text-primary">
-              <span className="block">Training</span>
-              <span className="block">Program</span>
-            </h1>
-            <div className="mt-4 flex max-w-2xl items-center gap-4 text-primary">
-              <span className="h-px flex-1 bg-primary/25" />
-              <p className="text-[clamp(1.35rem,2.5vw,2rem)] font-black uppercase tracking-[0.28em] text-primary/85">Leading To</p>
-              <span className="h-px flex-1 bg-primary/25" />
-            </div>
-            <p className="mt-4 text-[clamp(2.8rem,5vw,4.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em] text-blue-700">
-              Internship
-            </p>
-            <p className="mt-8 max-w-[42rem] text-[clamp(1.08rem,1.8vw,1.35rem)] leading-[1.7] text-on-surface-variant">
-              Learn in-demand skills and start your career through structured software house training, practical assignments,
-              client-focused practice, reviews, and measurable progress.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link href="/apply" className="wc-primary-btn px-8 py-4 text-lg shadow-lg">Enroll Now</Link>
-              <a href="#courses" className="wc-secondary-btn px-8 py-4 text-lg">View Courses</a>
-            </div>
-            <div className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-2">
-              {marketingTracks.map((track) => (
-                <div key={track} className="rounded-xl border border-primary/10 bg-white/90 px-4 py-3 text-sm font-bold text-on-surface shadow-card">
-                  {track}
-                </div>
-              ))}
-            </div>
-            <div className="mt-8 flex max-w-2xl flex-col gap-4 rounded-2xl bg-secondary px-6 py-5 text-primary shadow-lg sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">Limited Seats</p>
-                <p className="mt-1 text-3xl font-extrabold uppercase tracking-[-0.04em]">Only 10 Students</p>
+            <FadeIn delay={0}>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-primary/25">
+                <Icon name="rocket_launch" className="text-base" /> Your skills today, your success tomorrow
               </div>
-              <a href={contactHref} className="inline-flex items-center gap-3 rounded-xl bg-primary px-5 py-3 text-lg font-black text-white">
-                <Icon name="call" /> {contactPhone}
-              </a>
-            </div>
-          </div>
-          <div className="wc-card overflow-hidden p-5">
-            <div className="rounded-[1.75rem] bg-white p-6 shadow-inner ring-1 ring-primary/10">
-              <div className="flex items-start justify-between gap-4">
+            </FadeIn>
+
+            <FadeIn delay={0.1}>
+              <h1 className="max-w-[10ch] text-[clamp(3.4rem,6.5vw,6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.06em] text-primary">
+                <span className="block">Training</span>
+                <span className="block">Program</span>
+              </h1>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <div className="mt-4 flex max-w-2xl items-center gap-4 text-primary">
+                <span className="h-px flex-1 bg-primary/25" />
+                <p className="text-[clamp(1.35rem,2.5vw,2rem)] font-black uppercase tracking-[0.28em] text-primary/85">
+                  Leading To
+                </p>
+                <span className="h-px flex-1 bg-primary/25" />
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              <p className="mt-4 text-[clamp(2.8rem,5vw,4.8rem)] font-extrabold uppercase leading-none tracking-[-0.05em]">
+                <GradientText>Internship</GradientText>
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.4}>
+              <p className="mt-8 max-w-[42rem] text-[clamp(1.08rem,1.8vw,1.35rem)] leading-[1.7] text-on-surface-variant">
+                Learn in-demand skills and start your career through structured software house training, practical assignments,
+                client-focused practice, reviews, and measurable progress.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.5}>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <Link href="/apply" className="wc-primary-btn px-8 py-4 text-lg shadow-lg shadow-primary/20 transition-all hover:shadow-glow-lg">
+                  Enroll Now
+                </Link>
+                <a href="#courses" className="wc-secondary-btn px-8 py-4 text-lg transition-all hover:bg-primary/5 hover:shadow-md">
+                  View Courses
+                </a>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.6}>
+              <div className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-2">
+                {marketingTracks.map((track) => (
+                  <div
+                    key={track}
+                    className="group flex items-center gap-3 rounded-xl border border-primary/10 bg-white/90 px-4 py-3 text-sm font-bold text-on-surface shadow-card transition-all hover:border-primary/30 hover:shadow-lg hover:-translate-y-0.5"
+                  >
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                      ✓
+                    </span>
+                    {track}
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.7}>
+              <div className="mt-8 flex max-w-2xl flex-col gap-4 rounded-2xl bg-secondary px-6 py-5 text-primary shadow-lg shadow-secondary/20 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">WeConnect-Inovation</p>
-                  <h2 className="mt-2 text-3xl font-extrabold uppercase leading-none tracking-[-0.05em] text-primary">Software House Training</h2>
+                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">Limited Seats</p>
+                  <p className="mt-1 text-3xl font-extrabold uppercase tracking-[-0.04em]">Only 10 Students</p>
                 </div>
-                <div className="rounded-2xl bg-surface-container-low px-4 py-3 text-right">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-on-surface-variant">Duration</p>
-                  <p className="mt-1 text-3xl font-extrabold leading-none text-blue-700">3 Months</p>
-                  <p className="mt-1 text-sm font-bold uppercase tracking-wide text-on-surface-variant">Program</p>
-                </div>
+                <a
+                  href={contactHref}
+                  className="inline-flex items-center gap-3 rounded-xl bg-primary px-5 py-3 text-lg font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-glow hover:scale-105"
+                >
+                  <Icon name="call" /> {contactPhone}
+                </a>
               </div>
+            </FadeIn>
+          </div>
 
-              <div className="mt-6 grid gap-4">
-                <div className="grid gap-3 rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
-                  <p className="text-sm font-black uppercase tracking-[0.22em] text-primary/70">Platform Workflow</p>
-                  <div className="grid gap-3">
-                    {workflowSteps.map((item, index) => (
-                      <div key={item} className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
-                          <span className="text-sm font-black">{index + 1}</span>
+          <FadeIn delay={0.3} direction="left">
+            <div className="wc-card animate-float overflow-hidden p-5 shadow-card-hover">
+              <div className="rounded-[1.75rem] bg-white p-6 shadow-inner ring-1 ring-primary/10">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">WeConnect-Inovation</p>
+                    <h2 className="mt-2 text-3xl font-extrabold uppercase leading-none tracking-[-0.05em] text-primary">
+                      Software House Training
+                    </h2>
+                  </div>
+                  <div className="rounded-2xl bg-surface-container-low px-4 py-3 text-right shadow-inner">
+                    <p className="text-xs font-black uppercase tracking-[0.22em] text-on-surface-variant">Duration</p>
+                    <p className="mt-1 text-3xl font-extrabold leading-none text-blue-700">3 Months</p>
+                    <p className="mt-1 text-sm font-bold uppercase tracking-wide text-on-surface-variant">Program</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-4">
+                  <div className="grid gap-3 rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
+                    <p className="text-sm font-black uppercase tracking-[0.22em] text-primary/70">Platform Workflow</p>
+                    <div className="grid gap-3">
+                      {workflowSteps.map((item, index) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm transition-all hover:shadow-md hover:-translate-x-0.5"
+                        >
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-glow">
+                            <span className="text-sm font-black">{index + 1}</span>
+                          </div>
+                          <span className="font-bold text-on-surface">{item}</span>
                         </div>
-                        <span className="font-bold text-on-surface">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
-                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Approval Flow</p>
-                    <p className="mt-2 text-lg font-extrabold leading-tight text-blue-700">Application first</p>
-                    <p className="mt-2 text-sm leading-6 text-on-surface-variant">Student access starts only after admin approval, matching the real onboarding flow used in this portal.</p>
-                  </div>
-                  <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5">
-                    <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Progress System</p>
-                    <p className="mt-2 text-lg font-extrabold leading-tight text-primary">Review-driven growth</p>
-                    <p className="mt-2 text-sm leading-6 text-on-surface-variant">Tasks, submissions, scores, and completion records stay connected across the whole training cycle.</p>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl bg-primary p-5 text-white">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-sm font-black uppercase tracking-[0.22em] text-blue-100">Contact</p>
-                      <p className="mt-1 text-4xl font-extrabold tracking-[-0.05em]">{contactPhone}</p>
+                      ))}
                     </div>
-                    <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold text-blue-50">
-                      Learn practical skills, build confidence, get internship exposure, and launch your career.
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5 transition-all hover:shadow-md hover:border-primary/20">
+                      <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Approval Flow</p>
+                      <p className="mt-2 text-lg font-extrabold leading-tight text-blue-700">Application first</p>
+                      <p className="mt-2 text-sm leading-6 text-on-surface-variant">
+                        Student access starts only after admin approval, matching the real onboarding flow used in this portal.
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-primary/10 bg-surface-container-lowest p-5 transition-all hover:shadow-md hover:border-primary/20">
+                      <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Progress System</p>
+                      <p className="mt-2 text-lg font-extrabold leading-tight text-primary">Review-driven growth</p>
+                      <p className="mt-2 text-sm leading-6 text-on-surface-variant">
+                        Tasks, submissions, scores, and completion records stay connected across the whole training cycle.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl bg-primary p-5 text-white shadow-lg shadow-primary/20">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-sm font-black uppercase tracking-[0.22em] text-blue-100">Contact</p>
+                        <p className="mt-1 text-4xl font-extrabold tracking-[-0.05em]">{contactPhone}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold text-blue-50 backdrop-blur-sm">
+                        Learn practical skills, build confidence, get internship exposure, and launch your career.
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
+      {/* Stats Section */}
+      <section className="relative overflow-hidden border-y border-outline-variant/30 bg-white py-16">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,33,110,0.03),transparent_70%)]" />
+        <div className="relative mx-auto max-w-container-max px-5 md:px-margin-page">
+          <StaggerContainer className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.15}>
+            {[
+              { value: 500, suffix: "+", label: "Students Trained" },
+              { value: 25, suffix: "+", label: "Expert Mentors" },
+              { value: 98, suffix: "%", label: "Success Rate" },
+              { value: 10, suffix: "+", label: "Industry Partners" },
+            ].map((stat) => (
+              <StaggerItem key={stat.label}>
+                <div className="text-center">
+                  <div className="text-[clamp(2.5rem,4vw,3.5rem)] font-extrabold tracking-tight text-primary">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <p className="mt-2 text-sm font-bold uppercase tracking-widest text-on-surface-variant">{stat.label}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Features Section */}
       <section className="bg-white py-xxl">
         <div className="mx-auto max-w-container-max px-5 md:px-margin-page">
-          <div className="mb-12 max-w-3xl">
-            <p className="text-label-sm uppercase tracking-widest text-primary">Why WeConnect-Inovation?</p>
-            <h2 className="mt-3 text-headline-lg text-primary">Built for practical training operations</h2>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <FadeIn>
+            <div className="mb-12 max-w-3xl">
+              <div className="wc-section-label mb-4">
+                <Icon name="auto_awesome" className="text-sm" /> Why WeConnect-Inovation?
+              </div>
+              <h2 className="text-headline-lg text-primary">Built for practical training operations</h2>
+            </div>
+          </FadeIn>
+
+          <StaggerContainer className="grid gap-6 md:grid-cols-3" staggerDelay={0.12}>
             {[
               ["fact_check", "Reviewed Tasks", "Every student submission can be scored and returned with clear feedback."],
               ["linked_services", "Rich Resources", "Tasks support video, Google Docs, Sheets, images, GitHub, and custom links."],
               ["monitoring", "Progress Reports", "Progress updates automatically from reviewed course tasks."],
             ].map(([icon, title, text]) => (
-              <div key={title} className="rounded-xl border border-outline-variant bg-surface-container-lowest p-7 shadow-card">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-surface-container text-primary"><Icon name={icon} /></div>
-                <h3 className="text-title-lg text-on-surface">{title}</h3>
-                <p className="mt-3 text-body-md text-on-surface-variant">{text}</p>
-              </div>
+              <StaggerItem key={title}>
+                <div className="group rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-7 shadow-card transition-all duration-500 hover:shadow-card-hover hover:-translate-y-1 hover:border-primary/20">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-inner-light transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:shadow-glow">
+                    <Icon name={icon} />
+                  </div>
+                  <h3 className="text-title-lg text-on-surface transition-colors group-hover:text-primary">{title}</h3>
+                  <p className="mt-3 text-body-md text-on-surface-variant">{text}</p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      <section id="courses" className="bg-surface-container-low py-xxl">
-        <div className="mx-auto max-w-container-max px-5 md:px-margin-page">
-          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-label-sm uppercase tracking-widest text-primary">Course Catalog</p>
-              <h2 className="mt-3 text-headline-lg text-primary">Choose your pathway</h2>
-              <p className="mt-3 max-w-2xl text-body-lg text-on-surface-variant">Courses are fetched from Supabase and only active courses are shown publicly.</p>
+      {/* Courses Section */}
+      <section id="courses" className="relative bg-surface-container-low py-xxl">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(0,51,160,0.05),transparent_50%)]" />
+        <div className="relative mx-auto max-w-container-max px-5 md:px-margin-page">
+          <FadeIn>
+            <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div className="wc-section-label mb-4">
+                  <Icon name="school" className="text-sm" /> Course Catalog
+                </div>
+                <h2 className="text-headline-lg text-primary">Choose your pathway</h2>
+                <p className="mt-3 max-w-2xl text-body-lg text-on-surface-variant">
+                  Courses are fetched from Supabase and only active courses are shown publicly.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <span className="rounded-full bg-primary px-5 py-2.5 text-label-md text-on-primary shadow-md shadow-primary/20">
+                  All
+                </span>
+                {(categories ?? []).slice(0, 4).map((category) => (
+                  <span
+                    key={category.id}
+                    className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-label-md text-on-surface-variant transition-all hover:border-primary/30 hover:shadow-md cursor-pointer"
+                  >
+                    {category.name}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <span className="rounded-full bg-primary px-5 py-2.5 text-label-md text-on-primary shadow-md">All</span>
-              {(categories ?? []).slice(0, 4).map((category) => (
-                <span key={category.id} className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-label-md text-on-surface-variant">{category.name}</span>
-              ))}
-            </div>
-          </div>
+          </FadeIn>
+
           {activeCourses.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {activeCourses.map((course) => <CourseCard key={course.id} course={course} />)}
-            </div>
+            <StaggerContainer className="grid gap-6 md:grid-cols-2 xl:grid-cols-3" staggerDelay={0.1}>
+              {activeCourses.map((course) => (
+                <StaggerItem key={course.id}>
+                  <CourseCard course={course} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           ) : (
-            <EmptyState title="No active courses yet" description="Run the Supabase seed file or create courses from the admin dashboard." icon="school" />
+            <FadeIn>
+              <EmptyState
+                title="No active courses yet"
+                description="Run the Supabase seed file or create courses from the admin dashboard."
+                icon="school"
+              />
+            </FadeIn>
           )}
         </div>
       </section>
 
+      {/* Completed Students Section */}
       <section id="completed" className="bg-white py-xxl">
         <div className="mx-auto max-w-container-max px-5 md:px-margin-page">
-          <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-label-sm uppercase tracking-widest text-primary">Student Outcomes</p>
-              <h2 className="mt-3 text-headline-lg text-primary">Completed students</h2>
-            </div>
-            <p className="max-w-xl text-body-md text-on-surface-variant">This section is populated from `completed_students` after an admin marks an enrollment completed.</p>
-          </div>
-          {(completedStudents ?? []).length > 0 ? (
-            <div className="overflow-hidden rounded-xl border border-outline-variant bg-white shadow-card">
-              <table className="w-full min-w-[720px] text-left">
-                <thead className="bg-surface-container-low text-label-sm uppercase tracking-widest text-primary">
-                  <tr>
-                    <th className="p-5">Student</th>
-                    <th className="p-5">Course Pathway</th>
-                    <th className="p-5">Progress</th>
-                    <th className="p-5">Final Score</th>
-                    <th className="p-5">Completed</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-outline-variant/70">
-                  {(completedStudents ?? []).map((student) => (
-                    <tr key={student.id}>
-                      <td className="p-5 font-bold text-on-surface">{student.student_name ?? "Student"}</td>
-                      <td className="p-5 text-on-surface-variant">{student.course_name ?? "Course"}</td>
-                      <td className="p-5 font-bold text-primary">{student.progress_percentage ?? 100}%</td>
-                      <td className="p-5 font-bold text-on-surface">{student.final_score ?? 0}</td>
-                      <td className="p-5 text-on-surface-variant">{formatDate(student.completed_at)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <EmptyState title="No public completions yet" description="Completed students will appear here after admin publishes a course completion." icon="workspace_premium" />
-          )}
-        </div>
-      </section>
-
-      <section id="news" className="bg-surface-container-lowest py-xxl">
-        <div className="mx-auto max-w-container-max px-5 md:px-margin-page">
-          <div className="mb-10 text-center">
-            <p className="text-label-sm uppercase tracking-widest text-primary">Daily Pulse</p>
-            <h2 className="mt-3 text-headline-lg text-primary">Latest in AI & Tech</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-body-lg text-on-surface-variant">Stay updated with top AI news, refreshed daily to keep our systems active and your mind sharp.</p>
-          </div>
-          {news.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-3">
-              {news.map((item) => (
-                <div key={item.id} className="wc-card group flex flex-col p-6 transition-all hover:border-primary/30 hover:shadow-lg">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="rounded-full bg-secondary-container px-3 py-1 text-label-sm text-on-secondary-fixed">{item.source}</span>
-                    <Icon name="newspaper" className="text-primary opacity-20 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <h3 className="text-title-lg font-bold leading-tight text-on-surface line-clamp-2">{item.title}</h3>
-                  <p className="mt-3 flex-1 text-body-md text-on-surface-variant line-clamp-3">{item.summary}</p>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 font-bold text-primary hover:underline">
-                    Read Story <Icon name="arrow_forward" className="text-sm" />
-                  </a>
+          <FadeIn>
+            <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div className="wc-section-label mb-4">
+                  <Icon name="workspace_premium" className="text-sm" /> Student Outcomes
                 </div>
-              ))}
+                <h2 className="text-headline-lg text-primary">Completed students</h2>
+              </div>
+              <p className="max-w-xl text-body-md text-on-surface-variant">
+                This section is populated from `completed_students` after an admin marks an enrollment completed.
+              </p>
             </div>
+          </FadeIn>
+
+          {(completedStudents ?? []).length > 0 ? (
+            <FadeIn>
+              <div className="overflow-hidden rounded-2xl border border-outline-variant/50 bg-white shadow-card transition-shadow hover:shadow-card-hover">
+                <table className="w-full min-w-[720px] text-left">
+                  <thead className="bg-surface-container-low text-label-sm uppercase tracking-widest text-primary">
+                    <tr>
+                      <th className="p-5">Student</th>
+                      <th className="p-5">Course Pathway</th>
+                      <th className="p-5">Progress</th>
+                      <th className="p-5">Final Score</th>
+                      <th className="p-5">Completed</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline-variant/50">
+                    {(completedStudents ?? []).map((student) => (
+                      <tr
+                        key={student.id}
+                        className="transition-colors hover:bg-surface-container-lowest/80"
+                      >
+                        <td className="p-5 font-bold text-on-surface">{student.student_name ?? "Student"}</td>
+                        <td className="p-5 text-on-surface-variant">{student.course_name ?? "Course"}</td>
+                        <td className="p-5 font-bold text-primary">{student.progress_percentage ?? 100}%</td>
+                        <td className="p-5 font-bold text-on-surface">{student.final_score ?? 0}</td>
+                        <td className="p-5 text-on-surface-variant">{formatDate(student.completed_at)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </FadeIn>
           ) : (
-            <div className="rounded-2xl border-2 border-dashed border-outline-variant p-12 text-center">
-              <p className="text-on-surface-variant">News is being fetched. Refresh the page in a moment.</p>
-            </div>
+            <FadeIn>
+              <EmptyState
+                title="No public completions yet"
+                description="Completed students will appear here after admin publishes a course completion."
+                icon="workspace_premium"
+              />
+            </FadeIn>
           )}
         </div>
       </section>
 
-      <section id="contact" className="bg-primary-container py-xxl text-white">
-        <div className="mx-auto grid max-w-container-max gap-10 px-5 md:px-margin-page lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <p className="text-label-sm uppercase tracking-widest text-blue-100">Admissions</p>
-            <h2 className="mt-3 text-headline-lg">Start with an application</h2>
-            <p className="mt-4 text-lg leading-8 text-blue-100">Submit your details, and your application will appear immediately in the admin dashboard as pending.</p>
-            <div className="mt-8 space-y-4 text-blue-50">
-              <a href={contactHref} className="flex items-center gap-3 text-xl font-black text-white"><Icon name="call" /> {contactPhone}</a>
-              <p className="flex items-center gap-3"><Icon name="location_on" /> Remote and software house training tracks</p>
+      {/* News Section */}
+      <section id="news" className="relative bg-surface-container-lowest py-xxl">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(254,214,91,0.08),transparent_50%)]" />
+        <div className="relative mx-auto max-w-container-max px-5 md:px-margin-page">
+          <FadeIn>
+            <div className="mb-10 text-center">
+              <div className="wc-section-label mx-auto mb-4">
+                <Icon name="newspaper" className="text-sm" /> Daily Pulse
+              </div>
+              <h2 className="text-headline-lg text-primary">Latest in AI & Tech</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-body-lg text-on-surface-variant">
+                Stay updated with top AI news, refreshed daily to keep our systems active and your mind sharp.
+              </p>
             </div>
-          </div>
-          <ApplicationForm courses={activeCourses} />
+          </FadeIn>
+
+          {news.length > 0 ? (
+            <StaggerContainer className="grid gap-6 md:grid-cols-3" staggerDelay={0.12}>
+              {news.map((item) => (
+                <StaggerItem key={item.id}>
+                  <div className="wc-card group flex flex-col p-6 transition-all duration-500 hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="rounded-full bg-secondary-container px-3 py-1 text-label-sm text-on-secondary-fixed">
+                        {item.source}
+                      </span>
+                      <Icon
+                        name="newspaper"
+                        className="text-primary opacity-20 transition-opacity duration-300 group-hover:opacity-100"
+                      />
+                    </div>
+                    <h3 className="text-title-lg font-bold leading-tight text-on-surface line-clamp-2 transition-colors group-hover:text-primary">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 flex-1 text-body-md text-on-surface-variant line-clamp-3">{item.summary}</p>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-6 inline-flex items-center gap-2 font-bold text-primary transition-all hover:gap-3"
+                    >
+                      Read Story <Icon name="arrow_forward" className="text-sm transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          ) : (
+            <FadeIn>
+              <div className="rounded-2xl border-2 border-dashed border-outline-variant p-12 text-center">
+                <p className="text-on-surface-variant">News is being fetched. Refresh the page in a moment.</p>
+              </div>
+            </FadeIn>
+          )}
         </div>
       </section>
 
-      <footer className="bg-white py-8">
+      {/* Contact Section */}
+      <section id="contact" className="relative overflow-hidden bg-primary-container py-xxl text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.06),transparent_50%)]" />
+        <div className="absolute -right-32 -top-32 h-[400px] w-[400px] rounded-full bg-white/5 blur-[100px]" />
+        <div className="relative mx-auto grid max-w-container-max gap-10 px-5 md:px-margin-page lg:grid-cols-[0.85fr_1.15fr]">
+          <FadeIn direction="right">
+            <div>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-label-sm uppercase tracking-widest text-blue-100 backdrop-blur-sm">
+                <Icon name="send" className="text-sm" /> Admissions
+              </div>
+              <h2 className="text-headline-lg">Start with an application</h2>
+              <p className="mt-4 text-lg leading-8 text-blue-100">
+                Submit your details, and your application will appear immediately in the admin dashboard as pending.
+              </p>
+              <div className="mt-8 space-y-4 text-blue-50">
+                <a
+                  href={contactHref}
+                  className="group flex items-center gap-3 text-xl font-black text-white transition-all hover:gap-4"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
+                    <Icon name="call" />
+                  </span>
+                  {contactPhone}
+                </a>
+                <p className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+                    <Icon name="location_on" />
+                  </span>
+                  Remote and software house training tracks
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+
+          <FadeIn direction="left" delay={0.2}>
+            <ApplicationForm courses={activeCourses} />
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative border-t border-outline-variant/30 bg-white py-8">
         <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-slate-500 md:flex-row md:items-center md:justify-between md:px-margin-page">
-          <div className="font-black text-blue-900">WeConnect-Inovation</div>
+          <div className="font-black text-blue-900">
+            WeConnect<span className="text-primary">-Inovation</span>
+          </div>
           <p>© 2026 WeConnect-Inovation Training Portal. Contact {contactPhone} for admissions and internship training.</p>
           <div className="flex gap-4">
-            <Link href="/login" className="underline hover:text-blue-600">Portal Login</Link>
-            <Link href="/apply" className="underline hover:text-blue-600">Apply</Link>
+            <Link href="/login" className="font-bold underline transition hover:text-blue-600">
+              Portal Login
+            </Link>
+            <Link href="/apply" className="font-bold underline transition hover:text-blue-600">
+              Apply
+            </Link>
           </div>
         </div>
       </footer>
