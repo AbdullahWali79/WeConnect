@@ -60,16 +60,16 @@ export default async function LandingPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-glow">
               <Icon name="hub" />
             </div>
-            <div className="text-xl font-extrabold tracking-tighter text-blue-800">
+            <div className="text-xl font-extrabold tracking-tighter text-[#0a2363]">
               WeConnect<span className="text-primary">-Inovation</span>
             </div>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
             <a className="border-b-2 border-blue-700 pb-1 text-blue-700" href="#overview">Overview</a>
-            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#courses">Courses</a>
-            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#news">News</a>
-            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#completed">Completed</a>
-            <a className="text-slate-600 transition-colors hover:text-blue-800" href="#contact">Contact</a>
+            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#courses">Courses</a>
+            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#news">News</a>
+            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#completed">Completed</a>
+            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#contact">Contact</a>
           </nav>
           <div className="flex items-center gap-3">
             <Link href="/login" className="hidden text-sm font-bold text-primary transition hover:text-primary-container md:inline-flex">
@@ -548,8 +548,8 @@ export default async function LandingPage() {
 
       {/* Footer */}
       <footer className="relative border-t border-outline-variant/30 bg-white py-8">
-        <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-slate-500 md:flex-row md:items-center md:justify-between md:px-margin-page">
-          <div className="font-black text-blue-900">
+        <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-[#31446f] md:flex-row md:items-center md:justify-between md:px-margin-page">
+          <div className="font-black text-[#081735]">
             WeConnect<span className="text-primary">-Inovation</span>
           </div>
           <p>© 2026 WeConnect-Inovation Training Portal. Contact {contactPhone} for admissions and internship training.</p>
