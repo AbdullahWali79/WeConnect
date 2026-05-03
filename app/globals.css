@@ -5,6 +5,12 @@
 :root {
   color-scheme: light;
 
+  --sky-blue-light: #8ecae6;
+  --blue-green: #219ebc;
+  --deep-space-blue: #023047;
+  --amber-flame: #ffb703;
+  --princeton-orange: #fb8500;
+
   /* Core colors */
   --wc-bg: #f9f9ff;
   --wc-surface: #f9f9ff;
