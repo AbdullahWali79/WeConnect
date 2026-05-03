@@ -20,8 +20,8 @@
   --wc-primary-container: #0033a0;
   --wc-on-primary: #ffffff;
   --wc-on-primary-container: #8ea6ff;
-  --wc-secondary: #735c00;
-  --wc-secondary-container: #fed65b;
+  --wc-secondary: #6a4700;
+  --wc-secondary-container: #ffd24a;
   --wc-on-secondary: #ffffff;
   --wc-on-secondary-container: #745c00;
   --wc-outline: #747684;
@@ -142,7 +142,12 @@ body {
 
   .wc-section-label {
     @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-label-sm uppercase tracking-widest;
-    background-color: color-mix(in srgb, var(--wc-primary) 5%, transparent);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--wc-primary) 10%, white),
+      color-mix(in srgb, var(--wc-secondary-container) 24%, white)
+    );
+    border: 1px solid color-mix(in srgb, var(--wc-primary) 14%, white);
     color: var(--wc-primary);
   }
 }
