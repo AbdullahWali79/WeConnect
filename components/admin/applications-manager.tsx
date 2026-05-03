@@ -10,7 +10,7 @@ import { StatusPill } from "@/components/status-pill";
 import { Toast, type ToastState } from "@/components/toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import type { Application, Course } from "@/lib/supabase/types";
-import { formatDateTime } from "@/lib/utils";
+import { buildApprovedStudentWhatsappUrl, formatDateTime } from "@/lib/utils";
 
 export function ApplicationsManager() {
   const supabase = createSupabaseBrowserClient();
@@ -74,6 +74,18 @@ export function ApplicationsManager() {
     await loadData();
   }
 
+  function sendWhatsapp(application: Application) {
+    const courseTitle = application.course_id ? courseById.get(application.course_id)?.title ?? null : null;
+    const whatsappUrl = buildApprovedStudentWhatsappUrl(application, courseTitle);
+
+    if (!whatsappUrl) {
+      setToast({ type: "error", message: "Valid WhatsApp phone number not found for this application." });
+      return;
+    }
+
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  }
+
   if (loading) return <LoadingState label="Loading applications..." />;
 
   return (
@@ -123,6 +135,7 @@ export function ApplicationsManager() {
                         <div className="flex justify-end gap-2">
                           <button title="Approve" disabled={application.status === "approved" || busyId === application.id} onClick={() => updateApplication(application.id, "approve_application")} className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-30 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50"><Icon name="check" /></button>
                           <button title="Reject" disabled={application.status === "rejected" || busyId === application.id} onClick={() => updateApplication(application.id, "reject_application")} className="flex h-8 w-8 items-center justify-center rounded-lg bg-error-container text-error hover:bg-red-100 disabled:opacity-30 dark:hover:bg-red-900/30"><Icon name="close" /></button>
+                          <button title="Send WhatsApp" disabled={application.status !== "approved"} onClick={() => sendWhatsapp(application)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50"><Icon name="forum" /></button>
                           <button title="Delete Record" disabled={busyId === application.id} onClick={() => deleteApplication(application.id)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-outline-variant hover:text-error disabled:opacity-30 dark:bg-slate-700 dark:hover:bg-slate-600"><Icon name="delete" /></button>
                         </div>
                       </td>

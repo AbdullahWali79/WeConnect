@@ -11,7 +11,7 @@ import { StatusPill } from "@/components/status-pill";
 import { Toast, type ToastState } from "@/components/toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import type { Application, CompletedStudent, Course, Enrollment, Profile, Task } from "@/lib/supabase/types";
-import { formatDate } from "@/lib/utils";
+import { buildApprovedStudentWhatsappUrl, formatDate } from "@/lib/utils";
 
 type DashboardData = {
   courses: Course[];
@@ -79,6 +79,18 @@ export function AdminDashboard() {
 
     setToast({ type: "success", message: action === "approve_application" ? "Application approved." : "Application rejected." });
     await loadData();
+  }
+
+  function sendWhatsapp(application: Application) {
+    const courseTitle = application.course_id ? courseById.get(application.course_id)?.title ?? null : null;
+    const whatsappUrl = buildApprovedStudentWhatsappUrl(application, courseTitle);
+
+    if (!whatsappUrl) {
+      setToast({ type: "error", message: "Valid WhatsApp phone number not found for this application." });
+      return;
+    }
+
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   }
 
   if (loading) return <LoadingState label="Loading admin dashboard..." />;
@@ -166,6 +178,14 @@ export function AdminDashboard() {
                             className="flex h-8 w-8 items-center justify-center rounded-lg bg-error-container text-error transition hover:bg-red-100 hover:scale-105 disabled:opacity-40"
                           >
                             <Icon name="close" className="text-base" />
+                          </button>
+                          <button
+                            title="Send WhatsApp"
+                            disabled={application.status !== "approved"}
+                            onClick={() => sendWhatsapp(application)}
+                            className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            <Icon name="forum" className="text-base" />
                           </button>
                         </div>
                       </td>
