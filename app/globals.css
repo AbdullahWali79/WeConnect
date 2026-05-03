@@ -125,10 +125,21 @@ body {
   .wc-primary-btn {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-label-md transition disabled:cursor-not-allowed disabled:opacity-50;
     background-color: var(--wc-primary);
-    color: var(--wc-on-primary);
+    color: #ffffff !important;
+    font-weight: 700;
   }
   .wc-primary-btn:hover {
     background-color: var(--wc-primary-container);
+    color: #ffffff !important;
+  }
+
+  .wc-primary-btn:focus-visible,
+  .wc-primary-btn:active {
+    color: #ffffff !important;
+  }
+
+  .wc-primary-btn * {
+    color: inherit;
   }
 
   .wc-secondary-btn {
