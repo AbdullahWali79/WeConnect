@@ -1,4 +1,5 @@
-import Link from "next/link";
+﻿import Link from "next/link";
+import type { CSSProperties } from "react";
 import { ApplicationForm } from "@/components/public/application-form";
 import { CourseCard } from "@/components/public/course-card";
 import { EmptyState } from "@/components/empty-state";
@@ -47,9 +48,29 @@ export default async function LandingPage() {
     "Submission is reviewed with score and feedback",
     "Progress updates automatically until completion",
   ];
+  const landingTheme = {
+    "--wc-bg": "#f7fcff",
+    "--wc-surface": "#f7fcff",
+    "--wc-surface-low": "#edf8fc",
+    "--wc-surface-lowest": "#ffffff",
+    "--wc-surface-container": "#dff1f7",
+    "--wc-surface-container-high": "#d0ebf4",
+    "--wc-surface-variant": "#c0e0ea",
+    "--wc-on-bg": "#023047",
+    "--wc-on-surface": "#023047",
+    "--wc-on-surface-variant": "#36586a",
+    "--wc-primary": "#023047",
+    "--wc-primary-container": "#219ebc",
+    "--wc-secondary": "#fb8500",
+    "--wc-secondary-container": "#ffb703",
+    "--wc-outline": "#7ba3b4",
+    "--wc-outline-variant": "#c2dbe4",
+    "--wc-on-primary-container": "#023047",
+    "--wc-on-secondary-container": "#8b4e00",
+  } as CSSProperties;
 
   return (
-    <main className="bg-background text-on-background">
+    <main className="bg-background text-on-background" style={landingTheme}>
       <ScrollProgress />
       <PromoPopup context="landing" />
 
@@ -60,16 +81,16 @@ export default async function LandingPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-glow">
               <Icon name="hub" />
             </div>
-            <div className="text-xl font-extrabold tracking-tighter text-[#0a2363]">
-              WeConnect<span className="text-primary">-Inovation</span>
+            <div className="text-xl font-extrabold tracking-tighter text-[var(--deep-space-blue)]">
+              WeConnect<span className="text-[var(--blue-green)]">-Inovation</span>
             </div>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
-            <a className="border-b-2 border-blue-700 pb-1 text-blue-700" href="#overview">Overview</a>
-            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#courses">Courses</a>
-            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#news">News</a>
-            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#completed">Completed</a>
-            <a className="text-[#31446f] transition-colors hover:text-[#0a2363]" href="#contact">Contact</a>
+            <a className="border-b-2 border-[var(--blue-green)] pb-1 text-[var(--deep-space-blue)]" href="#overview">Overview</a>
+            <a className="text-[var(--deep-space-blue)]/75 transition-colors hover:text-[var(--blue-green)]" href="#courses">Courses</a>
+            <a className="text-[var(--deep-space-blue)]/75 transition-colors hover:text-[var(--blue-green)]" href="#news">News</a>
+            <a className="text-[var(--deep-space-blue)]/75 transition-colors hover:text-[var(--blue-green)]" href="#completed">Completed</a>
+            <a className="text-[var(--deep-space-blue)]/75 transition-colors hover:text-[var(--blue-green)]" href="#contact">Contact</a>
           </nav>
           <div className="flex items-center gap-3">
             <Link href="/login" className="hidden text-sm font-bold text-primary transition hover:text-primary-container md:inline-flex">
@@ -85,12 +106,12 @@ export default async function LandingPage() {
       {/* Hero Section */}
       <section id="overview" className="relative isolate min-h-[840px] overflow-hidden bg-surface-container-lowest">
         <FloatingOrbs />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(0,51,160,0.22),transparent_34%),radial-gradient(circle_at_85%_24%,rgba(255,196,55,0.34),transparent_29%),radial-gradient(circle_at_60%_85%,rgba(43,120,255,0.12),transparent_26%),linear-gradient(135deg,#ffffff_0%,#eef4ff_52%,#d2e3ff_100%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(142,202,230,0.44),transparent_34%),radial-gradient(circle_at_85%_24%,rgba(255,183,3,0.30),transparent_29%),radial-gradient(circle_at_60%_85%,rgba(33,158,188,0.18),transparent_26%),linear-gradient(135deg,#ffffff_0%,#eefaff_50%,#d9eef6_100%)]" />
 
         <div className="mx-auto grid max-w-container-max items-center gap-12 px-5 py-24 md:px-margin-page lg:grid-cols-[1.05fr_0.95fr] lg:py-32">
           <div>
             <FadeIn delay={0}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#001f68,#0f3d97)] px-4 py-2 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-primary/25">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#023047,#219ebc)] px-4 py-2 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-primary/25">
                 <Icon name="rocket_launch" className="text-base" /> Your skills today, your success tomorrow
               </div>
             </FadeIn>
@@ -189,9 +210,7 @@ export default async function LandingPage() {
                     key={track}
                     className="group flex items-center gap-3 rounded-xl border border-primary/10 bg-[linear-gradient(135deg,#ffffff_0%,#f3f7ff_100%)] px-4 py-3 text-sm font-bold text-on-surface shadow-card transition-all hover:border-primary/30 hover:shadow-lg hover:-translate-y-0.5"
                   >
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-black text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                      ✓
-                    </span>
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-black text-primary transition-colors group-hover:bg-primary group-hover:text-white">+</span>
                     {track}
                   </div>
                 ))}
@@ -199,7 +218,7 @@ export default async function LandingPage() {
             </FadeIn>
 
             <FadeIn delay={0.7}>
-              <div className="mt-8 flex max-w-2xl flex-col gap-4 rounded-2xl bg-[linear-gradient(135deg,#ffd24a_0%,#ffc83a_55%,#ffb703_100%)] px-6 py-5 text-primary shadow-lg shadow-secondary/25 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mt-8 flex max-w-2xl flex-col gap-4 rounded-2xl bg-[linear-gradient(135deg,#ffb703_0%,#ffb703_45%,#fb8500_100%)] px-6 py-5 text-primary shadow-lg shadow-secondary/25 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-black uppercase tracking-[0.24em] text-primary/70">Limited Seats</p>
                   <p className="mt-1 text-3xl font-extrabold uppercase tracking-[-0.04em]">Only 10 Students</p>
@@ -226,7 +245,7 @@ export default async function LandingPage() {
                   </div>
                   <div className="rounded-2xl bg-[linear-gradient(180deg,#edf3ff_0%,#dce7ff_100%)] px-4 py-3 text-right shadow-inner">
                     <p className="text-xs font-black uppercase tracking-[0.22em] text-on-surface-variant">Duration</p>
-                    <p className="mt-1 text-3xl font-extrabold leading-none text-blue-700">3 Months</p>
+                    <p className="mt-1 text-3xl font-extrabold leading-none text-[var(--blue-green)]">3 Months</p>
                     <p className="mt-1 text-sm font-bold uppercase tracking-wide text-on-surface-variant">Program</p>
                   </div>
                 </div>
@@ -252,7 +271,7 @@ export default async function LandingPage() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="rounded-2xl border border-primary/10 bg-[linear-gradient(180deg,#ffffff_0%,#f7faff_100%)] p-5 transition-all hover:shadow-md hover:border-primary/20">
                       <p className="text-sm font-black uppercase tracking-[0.22em] text-on-surface-variant">Approval Flow</p>
-                      <p className="mt-2 text-lg font-extrabold leading-tight text-blue-700">Application first</p>
+                      <p className="mt-2 text-lg font-extrabold leading-tight text-[var(--blue-green)]">Application first</p>
                       <p className="mt-2 text-sm leading-6 text-on-surface-variant">
                         Student access starts only after admin approval, matching the real onboarding flow used in this portal.
                       </p>
@@ -273,7 +292,7 @@ export default async function LandingPage() {
                         <p className="mt-1 text-4xl font-extrabold tracking-[-0.05em]">{contactPhone}</p>
                       </div>
                       <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold text-blue-50 backdrop-blur-sm">
-                        Training → Internship → Paid Internship → Job 99%
+                        {"Training -> Internship -> Paid Internship -> Job 99%"}
                       </div>
                     </div>
                   </div>
@@ -285,8 +304,8 @@ export default async function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="relative overflow-hidden border-y border-outline-variant/30 bg-white py-16">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,33,110,0.03),transparent_70%)]" />
+      <section className="relative overflow-hidden border-y border-outline-variant/30 bg-[linear-gradient(180deg,#fafdff_0%,#eaf7fb_100%)] py-16">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(33,158,188,0.10),transparent_70%)]" />
         <div className="relative mx-auto max-w-container-max px-5 md:px-margin-page">
           <StaggerContainer className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.15}>
             {[
@@ -547,10 +566,10 @@ export default async function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-outline-variant/30 bg-white py-8">
-        <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-[#31446f] md:flex-row md:items-center md:justify-between md:px-margin-page">
-          <div className="font-black text-[#081735]">
-            WeConnect<span className="text-primary">-Inovation</span>
+      <footer className="relative border-t border-outline-variant/30 bg-[linear-gradient(180deg,#ffffff_0%,#edf8fc_100%)] py-8">
+        <div className="mx-auto flex max-w-container-max flex-col gap-4 px-5 text-sm text-[var(--deep-space-blue)]/75 md:flex-row md:items-center md:justify-between md:px-margin-page">
+          <div className="font-black text-[var(--deep-space-blue)]">
+            WeConnect<span className="text-[var(--blue-green)]">-Inovation</span>
           </div>
           <p>© 2026 WeConnect-Inovation Training Portal. Contact {contactPhone} for admissions and internship training.</p>
           <div className="flex gap-4">
@@ -566,4 +585,6 @@ export default async function LandingPage() {
     </main>
   );
 }
+
+
 
