@@ -59,7 +59,7 @@ export function ApplicationsManager() {
   }
 
   async function deleteApplication(applicationId: string) {
-    if (!confirm("Are you sure you want to delete this application record?")) return;
+    if (!confirm("Delete this application record? Student auth account will remain unless you reject access first.")) return;
     
     setBusyId(applicationId);
     const { error } = await supabase.from("applications").delete().eq("id", applicationId);
